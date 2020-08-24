@@ -7,14 +7,16 @@ const axios = require('axios')
 
 function App() {
 
-  const searchRestaurants = (location) => {
+  const searchRestaurants = (location, term) => {
+    console.log(location)
     yelpREST("/businesses/search", {
       params: {
         location: location,
-        term: "coffee",
+        term: term,
         limit: 10,
       },
     }).then(({ data }) => {
+      console.log(data)
       let { businesses } = data
       businesses.forEach((b) => {
         console.log("Name: ", b.name)
@@ -53,11 +55,11 @@ function App() {
       <div class="flex p-6 max-w-md mx-auto mt-10 bg-gray-100 rounded-lg shadow-xl">
         <div className="ml-6 pt-1">
           <h1 className="text-2xl text-blue-700 leading-tight">
-            Location
+            Business Search
           </h1>
-          {/* <input class="border rounded-md" id="code"></input> */}
           <input class="border rounded-md" placeholder="kyoto" id="location"></input>
-          <button class="w-24 h-10 bg-blue-600 text-white" onClick={() => searchRestaurants(document.getElementById("location").value)}>Submit</button>
+          <input class="border rounded-md" placeholder="category" id="category"></input>
+          <button class="w-24 h-10 bg-blue-600 text-white" onClick={() => searchRestaurants(document.getElementById("location").value, document.getElementById("category").value)}>Submit</button>
         </div>
       </div>
     </div>
