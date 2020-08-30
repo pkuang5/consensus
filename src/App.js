@@ -1,68 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import database from './firebase'
 import yelpREST from './api/yelp'
-import Restaurant from './components/restaurant'
+import Poll from './components/poll'
+import Search from './components/search'
 
 function App() {
-
-  const searchRestaurants = (location, term) => {
-    console.log(location)
-    yelpREST("/businesses/search", {
-      params: {
-        location: location,
-        term: term,
-        limit: 10,
-      },
-    }).then(({ data }) => {
-      console.log(data)
-      let { businesses } = data
-      businesses.forEach((b) => {
-        console.log("Name: ", b.name)
-      })
-    })
-  }
-
-  const submitCode = () => {
-    var code = document.getElementById("code").value
-    var dummyValue = document.getElementById("dummyValue").value
-    database.ref(`groups/${code}`).set(dummyValue)
-  }
+  
+  const [businesses,setBusinesses] = useState([])
 
   return (
     <div>
-      {/* <div className="max-w-md mx-auto flex p-6 bg-gray-100 mt-10 rounded-lg shadow-xl">
-        <div className="ml-6 pt-1">
-          <h1 className="text-2xl text-blue-700 leading-tight">
-            Consensus
-          </h1>
-          <p className="text-base text-gray-700 leading-normal">
-            Vote for shit i guess lol
-          </p>
-        </div>
-      </div>
-      <div class="flex p-6 max-w-md mx-auto mt-10 bg-gray-100 rounded-lg shadow-xl">
-        <div className="ml-6 pt-1">
-          <h1 className="text-2xl text-blue-700 leading-tight">
-            Enter code
-          </h1>
-          <input class="border rounded-md" id="code"></input>
-          <input class="border rounded-md" placeholder="random text to send to the database" id="dummyValue"></input>
-          <button class="w-24 h-10 bg-blue-600 text-white" onClick={() => submitCode()}>Submit</button>
-        </div>
-      </div>
-      <div class="flex p-6 max-w-md mx-auto mt-10 bg-gray-100 rounded-lg shadow-xl">
-        <div className="ml-6 pt-1">
-          <h1 className="text-2xl text-blue-700 leading-tight">
-            Business Search
-          </h1>
-          <input class="border rounded-md" placeholder="kyoto" id="location"></input>
-          <input class="border rounded-md" placeholder="category" id="category"></input>
-          <button class="w-24 h-10 bg-blue-600 text-white" onClick={() => searchRestaurants(document.getElementById("location").value, document.getElementById("category").value)}>Submit</button>
-        </div>
-      </div> */}
-      <div class="w-screen flex flex-col items-center">
-        <Restaurant id="H4jJ7XB3CetIr1pg56CczQ" />
-      </div>
+      {businesses.length==0?<Search onSubmitSearch={(businesses) => setBusinesses(businesses)} />:<Poll businesses={businesses} />}
     </div>
   );
 }

@@ -12,24 +12,26 @@ function Restaurant(props) {
     useEffect(() => {
         yelpREST(`/businesses/${props.id}`).then(({ data }) => {
             setRestName(data.name)
+            setImageArray([])
+            setImageIndex(0)
             data.photos.forEach(image => {
                 setImageArray(imageArray => [...imageArray, image])
             });
         })
-    } ,[]);
+    } ,[props.id]);
 
     return(
         <React.Fragment>
-            <div class="flex w-2/3 flex-col items-center mt-32 shadow rounded-lg p-3 border border-red-500">
+            <div class="flex w-full flex-col items-center mt-32 shadow rounded-lg p-3 border border-red-500">
                 <Gallery images={imageArray} onSelectIndex={(index) => setImageIndex(index)}/>
                 <div class = "w-full text-md text-center font-serif text-lg">
                     {restName}
                 </div>
-            </div>
-            <div class="flex mt-10">
-                {imageArray.map((stud, index) => 
-                    (index==imageIndex) ? <i class="fa fa-circle"></i>:<i class="fa fa-stop-circle fa-lg mr-2"></i>
-                )}
+                <div class="flex mt-10">
+                    {imageArray.map((stud, index) => 
+                        (index===imageIndex) ? <i class="fa fa-circle"></i>:<i class="fa fa-stop-circle fa-lg mr-2"></i>
+                    )}
+                </div>
             </div>
         </React.Fragment>
 
