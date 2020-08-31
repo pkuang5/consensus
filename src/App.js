@@ -1,18 +1,17 @@
-
 import React, { useState, useEffect } from "react";
 import database from "./firebase";
 import yelpREST from "./api/yelp";
-import Poll from './components/poll'
-import Search from './components/search'
-import JoinCode from './components/joinCode'
-import CreateCode from './components/createCode'
+import Poll from "./components/poll";
+import Search from "./components/search";
+import JoinCode from "./components/joinCode";
+import CreateCode from "./components/createCode";
 //import Progress from './components/progress'
 import Question from "./components/question";
 import Questionnaire from "./components/questionnaire";
 
 function App() {
-  const [businesses,setBusinesses] = useState([])
-  const [groupCode, setGroupCode] = useState(0)
+  const [businesses, setBusinesses] = useState([]);
+  const [groupCode, setGroupCode] = useState(0);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState([]);
 
@@ -87,7 +86,7 @@ function App() {
 
   return (
     <React.Fragment>
-      <div>
+      {/* <div>
         {!firstPress ? (
           <button
             onClick={next}
@@ -114,8 +113,8 @@ function App() {
             )}
           </div>
         )}
-      </div>
-      {/* <div>
+      </div> */}
+      <div>
         {answers.length == 0 || answers.length == questions.length ? (
           <Questionnaire
             message={questionnaire[answers.length / questions.length].message}
@@ -129,14 +128,20 @@ function App() {
             onPrevious={handlePrevious}
           />
         )}
-      </div> */}
-      <div>
-      <div>
-        <Search onSubmitSearch={(businesses) => setBusinesses(businesses)} />
-        <CreateCode businesses={businesses} onCreateCode={(code) => setGroupCode(code)}/>
-        <JoinCode onJoinCode={(code) => setGroupCode(code)} populateBusinesses={(businesses) => setBusinesses(businesses)}/>
       </div>
-      <Poll businesses={businesses} groupCode={groupCode}/>
+      <div>
+        <div>
+          <Search onSubmitSearch={(businesses) => setBusinesses(businesses)} />
+          <CreateCode
+            businesses={businesses}
+            onCreateCode={(code) => setGroupCode(code)}
+          />
+          <JoinCode
+            onJoinCode={(code) => setGroupCode(code)}
+            populateBusinesses={(businesses) => setBusinesses(businesses)}
+          />
+        </div>
+        <Poll businesses={businesses} groupCode={groupCode} />
       </div>
     </React.Fragment>
   );
