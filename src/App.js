@@ -1,16 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import database from './firebase'
-import yelpREST from './api/yelp'
 import Poll from './components/poll'
 import Search from './components/search'
+import JoinCode from './components/joinCode'
+import CreateCode from './components/createCode'
 
 function App() {
   
   const [businesses,setBusinesses] = useState([])
+  const [groupCode, setGroupCode] = useState(0)
 
   return (
     <div>
-      {businesses.length==0?<Search onSubmitSearch={(businesses) => setBusinesses(businesses)} />:<Poll businesses={businesses} />}
+      <div>
+        <Search onSubmitSearch={(businesses) => setBusinesses(businesses)} />
+        <CreateCode businesses={businesses} onCreateCode={(code) => setGroupCode(code)}/>
+        <JoinCode onJoinCode={(code) => setGroupCode(code)} populateBusinesses={(businesses) => setBusinesses(businesses)}/>
+      </div>
+      <Poll businesses={businesses} groupCode={groupCode}/>
     </div>
   );
 }

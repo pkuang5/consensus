@@ -10,11 +10,17 @@ function Poll(props) {
 
   function upVote() {
       console.log("up vote")
+      database.ref(`groups/${props.groupCode}/${props.businesses[index]}`).transaction(function(vote) {
+        return (vote || 0) + 1
+    })
       setIndex(index + 1)
   }
 
   function downVote() {
       console.log("down vote")
+      database.ref(`groups/${props.groupCode}/${props.businesses[index]}`).transaction(function(vote) {
+        return (vote || 0) - 1
+    })
       setIndex(index + 1)
   }
 
