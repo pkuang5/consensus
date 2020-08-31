@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import yelpREST from '../api/yelp'
+import React, { useState, useEffect } from "react";
+import yelpREST from "../api/yelp";
 
 function App(props) {
-  
   const searchRestaurants = (location, term) => {
     yelpREST("/businesses/search", {
       params: {
@@ -11,31 +10,30 @@ function App(props) {
         limit: 10,
       },
     }).then(({ data }) => {
-      let { businesses } = data
+      let { businesses } = data;
       businesses.forEach((b) => {
-        props.onSubmitSearch(data => [...data, b.id])
-      })
-    })
-  }
+        props.onSubmitSearch((data) => [...data, b.id]);
+      });
+    });
+  };
 
-//   const submitCode = () => {
-//     var code = document.getElementById("code").value
-//     var dummyValue = document.getElementById("dummyValue").value
-//     database.ref(`groups/${code}`).set(dummyValue)
-//   }
+  //   const submitCode = () => {
+  //     var code = document.getElementById("code").value
+  //     var dummyValue = document.getElementById("dummyValue").value
+  //     database.ref(`groups/${code}`).set(dummyValue)
+  //   }
 
   return (
     <div>
       <div className="max-w-md mx-auto flex p-6 bg-gray-100 mt-10 rounded-lg shadow-xl">
         <div className="ml-6 pt-1">
-          <h1 className="text-2xl text-blue-700 leading-tight">
-            Consensus
-          </h1>
+          <h1 className="text-2xl text-blue-700 leading-tight">Consensus</h1>
           <p className="text-base text-gray-700 leading-normal">
             Vote for shit i guess lol
           </p>
         </div>
       </div>
+
       {/* <div class="flex p-6 max-w-md mx-auto mt-10 bg-gray-100 rounded-lg shadow-xl">
         <div className="ml-6 pt-1">
           <h1 className="text-2xl text-blue-700 leading-tight">
@@ -51,9 +49,27 @@ function App(props) {
           <h1 className="text-2xl text-blue-700 leading-tight">
             Business Search
           </h1>
-          <input class="border rounded-md" placeholder="kyoto" id="location"></input>
-          <input class="border rounded-md" placeholder="category" id="category"></input>
-          <button class="w-24 h-10 bg-blue-600 text-white" onClick={() => searchRestaurants(document.getElementById("location").value, document.getElementById("category").value)}>Submit</button>
+          <input
+            class="border rounded-md"
+            placeholder="kyoto"
+            id="location"
+          ></input>
+          <input
+            class="border rounded-md"
+            placeholder="category"
+            id="category"
+          ></input>
+          <button
+            class="w-24 h-10 bg-blue-600 text-white"
+            onClick={() =>
+              searchRestaurants(
+                document.getElementById("location").value,
+                document.getElementById("category").value
+              )
+            }
+          >
+            Submit
+          </button>
         </div>
       </div>
     </div>
