@@ -7,6 +7,7 @@ import JoinCode from "./components/joinCode";
 import CreateCode from "./components/createCode";
 //import Progress from './components/progress'
 import Question from "./components/question";
+import Deck from "./components/Deck";
 //import Questionnaire from "./components/questionnaire";
 
 function App() {
@@ -43,23 +44,24 @@ function App() {
           </div>
         )}
       </div> */}
-      <div>
+      {/* <div>
         <Question />
       </div>
       <div>
         <div>
-          <Search onSubmitSearch={(businesses) => setBusinesses(businesses)} />
-          <CreateCode
-            businesses={businesses}
-            onCreateCode={(code) => setGroupCode(code)}
-          />
-          <JoinCode
-            onJoinCode={(code) => setGroupCode(code)}
-            populateBusinesses={(businesses) => setBusinesses(businesses)}
-          />
-        </div>
-        <Poll businesses={businesses} groupCode={groupCode} />
-      </div>
+        <CreateCode
+        businesses={businesses}
+        onCreateCode={(code) => setGroupCode(code)}
+        />
+        <JoinCode
+        onJoinCode={(code) => setGroupCode(code)}
+        populateBusinesses={(businesses) => setBusinesses(businesses)}
+        />
+      </div> */}
+        {/* <Poll businesses={businesses} groupCode={groupCode} /> */}
+        <Search onSubmitSearch={(businesses) => setBusinesses(businesses)} />
+        {/* <Deck businesses={businesses}/> */}
+      {/* </div> */}
     </React.Fragment>
   );
 }
