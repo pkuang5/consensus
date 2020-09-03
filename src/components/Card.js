@@ -10,14 +10,14 @@ const Card = ({ i, x, y, rot, scale, trans, bind, data }) => {
   const [name, setName] = useState("")
   const [pics, setPics] = useState([])
 
-  yelpREST(`/businesses/${data[i]}`).then(({ data }) => {
-    setName(data.name);
-    // setImageArray([]);
-    // setImageIndex(0);
-    data.photos.forEach((image) => {
-      setPics((imageArray) => [...imageArray, image]);
-    });
-  })
+  useEffect(() => {
+    yelpREST(`/businesses/${data[i]}`).then(({ data }) => {
+      setName(data.name);
+      data.photos.forEach((image) => {
+        setPics((imageArray) => [...imageArray, image]);
+      });
+    })
+  }, [])
 
   return (
     <animated.div
