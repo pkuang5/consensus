@@ -17,12 +17,6 @@ function App(props) {
     });
   };
 
-  //   const submitCode = () => {
-  //     var code = document.getElementById("code").value
-  //     var dummyValue = document.getElementById("dummyValue").value
-  //     database.ref(`groups/${code}`).set(dummyValue)
-  //   }
-
   return (
     <div>
       <div class="flex p-6 max-w-md mx-auto mt-10 bg-gray-100 rounded-lg shadow-xl">

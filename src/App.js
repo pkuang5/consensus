@@ -59,8 +59,7 @@ function App() {
         />
       </div> */}
         {/* <Poll businesses={businesses} groupCode={groupCode} /> */}
-        <Search onSubmitSearch={(businesses) => setBusinesses(businesses)} />
-        {/* <Deck businesses={businesses}/> */}
+        {businesses.length == 0 ? <Search onSubmitSearch={(businesses) => setBusinesses(businesses)} />:<Deck businesses={businesses}/>}
       {/* </div> */}
     </React.Fragment>
   );

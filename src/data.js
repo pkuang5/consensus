@@ -1,9 +1,10 @@
 export default [
   {
     pics: [
-      "https://images.unsplash.com/photo-1520024146169-3240400354ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"
+      "https://s3-media4.fl.yelpcdn.com/bphoto/Fn8-hCO_WEWm84awoHwLLg/o.jpg",
+      "https://s3-media4.fl.yelpcdn.com/bphoto/-HMs-GQkQTG4VnNMSX3mVg/o.jpg",
     ],
-    name: "Heather",
+    name: "Weekenders Coffee Tominokoji",
     age: 32,
     distance: "4 miles away",
     text:
