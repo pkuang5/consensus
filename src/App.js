@@ -13,6 +13,25 @@ import Deck from "./components/Deck";
 function App() {
   const [businesses, setBusinesses] = useState([]);
   const [groupCode, setGroupCode] = useState(0);
+  const [cardData, setCardData] = useState([])
+
+  useEffect(() => {
+    if (businesses.length != 0) populateBusinesses(businesses)
+  }, [businesses])
+
+  async function populateBusinesses(idArray) {
+    idArray.reduce(async (memo, id) => {
+      await memo
+      await yelpREST(`/businesses/${id}`).then(({ data }) => {
+        var item = {
+          id: data.id,
+          name: data.name,
+          pics: data.photos
+        }
+        setCardData(cardData => [...cardData, item])
+      })
+    }, undefined)
+  }
 
   return (
     <React.Fragment>
@@ -59,7 +78,8 @@ function App() {
         />
       </div> */}
         {/* <Poll businesses={businesses} groupCode={groupCode} /> */}
-        {businesses.length == 0 ? <Search onSubmitSearch={(businesses) => setBusinesses(businesses)} />:<Deck businesses={businesses}/>}
+        <Search onSubmitSearch={(businesses) => setBusinesses(businesses)} />
+        {cardData.length == businesses.length && businesses.length != 0 ? <Deck data={cardData}/>:null}
       {/* </div> */}
     </React.Fragment>
   );

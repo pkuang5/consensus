@@ -22,7 +22,7 @@ const trans = (r, s) =>
 function Deck(props) {
   const [gone] = useState(() => new Set());
 
-  const [cards, set] = useSprings(props.businesses.length, i => ({
+  const [cards, set] = useSprings(props.data.length, i => ({
     ...to(i),
     from: from(i)
   }));
@@ -62,9 +62,11 @@ function Deck(props) {
           delay: undefined,
           config: { friction: 50, tension: down ? 800 : isGone ? 200 : 500 }
         };
-      });
+      }); 
 
-      if (!down && gone.size === props.businesses.length)
+      console.log(props.data.length)
+
+      if (!down && gone.size === props.data.length)
         setTimeout(() => gone.clear() || set(i => to(i)), 600);
     }
   );
@@ -78,7 +80,7 @@ function Deck(props) {
       rot={rot}
       scale={scale}
       trans={trans}
-      data={props.businesses}
+      data={props.data}
       bind={bind}
     />
   ));

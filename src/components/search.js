@@ -11,9 +11,12 @@ function App(props) {
       },
     }).then(({ data }) => {
       let { businesses } = data;
+      var ids = []
       businesses.forEach((b) => {
-        props.onSubmitSearch((data) => [...data, b.id]);
+        ids.push(b.id)
       });
+      // ids = ids.slice(0,5)
+      props.onSubmitSearch(ids);
     });
   };
 
