@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from "react";
+// import {
+//   isConditionalExpression,
+//   isConstTypeReference,
+//   isThisTypeNode,
+// } from "typescript";
 
 function Question(props) {
   const [index, setIndex] = useState(0);
+  const [answers, setAnswers] = useState([]);
+
   const questions = [
     { id: 1, question: "How many people are in your group?" },
     {
@@ -40,32 +47,52 @@ function Question(props) {
 
   const question = questions[index];
 
-  function handleContinue() {
-    if (index + 1 < questions.length) {
+  const handleContinue = (input) => {
+    if (
+      index + 1 < questions.length &&
+      document.getElementById("input").value != ""
+    ) {
       console.log("question #" + question.id);
       setIndex(index + 1);
+      answers[index] = input;
+      //setAnswers((answers) => [...answers, input]);
+      console.log(index);
+      document.getElementById("input").value = "";
+      if (answers[index + 1] != null) {
+        document.getElementById("input").value = answers[index + 1];
+      }
     }
-  }
+  };
 
-  function handlePrevious() {
+  const handlePrevious = () => {
     if (index - 1 >= 0) {
       setIndex(index - 1);
+      console.log(index);
+      if (answers[index - 1] != null) {
+        document.getElementById("input").value = answers[index - 1];
+      }
     }
-  }
+  };
 
   return (
     <div className="max-w-md mx-auto flex p-6 bg-gray-100 mt-10 rounded-lg shadow-xl">
       <div className="ml-6 pt-1">
-        <h1 className="text-2xl text-blue-700 leading-tight">
+        <br></br>
+        <h1
+          id="id"
+          className="text-2xl text-blue-700 leading-tight text-center"
+        >
           Question #{question.id}
         </h1>
-        <p className="text-base text-gray-700 leading-normal">
+        <p className="text-base text-gray-700 leading-normal text-center">
           {question.question}
         </p>
         <input
+          className="field"
+          id="input"
+          type="text"
           class="border rounded-md w-10 text-center"
           placeholder="##"
-          id="category"
         ></input>
         <br></br>
         <button
@@ -76,7 +103,8 @@ function Question(props) {
         </button>
         <button
           class="btn btn-primary w-20 h-10 bg-yellow-600 text-white m-2"
-          onClick={() => handleContinue()}
+          type="button"
+          onClick={() => handleContinue(document.getElementById("input").value)}
         >
           Continue
         </button>

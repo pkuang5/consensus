@@ -58,9 +58,9 @@ function App() {
         populateBusinesses={(businesses) => setBusinesses(businesses)}
         />
       </div> */}
-        {/* <Poll businesses={businesses} groupCode={groupCode} /> */}
-        <Search onSubmitSearch={(businesses) => setBusinesses(businesses)} />
-        {/* <Deck businesses={businesses}/> */}
+      {/* <Poll businesses={businesses} groupCode={groupCode} /> */}
+      <Search onSubmitSearch={(businesses) => setBusinesses(businesses)} />
+      {/* <Deck businesses={businesses}/> */}
       {/* </div> */}
     </React.Fragment>
   );
