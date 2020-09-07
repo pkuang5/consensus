@@ -7,9 +7,6 @@ import yelpREST from "../api/yelp";
 const Card = ({ i, x, y, rot, scale, trans, bind, data }) => {
   const { name, pics } = data[i];
   
-  useEffect(() => {
-    console.log(name, pics)
-  }, [])
   return (
     <animated.div
       key={i}

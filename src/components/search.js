@@ -15,7 +15,6 @@ function App(props) {
       businesses.forEach((b) => {
         ids.push(b.id)
       });
-      // ids = ids.slice(0,5)
       props.onSubmitSearch(ids);
     });
   };
@@ -29,7 +28,7 @@ function App(props) {
           </h1>
           <input
             class="border rounded-md"
-            placeholder="kyoto"
+            placeholder="location"
             id="location"
           ></input>
           <input

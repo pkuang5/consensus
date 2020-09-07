@@ -8,6 +8,7 @@ import CreateCode from "./components/createCode";
 //import Progress from './components/progress'
 import Question from "./components/question";
 import Deck from "./components/Deck";
+import Loader from "./components/loader"
 //import Questionnaire from "./components/questionnaire";
 
 function App() {
@@ -65,22 +66,20 @@ function App() {
       </div> */}
       {/* <div>
         <Question />
-      </div>
-      <div>
-        <div>
-        <CreateCode
+      </div> */}
+      {/* <CreateCode
         businesses={businesses}
         onCreateCode={(code) => setGroupCode(code)}
-        />
-        <JoinCode
+        groupCode={groupCode}
+      /> */}
+      {/* <JoinCode
         onJoinCode={(code) => setGroupCode(code)}
         populateBusinesses={(businesses) => setBusinesses(businesses)}
-        />
-      </div> */}
-        {/* <Poll businesses={businesses} groupCode={groupCode} /> */}
-        <Search onSubmitSearch={(businesses) => setBusinesses(businesses)} />
-        {cardData.length == businesses.length && businesses.length != 0 ? <Deck data={cardData}/>:null}
-      {/* </div> */}
+      /> */}
+      {/* <Loader loading={true} /> */}
+      {businesses.length == 0 ? <Search onSubmitSearch={(businesses) => setBusinesses(businesses)} />: null}
+      {cardData.length != businesses.length && businesses.length != 0 ? <Loader loading={true} />: null}
+    {cardData.length == businesses.length && businesses.length != 0 ? <Deck data={cardData} groupCode={groupCode} />: null}
     </React.Fragment>
   );
 }

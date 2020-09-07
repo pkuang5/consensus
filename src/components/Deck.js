@@ -1,10 +1,19 @@
 import React, { useState } from "react";
 import { useSprings } from "react-spring/hooks";
 import { useGesture } from "react-with-gesture";
+import database from "../firebase"
 
 import Card from "./Card";
 
 import "../styles/Deck.css";
+
+// function updateVote(groupCode, id, increment) {
+//   database
+//     .ref(`groups/${groupCode}/${id}`)
+//     .transaction(function (vote) {
+//       return (vote || 0) + increment;
+//     });
+// }
 
 const to = i => ({
   x: 0,
@@ -48,7 +57,7 @@ function Deck(props) {
         const isGone = gone.has(index);
         
         if (isGone){
-          console.log(dir) 
+          // updateVote(props.groupCode, props.data[index].id, dir)
         }
         const x = isGone ? (200 + window.innerWidth) * dir : down ? xDelta : 0;
 
@@ -64,26 +73,29 @@ function Deck(props) {
         };
       }); 
 
-      console.log(props.data.length)
 
       if (!down && gone.size === props.data.length)
         setTimeout(() => gone.clear() || set(i => to(i)), 600);
     }
   );
 
-  return cards.map(({ x, y, rot, scale }, i) => (
-    <Card
-      key={i}
-      i={i}
-      x={x}
-      y={y}
-      rot={rot}
-      scale={scale}
-      trans={trans}
-      data={props.data}
-      bind={bind}
-    />
-  ));
+  return(
+    <div class="deck">
+      {cards.map(({ x, y, rot, scale }, i) => (
+        <Card
+          key={i}
+          i={i}
+          x={x}
+          y={y}
+          rot={rot}
+          scale={scale}
+          trans={trans}
+          data={props.data}
+          bind={bind}
+        />
+      ))}
+    </div>
+  ) 
 }
 
 export default Deck;

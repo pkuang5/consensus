@@ -15,7 +15,7 @@ body {
   overflow: hidden;
 }
 
-#root {
+.deck {
   background: salmon;
   position: fixed;
   overflow: hidden;
@@ -26,7 +26,7 @@ body {
     auto;
 }
 
-#root > div {
+.deck > div {
   position: absolute;
   width: 100vw;
   height: 100vh;
@@ -36,7 +36,7 @@ body {
   justify-content: center;
 }
 
-#root > div > div {
+.deck > div > div {
   padding: 5px;
   background-color: white;
   background-size: auto 85%;
