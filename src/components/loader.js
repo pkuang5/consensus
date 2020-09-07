@@ -13,7 +13,7 @@ function Loader(props) {
     return (
         <GridLoader
             css={override}
-            size={150}
+            size={30}
             color={"#123abc"}
             loading={props.loading}
         />

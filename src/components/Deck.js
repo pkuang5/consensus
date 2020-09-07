@@ -17,7 +17,7 @@ import "../styles/Deck.css";
 
 const to = i => ({
   x: 0,
-  y: i * -10,
+  y: i * -4,
   scale: 1,
   rot: 0,
   delay: i * 100

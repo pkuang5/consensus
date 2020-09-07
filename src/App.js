@@ -78,7 +78,7 @@ function App() {
       /> */}
       {/* <Loader loading={true} /> */}
       {businesses.length == 0 ? <Search onSubmitSearch={(businesses) => setBusinesses(businesses)} />: null}
-      {cardData.length != businesses.length && businesses.length != 0 ? <Loader loading={true} />: null}
+      {cardData.length != businesses.length && businesses.length != 0 ? <div class="h-screen w-screen flex justify-center items-center"><Loader loading={true} /></div>: null}
     {cardData.length == businesses.length && businesses.length != 0 ? <Deck data={cardData} groupCode={groupCode} />: null}
     </React.Fragment>
   );

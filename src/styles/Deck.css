@@ -16,7 +16,7 @@ body {
 }
 
 .deck {
-  background: salmon;
+  /* background: salmon; */
   position: fixed;
   overflow: hidden;
   width: 100%;
@@ -48,8 +48,7 @@ body {
   max-height: 570px;
   will-change: transform;
   border-radius: 10px;
-  box-shadow: 0 12.5px 100px -10px rgba(50, 50, 73, 0.4),
-    0 10px 10px -10px rgba(50, 50, 73, 0.3);
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05);
 }
 
 img {
