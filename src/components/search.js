@@ -11,17 +11,13 @@ function App(props) {
       },
     }).then(({ data }) => {
       let { businesses } = data;
+      var ids = []
       businesses.forEach((b) => {
-        props.onSubmitSearch((data) => [...data, b.id]);
+        ids.push(b.id)
       });
+      props.onSubmitSearch(ids);
     });
   };
-
-  //   const submitCode = () => {
-  //     var code = document.getElementById("code").value
-  //     var dummyValue = document.getElementById("dummyValue").value
-  //     database.ref(`groups/${code}`).set(dummyValue)
-  //   }
 
   return (
     <div>
@@ -32,7 +28,7 @@ function App(props) {
           </h1>
           <input
             class="border rounded-md"
-            placeholder="kyoto"
+            placeholder="location"
             id="location"
           ></input>
           <input

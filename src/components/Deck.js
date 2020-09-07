@@ -1,15 +1,23 @@
 import React, { useState } from "react";
 import { useSprings } from "react-spring/hooks";
 import { useGesture } from "react-with-gesture";
+import database from "../firebase"
 
 import Card from "./Card";
-// import data from "../data.js";
 
 import "../styles/Deck.css";
 
+// function updateVote(groupCode, id, increment) {
+//   database
+//     .ref(`groups/${groupCode}/${id}`)
+//     .transaction(function (vote) {
+//       return (vote || 0) + increment;
+//     });
+// }
+
 const to = i => ({
   x: 0,
-  y: i * -10,
+  y: i * -4,
   scale: 1,
   rot: 0,
   delay: i * 100
@@ -23,7 +31,7 @@ const trans = (r, s) =>
 function Deck(props) {
   const [gone] = useState(() => new Set());
 
-  const [cards, set] = useSprings(props.businesses.length, i => ({
+  const [cards, set] = useSprings(props.data.length, i => ({
     ...to(i),
     from: from(i)
   }));
@@ -49,7 +57,7 @@ function Deck(props) {
         const isGone = gone.has(index);
         
         if (isGone){
-          console.log(dir) 
+          // updateVote(props.groupCode, props.data[index].id, dir)
         }
         const x = isGone ? (200 + window.innerWidth) * dir : down ? xDelta : 0;
 
@@ -63,26 +71,31 @@ function Deck(props) {
           delay: undefined,
           config: { friction: 50, tension: down ? 800 : isGone ? 200 : 500 }
         };
-      });
+      }); 
 
-      if (!down && gone.size === props.businesses.length)
+
+      if (!down && gone.size === props.data.length)
         setTimeout(() => gone.clear() || set(i => to(i)), 600);
     }
   );
 
-  return cards.map(({ x, y, rot, scale }, i) => (
-    <Card
-      key={i}
-      i={i}
-      x={x}
-      y={y}
-      rot={rot}
-      scale={scale}
-      trans={trans}
-      data={props.businesses}
-      bind={bind}
-    />
-  ));
+  return(
+    <div class="deck">
+      {cards.map(({ x, y, rot, scale }, i) => (
+        <Card
+          key={i}
+          i={i}
+          x={x}
+          y={y}
+          rot={rot}
+          scale={scale}
+          trans={trans}
+          data={props.data}
+          bind={bind}
+        />
+      ))}
+    </div>
+  ) 
 }
 
 export default Deck;

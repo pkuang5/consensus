@@ -8,11 +8,31 @@ import CreateCode from "./components/createCode";
 //import Progress from './components/progress'
 import Question from "./components/question";
 import Deck from "./components/Deck";
+import Loader from "./components/loader"
 //import Questionnaire from "./components/questionnaire";
 
 function App() {
   const [businesses, setBusinesses] = useState([]);
   const [groupCode, setGroupCode] = useState(0);
+  const [cardData, setCardData] = useState([])
+
+  useEffect(() => {
+    if (businesses.length != 0) populateBusinesses(businesses)
+  }, [businesses])
+
+  async function populateBusinesses(idArray) {
+    idArray.reduce(async (memo, id) => {
+      await memo
+      await yelpREST(`/businesses/${id}`).then(({ data }) => {
+        var item = {
+          id: data.id,
+          name: data.name,
+          pics: data.photos
+        }
+        setCardData(cardData => [...cardData, item])
+      })
+    }, undefined)
+  }
 
   return (
     <React.Fragment>
@@ -46,22 +66,19 @@ function App() {
       </div> */}
       {/* <div>
         <Question />
-      </div>
-      <div>
-        <div>
-        <CreateCode
+      </div> */}
+      {/* <CreateCode
         businesses={businesses}
         onCreateCode={(code) => setGroupCode(code)}
-        />
-        <JoinCode
+        groupCode={groupCode}
+      /> */}
+      {/* <JoinCode
         onJoinCode={(code) => setGroupCode(code)}
         populateBusinesses={(businesses) => setBusinesses(businesses)}
-        />
-      </div> */}
-      {/* <Poll businesses={businesses} groupCode={groupCode} /> */}
-      <Search onSubmitSearch={(businesses) => setBusinesses(businesses)} />
-      {/* <Deck businesses={businesses}/> */}
-      {/* </div> */}
+      /> */}
+      {businesses.length == 0 ? <Search onSubmitSearch={(businesses) => setBusinesses(businesses)} />: null}
+      {cardData.length != businesses.length && businesses.length != 0 ? <div class="h-screen w-screen flex justify-center items-center"><Loader loading={true} /></div>: null}
+    {cardData.length == businesses.length && businesses.length != 0 ? <Deck data={cardData} groupCode={groupCode} />: null}
     </React.Fragment>
   );
 }

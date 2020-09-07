@@ -16,6 +16,7 @@
     "react-dom": "^16.13.1",
     "react-easy-swipe": "0.0.18",
     "react-scripts": "3.4.3",
+    "react-spinners": "^0.9.0",
     "react-spring": "^7.2.11",
     "react-with-gesture": "^4.0.8",
     "tailwindcss": "^1.7.1",

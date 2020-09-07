@@ -5,20 +5,8 @@ import Carousel from "nuka-carousel";
 import yelpREST from "../api/yelp";
 
 const Card = ({ i, x, y, rot, scale, trans, bind, data }) => {
-  // const { name, age, distance, text, pics } = data[i];
+  const { name, pics } = data[i];
   
-  const [name, setName] = useState("")
-  const [pics, setPics] = useState([])
-
-  useEffect(() => {
-    yelpREST(`/businesses/${data[i]}`).then(({ data }) => {
-      setName(data.name);
-      data.photos.forEach((image) => {
-        setPics((imageArray) => [...imageArray, image]);
-      });
-    })
-  }, [])
-
   return (
     <animated.div
       key={i}
@@ -38,7 +26,7 @@ const Card = ({ i, x, y, rot, scale, trans, bind, data }) => {
               <img src={pic} key={index} alt="profilePicture" />
             ))}
           </Carousel>
-          <h2>{name},</h2>
+          <h2>{name}</h2>
           {/* <h2>{age}</h2>
           <h5>{distance}</h5>
           <h5>{text}</h5> */}
