@@ -9,12 +9,14 @@ import CreateCode from "./components/createCode";
 import Question from "./components/question";
 import Deck from "./components/Deck";
 import Loader from "./components/loader"
+import Progress from 'react-progressbar'
 //import Questionnaire from "./components/questionnaire";
 
 function App() {
-  const [businesses, setBusinesses] = useState([]);
-  const [groupCode, setGroupCode] = useState(0);
+  const [businesses, setBusinesses] = useState([])
+  const [groupCode, setGroupCode] = useState(0)
   const [cardData, setCardData] = useState([])
+  const [progressPercentage, setProgressPercentage] = useState(0)
 
   useEffect(() => {
     if (businesses.length != 0) populateBusinesses(businesses)
@@ -27,7 +29,7 @@ function App() {
         var item = {
           id: data.id,
           name: data.name,
-          pics: data.photos
+          photos: data.photos
         }
         setCardData(cardData => [...cardData, item])
       })
@@ -76,9 +78,14 @@ function App() {
         onJoinCode={(code) => setGroupCode(code)}
         populateBusinesses={(businesses) => setBusinesses(businesses)}
       /> */}
-      {businesses.length == 0 ? <Search onSubmitSearch={(businesses) => setBusinesses(businesses)} />: null}
-      {cardData.length != businesses.length && businesses.length != 0 ? <div class="h-screen w-screen flex justify-center items-center"><Loader loading={true} /></div>: null}
-    {cardData.length == businesses.length && businesses.length != 0 ? <Deck data={cardData} groupCode={groupCode} />: null}
+      {businesses.length == 0 ? <Search onSubmitSearch={(businesses) => setBusinesses(businesses)} /> : null}
+      {cardData.length != businesses.length && businesses.length != 0 ? <div class="h-screen w-screen flex justify-center items-center"><Loader loading={true} /></div> : null}
+      {cardData.length == businesses.length && businesses.length != 0 ? 
+      <div>
+        <Deck data={cardData} groupCode={groupCode} onSetProgressPercentage={progressPercentage => setProgressPercentage(progressPercentage)} />
+        <Progress completed={progressPercentage} />
+      </div>
+      : null}
     </React.Fragment>
   );
 }

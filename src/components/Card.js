@@ -5,7 +5,7 @@ import Carousel from "nuka-carousel";
 import yelpREST from "../api/yelp";
 
 const Card = ({ i, x, y, rot, scale, trans, bind, data }) => {
-  const { name, pics } = data[i];
+  const { name, photos } = data[i];
   
   return (
     <animated.div
@@ -22,11 +22,11 @@ const Card = ({ i, x, y, rot, scale, trans, bind, data }) => {
       >
         <div className="card">
           <Carousel>
-            {pics.map((pic, index) => (
+            {photos.map((pic, index) => (
               <img src={pic} key={index} alt="profilePicture" />
             ))}
           </Carousel>
-          <h2>{name}</h2>
+          <p class="text-center text-xl">{name}</p>
           {/* <h2>{age}</h2>
           <h5>{distance}</h5>
           <h5>{text}</h5> */}
@@ -41,7 +41,7 @@ Card.propTypes = {
   age: number,
   distance: string,
   text: string,
-  pics: array
+  photos: array
 };
 
 export default Card;

@@ -55,8 +55,8 @@ function Deck(props) {
       set(i => {
         if (index !== i) return;
         const isGone = gone.has(index);
-        
         if (isGone){
+          props.onSetProgressPercentage((props.data.length - index)/props.data.length * 100 )
           // updateVote(props.groupCode, props.data[index].id, dir)
         }
         const x = isGone ? (200 + window.innerWidth) * dir : down ? xDelta : 0;
