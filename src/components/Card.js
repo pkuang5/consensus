@@ -4,8 +4,16 @@ import { animated, interpolate } from "react-spring/hooks";
 import Carousel from "nuka-carousel";
 import yelpREST from "../api/yelp";
 
-const Card = ({ i, x, y, rot, scale, trans, bind, data }) => {
+function Card({ i, x, y, rot, scale, trans, bind, data }) {
   const { name, photos } = data[i];
+
+  // const [name, setName] = useState("")
+  // const [photos, setPhotos] = useState([])
+
+  // useEffect(()=>{
+  //   setName(data[i].name)
+  //   setPhotos(data[i].photos)
+  // },[])
   
   return (
     <animated.div

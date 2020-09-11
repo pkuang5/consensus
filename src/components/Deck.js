@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSprings } from "react-spring/hooks";
 import { useGesture } from "react-with-gesture";
 import database from "../firebase"
@@ -7,17 +7,9 @@ import Card from "./Card";
 
 import "../styles/Deck.css";
 
-// function updateVote(groupCode, id, increment) {
-//   database
-//     .ref(`groups/${groupCode}/${id}`)
-//     .transaction(function (vote) {
-//       return (vote || 0) + increment;
-//     });
-// }
-
 const to = i => ({
   x: 0,
-  y: i * -4,
+  y: 0,
   scale: 1,
   rot: 0,
   delay: i * 100
@@ -31,7 +23,16 @@ const trans = (r, s) =>
 function Deck(props) {
   const [gone] = useState(() => new Set());
 
-  const [cards, set] = useSprings(props.data.length, i => ({
+  function updateVote(groupCode, id, increment) {
+    console.log(id)
+    database
+      .ref(`groups/${groupCode}/${id}/vote`)
+      .transaction(function (vote) {
+        if (increment == 1) return (vote || 0) + increment;
+      });
+  }
+
+  const [cards, set] = useSprings(10, i => ({
     ...to(i),
     from: from(i)
   }));
@@ -52,12 +53,14 @@ function Deck(props) {
 
       if (!down && trigger) gone.add(index);
 
+
       set(i => {
         if (index !== i) return;
         const isGone = gone.has(index);
-        if (isGone){
-          props.onSetProgressPercentage((props.data.length - index)/props.data.length * 100 )
-          // updateVote(props.groupCode, props.data[index].id, dir)
+        if (isGone) {
+          // props.onSetProgressPercentage((data.length - index) / data.length * 100)
+          updateVote(props.groupCode, props.data[index].id, dir)
+          // flash background color to indiciate upvote or downvote ??
         }
         const x = isGone ? (200 + window.innerWidth) * dir : down ? xDelta : 0;
 
@@ -71,16 +74,15 @@ function Deck(props) {
           delay: undefined,
           config: { friction: 50, tension: down ? 800 : isGone ? 200 : 500 }
         };
-      }); 
-
+      });
 
       if (!down && gone.size === props.data.length)
         setTimeout(() => gone.clear() || set(i => to(i)), 600);
     }
   );
 
-  return(
-    <div class="deck">
+  return (
+    <div id="deck" class="deck">
       {cards.map(({ x, y, rot, scale }, i) => (
         <Card
           key={i}
@@ -95,7 +97,7 @@ function Deck(props) {
         />
       ))}
     </div>
-  ) 
+  )
 }
 
 export default Deck;
