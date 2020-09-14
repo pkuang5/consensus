@@ -16,16 +16,9 @@ function App() {
   return (
     <Router>
       <Switch>
-        {/* <Route path="/" exact strict component={() =>
-          <Search 
-            onSubmitSearch={(businesses) => setBusinesses(businesses)}
-            businesses={businesses}
-            groupCode={groupCode}
-            onSetGroupCode={(code) => setGroupCode(code)}
-            populateBusinesses={(businesses) => setBusinesses(businesses)}
-            setShowLoadingAnimation={(bool) => setShowLoadingAnimation(bool)}
-          />
-        }/> */}
+        <Route path="/" exact strict component={() =>
+          <Search />
+        }/>
         <Route path="/:groupCode" exact strict component={({match}) =>
           <div>
             <Poll groupCode={match.params.groupCode} />

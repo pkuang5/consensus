@@ -24,7 +24,6 @@ function Deck(props) {
   const [gone] = useState(() => new Set());
 
   function updateVote(groupCode, id, increment) {
-    console.log(id)
     database
       .ref(`groups/${groupCode}/${id}/vote`)
       .transaction(function (vote) {
@@ -32,7 +31,7 @@ function Deck(props) {
       });
   }
 
-  const [cards, set] = useSprings(10, i => ({
+  const [cards, set] = useSprings(props.data.length, i => ({
     ...to(i),
     from: from(i)
   }));

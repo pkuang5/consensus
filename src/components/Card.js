@@ -3,18 +3,13 @@ import { string, number, array } from "prop-types";
 import { animated, interpolate } from "react-spring/hooks";
 import Carousel from "nuka-carousel";
 import yelpREST from "../api/yelp";
+import Map from './Map'
 
 function Card({ i, x, y, rot, scale, trans, bind, data }) {
-  const { name, photos } = data[i];
-
-  // const [name, setName] = useState("")
-  // const [photos, setPhotos] = useState([])
-
-  // useEffect(()=>{
-  //   setName(data[i].name)
-  //   setPhotos(data[i].photos)
-  // },[])
+  const { lat, lng, name, photos} = data[i];
   
+  console.log(lat)
+
   return (
     <animated.div
       key={i}
@@ -35,9 +30,7 @@ function Card({ i, x, y, rot, scale, trans, bind, data }) {
             ))}
           </Carousel>
           <p class="text-center text-xl">{name}</p>
-          {/* <h2>{age}</h2>
-          <h5>{distance}</h5>
-          <h5>{text}</h5> */}
+          <Map center={{lat:lat, lng:lng}} name={name} zoom={15} />
         </div>
       </animated.div>
     </animated.div>
