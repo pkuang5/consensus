@@ -30,7 +30,7 @@ function Card({ i, x, y, rot, scale, trans, bind, data }) {
             ))}
           </Carousel>
           <p class="text-center text-xl">{name}</p>
-          <Map center={{lat:lat, lng:lng}} name={name} zoom={15} />
+          {/* <Map center={{lat:lat, lng:lng}} name={name} zoom={15} /> */}
         </div>
       </animated.div>
     </animated.div>

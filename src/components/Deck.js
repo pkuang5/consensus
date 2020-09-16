@@ -57,7 +57,7 @@ function Deck(props) {
         if (index !== i) return;
         const isGone = gone.has(index);
         if (isGone) {
-          // props.onSetProgressPercentage((data.length - index) / data.length * 100)
+          props.setProgressPercentage((props.data.length - index) / props.data.length * 100)
           updateVote(props.groupCode, props.data[index].id, dir)
           // flash background color to indiciate upvote or downvote ??
         }

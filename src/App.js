@@ -10,8 +10,6 @@ import Progress from 'react-progressbar'
 
 
 function App() {
-  // const [showLoadingAnimation, setShowLoadingAnimation] = useState(false)
-  // const [progressPercentage, setProgressPercentage] = useState(0)
 
   return (
     <Router>
@@ -22,10 +20,8 @@ function App() {
         <Route path="/:groupCode" exact strict component={({match}) =>
           <div>
             <Poll groupCode={match.params.groupCode} />
-            {/* <Progress completed={progressPercentage} /> */}
           </div>
         }/>
-        {/* {showLoadingAnimation ? <div class="h-screen w-screen flex justify-center items-center"><Loader loading={true} /></div> : null} */}
       </Switch>
     </Router>
   );

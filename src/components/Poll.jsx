@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import database from '../firebase'
 import Deck from './Deck'
 import Loader from './loader'
+import Progress from 'react-progressbar'
 
 function Poll(props) {
     const [data, setData] = useState([])
+    const [progressPercentage, setProgressPercentage] = useState(0)
 
     useEffect(() => {
         var arr = []
@@ -26,7 +28,10 @@ function Poll(props) {
 
     if (data.length == 0) return <Loader loading={true} />
     else return (
-        <Deck groupCode={props.groupCode} data={data} />
+        <div>
+            <Progress completed={progressPercentage} />
+            <Deck groupCode={props.groupCode} data={data} setProgressPercentage={(percent) => setProgressPercentage(percent)}/>
+        </div>
     )
 
 }
