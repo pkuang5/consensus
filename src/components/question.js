@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, cloneElement } from "react";
+import database from "../firebase";
 // import {
 //   isConditionalExpression,
 //   isConstTypeReference,
@@ -30,6 +31,11 @@ function Question(props) {
       question: "How many options do you want to choose from (5 10 15 20)",
     },
     { id: 9, question: "We want our group's top (1 2 3)" },
+    {
+      id: 10,
+      question:
+        "Thank you for your responses! Now its time to reach a consensus!",
+    },
   ];
 
   const statements = [
@@ -45,28 +51,63 @@ function Question(props) {
     },
   ];
 
-  const question = questions[index];
+  var question = questions[index];
+
+  const handleSubmit = () => {
+    database
+      .ref(`answers`)
+      .set({
+        q1: answers[0],
+        q2: answers[1],
+        q3: answers[2],
+        q4: answers[3],
+        q5: answers[4],
+        q6: answers[5],
+        q7: answers[6],
+        q8: answers[7],
+        q9: answers[8],
+      })
+      .then(() => {
+        alert("Question 1 was answered💫");
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
+  };
 
   const handleContinue = (input) => {
     if (
-      index + 1 < questions.length &&
+      index + 1 <= questions.length &&
       document.getElementById("input").value != ""
     ) {
       console.log("question #" + question.id);
-      setIndex(index + 1);
       answers[index] = input;
       //setAnswers((answers) => [...answers, input]);
+      setIndex(index + 1);
       console.log(index);
+      console.log(answers);
       document.getElementById("input").value = "";
+      console.log("Works");
       if (answers[index + 1] != null) {
         document.getElementById("input").value = answers[index + 1];
       }
+
+      database
+        .ref(`answers/q${question.id}`)
+        .set(input)
+        .then(() => {
+          //console.log("Question" + question.id + "was sourced💫");
+        })
+        .catch((error) => {
+          alert(error.message);
+        });
     }
   };
 
-  const handlePrevious = () => {
+  const handlePrevious = (input) => {
     if (index - 1 >= 0) {
       setIndex(index - 1);
+      console.log("question #" + question.id);
       console.log(index);
       if (answers[index - 1] != null) {
         document.getElementById("input").value = answers[index - 1];
@@ -78,36 +119,46 @@ function Question(props) {
     <div className="max-w-md mx-auto flex p-6 bg-gray-100 mt-10 rounded-lg shadow-xl">
       <div className="ml-6 pt-1">
         <br></br>
-        <h1
-          id="id"
-          className="text-2xl text-blue-700 leading-tight text-center"
-        >
-          Question #{question.id}
-        </h1>
-        <p className="text-base text-gray-700 leading-normal text-center">
-          {question.question}
-        </p>
-        <input
-          className="field"
-          id="input"
-          type="text"
-          class="border rounded-md w-10 text-center"
-          placeholder="##"
-        ></input>
-        <br></br>
-        <button
-          class="btn btn-primary w-20 h-10 bg-yellow-600 text-white m-2"
-          onClick={() => handlePrevious()}
-        >
-          Back
-        </button>
-        <button
-          class="btn btn-primary w-20 h-10 bg-yellow-600 text-white m-2"
-          type="button"
-          onClick={() => handleContinue(document.getElementById("input").value)}
-        >
-          Continue
-        </button>
+        {question.id != 10 && question.id != 0 ? (
+          <div>
+            <h1 className="text-2xl text-blue-700 leading-tight text-center">
+              Question #{question.id}
+            </h1>
+            <p className="text-base text-gray-700 leading-normal text-center">
+              {questions[index].question}
+            </p>
+            <input
+              className="field"
+              id="input"
+              type="text"
+              class="border rounded-md w-10 text-center"
+              placeholder="##"
+            ></input>
+            <br></br>
+            <button
+              class="btn btn-primary w-20 h-10 bg-yellow-600 text-white m-2"
+              onClick={() =>
+                handlePrevious(document.getElementById("input").value)
+              }
+            >
+              Back
+            </button>
+            <button
+              class="btn btn-primary w-20 h-10 bg-yellow-600 text-white m-2"
+              type="submit"
+              onClick={() =>
+                handleContinue(document.getElementById("input").value)
+              }
+              //onClick={() => handleSubmit()}
+            >
+              Submit
+            </button>
+          </div>
+        ) : (
+          <h1 className="text-2xl text-blue-700 leading-tight text-center">
+            {statements[1].message}
+          </h1>
+        )}
       </div>
     </div>
   );

@@ -1,9 +1,18 @@
 import React, { useState, useEffect } from "react";
 import yelpREST from "../api/yelp";
+import database from '../firebase'
+import Loader from "./loader"
+import { useHistory } from 'react-router-dom'
 
-function App(props) {
-  const searchRestaurants = (location, term) => {
-    yelpREST("/businesses/search", {
+function Search(props) {
+
+  let history = useHistory()
+
+  const [loading, setLoading] = useState(false)
+
+  async function populateBusinessesAndSetGroupCode(location, term) {
+    setLoading(true)
+    await yelpREST("/businesses/search", {
       params: {
         location: location,
         term: term,
@@ -11,13 +20,30 @@ function App(props) {
       },
     }).then(({ data }) => {
       let { businesses } = data;
-      var ids = []
-      businesses.forEach((b) => {
-        ids.push(b.id)
-      });
-      props.onSubmitSearch(ids);
-    });
-  };
+      var code = Math.floor(Math.random() * Math.floor(10000))
+
+      businesses.reduce(async (memo, b) => {
+        await memo
+        await yelpREST(`/businesses/${b.id}`).then(({ data }) => {
+          var item = {
+            id: data.id,
+            name: data.name,
+            photos: data.photos,
+            lat: data.coordinates.latitude,
+            lng: data.coordinates.longitude
+          }
+          database.ref(`groups/${code}/${b.id}`).set(item)
+          database.ref(`groups/${code}/${b.id}/vote`).set(0)
+        })
+      }, undefined).then(() => {
+        setLoading(false)
+        history.push(`/${code}`)
+      }
+      )
+    })
+  }
+
+  if (loading) return <Loader loading={true} />
 
   return (
     <div>
@@ -39,7 +65,7 @@ function App(props) {
           <button
             class="w-24 h-10 bg-blue-600 text-white"
             onClick={() =>
-              searchRestaurants(
+              populateBusinessesAndSetGroupCode(
                 document.getElementById("location").value,
                 document.getElementById("category").value
               )
@@ -47,10 +73,14 @@ function App(props) {
           >
             Submit
           </button>
+          {/* <JoinCode 
+            onJoinCode={(code) => props.onSetGroupCode(code)}
+            populateBusinesses={(businesses) => props.populateBusinesses(businesses)}
+          /> */}
         </div>
       </div>
     </div>
   );
 }
 
-export default App;
+export default Search;

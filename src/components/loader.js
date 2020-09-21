@@ -1,6 +1,6 @@
 import React from "react";
 import { css } from "@emotion/core";
-import GridLoader from "react-spinners/GridLoader";
+import PacmanLoader from "react-spinners/PacmanLoader";
 
 // Can be a string as well. Need to ensure each key-value pair ends with ;
 const override = css`
@@ -11,7 +11,7 @@ const override = css`
 
 function Loader(props) {
     return (
-        <GridLoader
+        <PacmanLoader
             css={override}
             size={30}
             color={"#123abc"}
