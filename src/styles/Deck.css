@@ -84,6 +84,7 @@ h5:last-of-type {
 
 .card > div {
   height: 380px !important;
+  display:table;
 }
 
 .card {
@@ -98,12 +99,28 @@ h5:last-of-type {
   color: salmon !important;
 }
 
-.c {
+.frontface {
   position: absolute;
+  z-index: 1;
   max-width: 290px;
   max-height: 290px;
   width: 50ch;
   height: 50ch;
   cursor: pointer;
-  will-change: transform, opacity;
+  will-change: transform, opacity, zIndex;
 }
+
+ .backface {
+  position: absolute;
+  z-index: 0;
+  max-width: 290px;
+  max-height: 290px;
+  width: 50ch;
+  height: 50ch;
+  cursor: pointer;
+  will-change: transform, opacity, zIndex;
+} 
+
+
+
+
