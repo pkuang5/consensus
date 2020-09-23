@@ -20,12 +20,8 @@ import GoogleMapReact from 'google-map-react';
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
 function Map(props) {
-    // static defaultProps = {
-    //   center: {lat: 59.95, lng: 30.33},
-    //   zoom: 11
-    // };
     return (
-        <div style={{ height: '100vh', width: '100%' }}>
+        <div style={{ height: '300px', width: '100%' }}>
             <GoogleMapReact
                 defaultCenter={props.center}
                 defaultZoom={props.zoom}
