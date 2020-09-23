@@ -32,7 +32,8 @@ function Search(props) {
             lat: data.coordinates.latitude,
             lng: data.coordinates.longitude
           }
-          database.ref(`groups/${code}/${b.id}`).set(item)
+          // database.ref(`groups/${code}/${b.id}`).set(item)
+          database.ref(`groups/${code}/${b.id}`).set(data)
           database.ref(`groups/${code}/${b.id}/vote`).set(0)
         })
       }, undefined).then(() => {

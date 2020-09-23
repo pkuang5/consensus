@@ -7,7 +7,7 @@ import Map from './Map'
 import 'font-awesome/css/font-awesome.min.css'
 
 function Card({ i, x, y, rot, scale, trans, bind, data }) {
-  const { lat, lng, name, photos } = data[i];
+  const { coordinates, name, photos } = data[i];
   const [flipped, set] = useState(false)
   const { transform, opacity} = useSpring({
     opacity: flipped ? 1 : 0,
@@ -44,7 +44,7 @@ function Card({ i, x, y, rot, scale, trans, bind, data }) {
             <button class="p-8 bg-blue-600" onClick={() => set(state => !state)}><i class="fa fa-info"></i></button>
           </animated.div>
           <animated.div className="backface" id="back" style={{ opacity, transform: transform.interpolate(t => `${t} rotateY(180deg)`), zIndex: flipped ? 1 : -1 } }>
-            <Map center={{ lat: lat, lng: lng }} name={name} zoom={15} />
+            <Map center={{ lat: coordinates.latitude, lng: coordinates.longitude }} name={name} zoom={15} />
             <button class="p-8 bg-blue-600" onClick={() => set(state => !state)}><i class="fa fa-info"></i></button>
           </animated.div>
         </div>

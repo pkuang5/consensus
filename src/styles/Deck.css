@@ -13,10 +13,10 @@ body {
   font-family: Raleway, sans-serif;
   position: fixed;
   overflow: hidden;
+  background: #FFF09C;
 }
 
 .deck {
-  /* background: salmon; */
   position: fixed;
   overflow: hidden;
   width: 100%;
@@ -37,24 +37,23 @@ body {
 }
 
 .deck > div > div {
-  padding: 5px;
   background-color: white;
   background-size: auto 85%;
   background-repeat: no-repeat;
   background-position: center center;
-  width: 300px;
-  max-width: 300px;
-  height: 550px;
-  max-height: 570px;
+  width: 350px;
+  max-width: 350px;
+  height: 600px;
+  max-height: 620px;
   will-change: transform;
-  border-radius: 10px;
+  border-radius: 30px;
   box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05);
 }
 
 img {
   height: 380px;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
 }
 
 button[aria-label="previous"],
@@ -102,8 +101,8 @@ h5:last-of-type {
 .frontface {
   position: absolute;
   z-index: 1;
-  max-width: 290px;
-  max-height: 290px;
+  max-width: 350px;
+  max-height: 600px;
   width: 50ch;
   height: 50ch;
   cursor: pointer;
@@ -113,13 +112,20 @@ h5:last-of-type {
  .backface {
   position: absolute;
   z-index: 0;
-  max-width: 290px;
+  max-width: 350px;
   max-height: 290px;
   width: 50ch;
   height: 50ch;
   cursor: pointer;
   will-change: transform, opacity, zIndex;
 } 
+/* 
+map {
+  height: '300px';
+  width: '100%';
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+} */
 
 
 
