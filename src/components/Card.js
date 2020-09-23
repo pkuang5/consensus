@@ -6,6 +6,7 @@ import yelpREST from "../api/yelp";
 import Map from './Map'
 import 'font-awesome/css/font-awesome.min.css'
 
+
 function Card({ i, x, y, rot, scale, trans, bind, data }) {
   const { lat, lng, name, photos } = data[i];
 
@@ -30,6 +31,10 @@ function Card({ i, x, y, rot, scale, trans, bind, data }) {
         }}
       >
         <div className="card" >
+          <animated.div className="c" style={{ opacity, transform: transform.interpolate(t => `${t} rotateY(180deg)`)} }>
+            <Map center={{ lat: lat, lng: lng }} name={name} zoom={15} />
+            <button class="p-8 bg-blue-600" onClick={() => set(state => !state)}><i class="fa fa-info"></i></button>
+          </animated.div>
           <animated.div className="c" style={{ opacity: opacity.interpolate(o => 1 - o), transform }}>
             <Carousel>
               {photos.map((pic, index) => (
@@ -37,10 +42,6 @@ function Card({ i, x, y, rot, scale, trans, bind, data }) {
               ))}
             </Carousel>
             <p class="text-center text-xl">{name}</p>
-            <button class="p-8 bg-blue-600" onClick={() => set(state => !state)}><i class="fa fa-info"></i></button>
-          </animated.div>
-          <animated.div className="c" style={{ opacity, transform: transform.interpolate(t => `${t} rotateY(180deg)`) }}>
-            <Map center={{ lat: lat, lng: lng }} name={name} zoom={15} />
             <button class="p-8 bg-blue-600" onClick={() => set(state => !state)}><i class="fa fa-info"></i></button>
           </animated.div>
         </div>
