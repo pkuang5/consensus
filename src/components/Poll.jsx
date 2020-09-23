@@ -28,10 +28,13 @@ function Poll(props) {
 
     if (data.length == 0) return <Loader loading={true} />
     else return (
-        <div>
+        <React.Fragment>
             <Progress completed={progressPercentage} />
-            <Deck groupCode={props.groupCode} data={data} setProgressPercentage={(percent) => setProgressPercentage(percent)}/>
-        </div>
+            <div class="flex flex-col items-center">
+                <p class="text-4xl absolute text-center mt-5">consensus</p>
+                <Deck groupCode={props.groupCode} data={data} setProgressPercentage={(percent) => setProgressPercentage(percent)}/>
+            </div>
+        </React.Fragment>
     )
 
 }
