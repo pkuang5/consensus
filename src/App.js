@@ -24,6 +24,9 @@ function App() {
           )}
         />
       </Switch>
+      <Switch>
+        <Route path="/" exact strict component={() => <Question />} />
+      </Switch>
     </Router>
   );
 }
