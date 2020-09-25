@@ -8,56 +8,18 @@ import Question from "./components/question";
 import Poll from "./components/Poll";
 import Loader from "./components/loader"
 import Progress from 'react-progressbar'
-import Title from "./components/Title"
+import Title from "./components/Title";
+import Container from "./components/Container";
 //import Questionnaire from "./components/questionnaire";
 
 import './styles/Spring.css'
 
 
-// const pages = [
-//   ({ style }) => <animated.div style={{ ...style, background: 'lightpink' }}>A</animated.div>,
-//   ({ style }) => <animated.div style={{ ...style, background: 'lightblue' }}>B</animated.div>,
-//   ({ style }) => <animated.div style={{ ...style, background: 'lightgreen' }}>C</animated.div>,
-// ]
-
-// export default function App() {
-//   const [index, set] = useState(0)
-//   const onClick = useCallback(() => set(state => (state + 1) % 3), [])
-//   const transitions = useTransition(index, p => p, {
-//     from: { opacity: 0, transform: 'translate3d(100%,0,0)' },
-//     enter: { opacity: 1, transform: 'translate3d(0%,0,0)' },
-//     leave: { opacity: 0, transform: 'translate3d(-50%,0,0)' },
-//   })
-//   return (
-//     <div className="simple-trans-main">
-//       {transitions.map(({ item, props, key }) => {
-//         const Page = pages[item]
-//         return <Page key={key} style={props} />
-//       })}
-//     </div>
-//   )
-// }
-
-// render(<App />, document.getElementById('root'))
-
 function App() {
-//   const [index, set] = useState(0)
-//   const onClick = useCallback(() => set(state => (state + 1) % 3), [])
-//   const transitions = useTransition(index, p => p, {
-//     from: { opacity: 0, transform: 'translate3d(100%,0,0)' },
-//     enter: { opacity: 1, transform: 'translate3d(0%,0,0)' },
-//     leave: { opacity: 0, transform: 'translate3d(-50%,0,0)' },
-//   })
-//   return (
-//     <div className="simple-trans-main" onClick={onClick}>
-//       {transitions.map(({ item, props, key }) => {
-//         const Page = pages[item]
-//         return <Page key={key} style={props} />
-//       })}
-//     </div>
-//   )
 return (
-  <Title/>
+  <Router>
+    <Container />
+  </Router>
 );
 //   return (
 //     <Router>
