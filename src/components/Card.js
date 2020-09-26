@@ -9,7 +9,7 @@ import 'font-awesome/css/font-awesome.min.css'
 function Card({ i, x, y, rot, scale, trans, bind, data }) {
   const { coordinates, name, photos } = data[i];
   const [flipped, set] = useState(false)
-  const { transform, opacity} = useSpring({
+  const { transform, opacity } = useSpring({
     opacity: flipped ? 1 : 0,
     transform: `perspective(600px) rotateY(${flipped ? 180 : 0}deg)`,
     config: { mass: 5, tension: 500, friction: 80 }
@@ -32,9 +32,9 @@ function Card({ i, x, y, rot, scale, trans, bind, data }) {
         style={{
           transform: interpolate([rot, scale], trans)
         }}
+        className="frontface" id="front" style={{ opacity: opacity.interpolate(o => 1 - o), transform, zIndex: flipped ? -1 : 1 }}
       >
-        <div className="card" >
-          <animated.div className="frontface" id="front" style={{ opacity: opacity.interpolate(o => 1 - o), transform, zIndex: flipped ? -1 : 1 }}>
+          <div className="card" >
             <Carousel>
               {photos.map((pic, index) => (
                 <img src={pic} key={index} alt="profilePicture" />
@@ -42,12 +42,19 @@ function Card({ i, x, y, rot, scale, trans, bind, data }) {
             </Carousel>
             <p class="text-center text-xl">{name}</p>
             <button class="p-8 bg-blue-600" onClick={() => set(state => !state)}><i class="fa fa-info"></i></button>
-          </animated.div>
-          <animated.div className="backface" id="back" style={{ opacity, transform: transform.interpolate(t => `${t} rotateY(180deg)`), zIndex: flipped ? 1 : -1 } }>
+          </div>
+      </animated.div>
+      <animated.div
+        {...bind(i)}
+        style={{
+          transform: interpolate([rot, scale], trans)
+        }}
+        className="backface" id="back" style={{ opacity, transform: transform.interpolate(t => `${t} rotateY(180deg)`), zIndex: flipped ? 1 : -1 }}
+      >
+          <div className="card" >
             <Map center={{ lat: coordinates.latitude, lng: coordinates.longitude }} name={name} zoom={15} />
             <button class="p-8 bg-blue-600" onClick={() => set(state => !state)}><i class="fa fa-info"></i></button>
-          </animated.div>
-        </div>
+          </div>
       </animated.div>
     </animated.div>
   );
