@@ -32,6 +32,8 @@ function Card({ i, x, y, rot, scale, trans, bind, data }) {
         style={{
           transform: interpolate([rot, scale], trans)
         }}
+        >
+        <animated.div
         className="frontface" id="front" style={{ opacity: opacity.interpolate(o => 1 - o), transform, zIndex: flipped ? -1 : 1 }}
       >
           <div className="card" >
@@ -43,18 +45,24 @@ function Card({ i, x, y, rot, scale, trans, bind, data }) {
             <p class="text-center text-xl">{name}</p>
             <button class="p-8 bg-blue-600" onClick={() => set(state => !state)}><i class="fa fa-info"></i></button>
           </div>
-      </animated.div>
-      <animated.div
+          </animated.div>
+        </animated.div>
+        <animated.div
         {...bind(i)}
         style={{
+          position: "absolute",
+          zIndex: flipped ? 1:-1,
           transform: interpolate([rot, scale], trans)
         }}
+        >
+          <animated.div
         className="backface" id="back" style={{ opacity, transform: transform.interpolate(t => `${t} rotateY(180deg)`), zIndex: flipped ? 1 : -1 }}
-      >
+        >
           <div className="card" >
             <Map center={{ lat: coordinates.latitude, lng: coordinates.longitude }} name={name} zoom={15} />
             <button class="p-8 bg-blue-600" onClick={() => set(state => !state)}><i class="fa fa-info"></i></button>
           </div>
+      </animated.div>
       </animated.div>
     </animated.div>
   );

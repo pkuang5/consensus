@@ -37,7 +37,7 @@ body {
 }
 
 .deck > div > div {
-  background-color: white;
+  /* background-color: white; */
   background-size: auto 85%;
   background-repeat: no-repeat;
   background-position: center center;
@@ -46,8 +46,8 @@ body {
   height: 600px;
   max-height: 620px;
   will-change: transform;
-  border-radius: 30px;
-  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05);
+  /* border-radius: 30px;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05); */
 }
 
 img {
@@ -87,7 +87,10 @@ h5:last-of-type {
 }
 
 .card {
-  height: 500px !important;
+  height: 600px !important;
+  border-radius: 30px;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05);
+  background-color: white;
 }
 
 .slider-control-bottomcenter {
@@ -100,7 +103,6 @@ h5:last-of-type {
 
 .frontface {
   position: absolute;
-  z-index: 1;
   max-width: 350px;
   max-height: 600px;
   width: 50ch;
@@ -111,7 +113,6 @@ h5:last-of-type {
 
  .backface {
   position: absolute;
-  z-index: 0;
   max-width: 350px;
   max-height: 290px;
   width: 50ch;
