@@ -28,7 +28,7 @@ function Card({ i, x, y, rot, scale, trans, bind, data }) {
       }}
     >
       <animated.div
-        {...bind(i)}
+        // {...bind(i)}
         style={{
           transform: interpolate([rot, scale], trans)
         }}
@@ -42,13 +42,14 @@ function Card({ i, x, y, rot, scale, trans, bind, data }) {
                 <img src={pic} key={index} alt="profilePicture" />
               ))}
             </Carousel>
-            <p class="text-center text-xl">{name}</p>
-            <button class="p-8 bg-blue-600" onClick={() => set(state => !state)}><i class="fa fa-info"></i></button>
+            <div className="bottomCard" onClick={() => set(state => !state)} {...bind(i)}>
+              <p class="text-center text-xl">{name}</p>
+              {/* <button class="p-8 bg-blue-600" onClick={() => set(state => !state)}><i class="fa fa-info"></i></button> */}
+            </div>
           </div>
           </animated.div>
         </animated.div>
         <animated.div
-        {...bind(i)}
         style={{
           position: "absolute",
           zIndex: flipped ? 1:-1,
@@ -60,7 +61,9 @@ function Card({ i, x, y, rot, scale, trans, bind, data }) {
         >
           <div className="card" >
             <Map center={{ lat: coordinates.latitude, lng: coordinates.longitude }} name={name} zoom={15} />
-            <button class="p-8 bg-blue-600" onClick={() => set(state => !state)}><i class="fa fa-info"></i></button>
+            <div className="bottomCard" onClick={() => set(state => !state)} {...bind(i)}>
+              {/* <button class="p-8 bg-blue-600" onClick={() => set(state => !state)}><i class="fa fa-info"></i></button> */}
+            </div>
           </div>
       </animated.div>
       </animated.div>

@@ -46,14 +46,10 @@ body {
   height: 600px;
   max-height: 620px;
   will-change: transform;
-  /* border-radius: 30px;
-  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05); */
 }
 
 img {
   height: 380px;
-  border-top-left-radius: 30px;
-  border-top-right-radius: 30px;
 }
 
 button[aria-label="previous"],
@@ -86,11 +82,17 @@ h5:last-of-type {
   display:table;
 }
 
+.bottomCard {
+  height: 220px;
+  width: 100%;
+}
+
 .card {
   height: 600px !important;
   border-radius: 30px;
   box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05);
   background-color: white;
+  overflow: hidden;
 }
 
 .slider-control-bottomcenter {
