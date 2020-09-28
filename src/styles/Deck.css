@@ -130,6 +130,21 @@ map {
   border-top-right-radius: 30px;
 } */
 
+.infoTag {
+  border-color: #FB686B;
+  background-color: rgba(251, 104, 107, 0.35);
+  border-radius: 9999px;
+  border-width: 2px;
+  width: 6rem;
+  height: 1.8rem;
+}
 
-
+.infoTagWhite {
+  border-color: #FB686B;
+  background-color: white;
+  border-radius: 9999px;
+  border-width: 2px;
+  width: 6rem;
+  height: 1.8rem;
+}
 
