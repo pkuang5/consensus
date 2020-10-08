@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
 * {
   box-sizing: border-box;
 }
@@ -10,7 +12,7 @@ body {
   height: 100%;
   width: 100%;
   user-select: none;
-  font-family: Raleway, sans-serif;
+  font-family: 'Montserrat', sans-serif;
   position: fixed;
   overflow: hidden;
   background: #FFF09C;
@@ -49,7 +51,7 @@ body {
 }
 
 img {
-  height: 380px;
+  height: 420px;
 }
 
 button[aria-label="previous"],
@@ -77,14 +79,18 @@ h5:last-of-type {
   color: darkgray;
 }
 
-.card > div {
-  height: 380px !important;
+.topCard {
+  height: 420px !important;
   display:table;
 }
 
 .bottomCard {
-  height: 220px;
+  height: 180px;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0.75rem;
 }
 
 .card {
@@ -130,6 +136,18 @@ map {
   border-top-right-radius: 30px;
 } */
 
+.infoTagSmall {
+  border-color: #FB686B;
+  background-color: rgba(251, 104, 107, 0.35);
+  border-radius: 9999px;
+  border-width: 2px;
+  width: 4rem;
+  height: 1.8rem;
+  border-bottom-width: 4px;
+  border-color: #e53e3e;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
 .infoTag {
   border-color: #FB686B;
   background-color: rgba(251, 104, 107, 0.35);
@@ -137,6 +155,9 @@ map {
   border-width: 2px;
   width: 6rem;
   height: 1.8rem;
+  border-bottom-width: 4px;
+  border-color: #e53e3e;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 .infoTagWhite {
@@ -146,5 +167,8 @@ map {
   border-width: 2px;
   width: 6rem;
   height: 1.8rem;
+  border-bottom-width: 4px;
+  border-color: #e53e3e;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
