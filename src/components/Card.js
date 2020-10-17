@@ -5,22 +5,15 @@ import Carousel from "nuka-carousel";
 import yelpREST from "../api/yelp";
 import Map from './Map'
 import 'font-awesome/css/font-awesome.min.css'
-import StarRatings from 'react-star-ratings'
 
 function Card({ i, x, y, rot, scale, trans, bind, data }) {
-  const { coordinates, name, photos } = data[i];
+  const { coordinates, name, photos, categories } = data[i];
   const [flipped, set] = useState(false)
   const { transform, opacity } = useSpring({
     opacity: flipped ? 1 : 0,
     transform: `perspective(600px) rotateY(${flipped ? 180 : 0}deg)`,
     config: { mass: 5, tension: 500, friction: 80 }
   })
-
-  // async function focusBack(id) {
-  //   //getElementById('back').style.zIndex = 1;
-  //   id.style.zIndex = -1;
-  // }
-
   return (
     <animated.div
       key={i}
@@ -62,23 +55,26 @@ function Card({ i, x, y, rot, scale, trans, bind, data }) {
                   <svg class="mr-1" width="25" height="25" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M19.2948 7.26876L13.344 6.40391L10.6839 1.01095C10.6112 0.86329 10.4917 0.743759 10.344 0.671102C9.97371 0.48829 9.52371 0.640634 9.33856 1.01095L6.6784 6.40391L0.72762 7.26876C0.563557 7.2922 0.413557 7.36954 0.298713 7.48673C0.159874 7.62943 0.0833666 7.82141 0.0860035 8.0205C0.0886403 8.21958 0.170205 8.40947 0.312776 8.54845L4.61824 12.7461L3.60106 18.6734C3.5772 18.8113 3.59246 18.9531 3.6451 19.0828C3.69774 19.2124 3.78565 19.3248 3.89887 19.407C4.01209 19.4892 4.14609 19.5381 4.28567 19.548C4.42524 19.558 4.56482 19.5286 4.68856 19.4633L10.0112 16.6649L15.3339 19.4633C15.4792 19.5406 15.6479 19.5664 15.8097 19.5383C16.2175 19.468 16.4917 19.0813 16.4214 18.6734L15.4042 12.7461L19.7097 8.54845C19.8268 8.4336 19.9042 8.2836 19.9276 8.11954C19.9909 7.70938 19.705 7.3297 19.2948 7.26876ZM13.5925 12.1555L14.4386 17.0844L10.0112 14.7594L5.58387 17.0867L6.42996 12.1578L2.84871 8.66563L7.79871 7.9461L10.0112 3.46251L12.2237 7.9461L17.1737 8.66563L13.5925 12.1555Z" fill="#FB686B" />
                   </svg>
-                  <svg class="mr-1" width="25" height="25" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M19.2948 7.26876L13.344 6.40391L10.6839 1.01095C10.6112 0.86329 10.4917 0.743759 10.344 0.671102C9.97371 0.48829 9.52371 0.640634 9.33856 1.01095L6.6784 6.40391L0.72762 7.26876C0.563557 7.2922 0.413557 7.36954 0.298713 7.48673C0.159874 7.62943 0.0833666 7.82141 0.0860035 8.0205C0.0886403 8.21958 0.170205 8.40947 0.312776 8.54845L4.61824 12.7461L3.60106 18.6734C3.5772 18.8113 3.59246 18.9531 3.6451 19.0828C3.69774 19.2124 3.78565 19.3248 3.89887 19.407C4.01209 19.4892 4.14609 19.5381 4.28567 19.548C4.42524 19.558 4.56482 19.5286 4.68856 19.4633L10.0112 16.6649L15.3339 19.4633C15.4792 19.5406 15.6479 19.5664 15.8097 19.5383C16.2175 19.468 16.4917 19.0813 16.4214 18.6734L15.4042 12.7461L19.7097 8.54845C19.8268 8.4336 19.9042 8.2836 19.9276 8.11954C19.9909 7.70938 19.705 7.3297 19.2948 7.26876ZM13.5925 12.1555L14.4386 17.0844L10.0112 14.7594L5.58387 17.0867L6.42996 12.1578L2.84871 8.66563L7.79871 7.9461L10.0112 3.46251L12.2237 7.9461L17.1737 8.66563L13.5925 12.1555Z" fill="#FB686B" />
+                  <svg width="25" height="25" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10.0111 3.46255L7.79863 7.94615L2.84863 8.66568L6.42988 12.1579L5.58379 17.0868L10.0111 14.7594L14.4385 17.0844L13.5924 12.1555L17.1736 8.66568L12.2236 7.94615L10.0111 3.46255Z" fill="#FB686B" fill-opacity="0.35" />
+                    <path d="M19.2948 7.26876L13.344 6.40391L10.6839 1.01095C10.6112 0.86329 10.4917 0.743759 10.344 0.671102C9.97371 0.48829 9.52371 0.640634 9.33856 1.01095L6.6784 6.40391L0.72762 7.26876C0.563557 7.2922 0.413557 7.36954 0.298713 7.48673C0.159874 7.62943 0.0833666 7.82141 0.0860035 8.0205C0.0886403 8.21958 0.170205 8.40947 0.312776 8.54845L4.61824 12.7461L3.60106 18.6734C3.5772 18.8113 3.59246 18.9531 3.6451 19.0828C3.69774 19.2124 3.78565 19.3248 3.89887 19.407C4.01209 19.4892 4.14609 19.5381 4.28567 19.548C4.42524 19.558 4.56482 19.5286 4.68856 19.4633L10.0112 16.6649L15.3339 19.4633C15.4792 19.5406 15.6479 19.5664 15.8097 19.5383C16.2175 19.468 16.4917 19.0813 16.4214 18.6734L15.4042 12.7461L19.7097 8.54845C19.8268 8.4336 19.9042 8.2836 19.9276 8.11954C19.9909 7.70938 19.705 7.3297 19.2948 7.26876V7.26876ZM13.5925 12.1555L14.4386 17.0844L10.0112 14.7594L5.58387 17.0867L6.42996 12.1578L2.84871 8.66563L7.79871 7.9461L10.0112 3.46251L12.2237 7.9461L17.1737 8.66563L13.5925 12.1555V12.1555Z" fill="#FB686B" />
                   </svg>
-                  <svg class="mr-1" width="25" height="25" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M19.2948 7.26876L13.344 6.40391L10.6839 1.01095C10.6112 0.86329 10.4917 0.743759 10.344 0.671102C9.97371 0.48829 9.52371 0.640634 9.33856 1.01095L6.6784 6.40391L0.72762 7.26876C0.563557 7.2922 0.413557 7.36954 0.298713 7.48673C0.159874 7.62943 0.0833666 7.82141 0.0860035 8.0205C0.0886403 8.21958 0.170205 8.40947 0.312776 8.54845L4.61824 12.7461L3.60106 18.6734C3.5772 18.8113 3.59246 18.9531 3.6451 19.0828C3.69774 19.2124 3.78565 19.3248 3.89887 19.407C4.01209 19.4892 4.14609 19.5381 4.28567 19.548C4.42524 19.558 4.56482 19.5286 4.68856 19.4633L10.0112 16.6649L15.3339 19.4633C15.4792 19.5406 15.6479 19.5664 15.8097 19.5383C16.2175 19.468 16.4917 19.0813 16.4214 18.6734L15.4042 12.7461L19.7097 8.54845C19.8268 8.4336 19.9042 8.2836 19.9276 8.11954C19.9909 7.70938 19.705 7.3297 19.2948 7.26876ZM13.5925 12.1555L14.4386 17.0844L10.0112 14.7594L5.58387 17.0867L6.42996 12.1578L2.84871 8.66563L7.79871 7.9461L10.0112 3.46251L12.2237 7.9461L17.1737 8.66563L13.5925 12.1555Z" fill="#FB686B" />
+                  <svg width="25" height="25" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10.0111 3.46255L7.79863 7.94615L2.84863 8.66568L6.42988 12.1579L5.58379 17.0868L10.0111 14.7594L14.4385 17.0844L13.5924 12.1555L17.1736 8.66568L12.2236 7.94615L10.0111 3.46255Z" fill="#FB686B" fill-opacity="0.35" />
+                    <path d="M19.2948 7.26876L13.344 6.40391L10.6839 1.01095C10.6112 0.86329 10.4917 0.743759 10.344 0.671102C9.97371 0.48829 9.52371 0.640634 9.33856 1.01095L6.6784 6.40391L0.72762 7.26876C0.563557 7.2922 0.413557 7.36954 0.298713 7.48673C0.159874 7.62943 0.0833666 7.82141 0.0860035 8.0205C0.0886403 8.21958 0.170205 8.40947 0.312776 8.54845L4.61824 12.7461L3.60106 18.6734C3.5772 18.8113 3.59246 18.9531 3.6451 19.0828C3.69774 19.2124 3.78565 19.3248 3.89887 19.407C4.01209 19.4892 4.14609 19.5381 4.28567 19.548C4.42524 19.558 4.56482 19.5286 4.68856 19.4633L10.0112 16.6649L15.3339 19.4633C15.4792 19.5406 15.6479 19.5664 15.8097 19.5383C16.2175 19.468 16.4917 19.0813 16.4214 18.6734L15.4042 12.7461L19.7097 8.54845C19.8268 8.4336 19.9042 8.2836 19.9276 8.11954C19.9909 7.70938 19.705 7.3297 19.2948 7.26876V7.26876ZM13.5925 12.1555L14.4386 17.0844L10.0112 14.7594L5.58387 17.0867L6.42996 12.1578L2.84871 8.66563L7.79871 7.9461L10.0112 3.46251L12.2237 7.9461L17.1737 8.66563L13.5925 12.1555V12.1555Z" fill="#FB686B" />
                   </svg>
+
                 </div>
               </div>
               <div class="flex justify-between text-xs">
                 <button className="infoTag" >
-                  🍟 Fast Food
+                  {categories[0] ? categories[0].title : ""}
                 </button>
                 <button className="infoTag" >
-                  🍔 Burgers
+                  {categories[1] ? categories[1].title : ""}
                 </button>
                 <button className="infoTag" >
-                  🇺🇸 American
+                  {categories[2] ? categories[2].title : ""}
                 </button>
               </div>
               <div class="flex justify-between text-xs">
@@ -121,7 +117,32 @@ function Card({ i, x, y, rot, scale, trans, bind, data }) {
         >
           <div className="card" >
             <Map center={{ lat: coordinates.latitude, lng: coordinates.longitude }} name={name} zoom={15} />
-            <div className="bottomCard" onClick={() => set(state => !state)} {...bind(i)}>
+            <div className="backBottomCard" onClick={() => set(state => !state)} {...bind(i)}>
+              <p class="text-center text-xl font-bold p-2 border-b" >{name}</p>
+              <div class="flex text-xs justify-between items-center p-3 border-b">
+                <p>9 minutes away<br></br>14160 Culver Dr. Irvine, CA 92604</p>
+                <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+                  <rect width="23" height="23" fill="url(#pattern0)" />
+                  <defs>
+                    <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
+                      <use xlinkHref="#image0" transform="scale(0.0333333)" />
+                    </pattern>
+                    <image id="image0" width="30" height="30" xlinkHref="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABmJLR0QA/wD/AP+gvaeTAAAB70lEQVRIie3Vz4tNURwA8M/4LWSEhVBqkMUoW40sWFgo2fhRdiNZsGchNsZGqVFK2SlsbeQfsLRQ02xoWJgGsxKDseBa3O9rzkz33HvfGzaTb51e9/s99/t597xz7mOJxBAe4R1mMYknOPSvwOUYxW8UmXEPK/42fCea/8Rt7McaDOA6vid4No4rlyj3zXPjBw5neh5M8KEc/L4HtMCNuqeJeoHHuQlpswmcQT+24ATGM/BA0uMWZjCS5HbHvMkmeAJbsQxHA12LBxl4ZdLja+S+JLnVkZttgk8H+jzJfc6gBXYmPUYCv5nkdsW8t01wfzxp5/o8TsW4UAEP5xpGXIx5T5vgdcod3rneg03KJd1YAb9SrlBV9GEs5p1rgo8pz+JYkvuIzcpj08lNR77A2UzPk1GfUu6TWvhlwBtwCVeVv2MfniXooLllfKPcRGmswuuoX86hKVzgBQ4kte14GLVPgYo5ndfltQX9rkR+3PydXwunSzyJXxXoYFx35n7DjqhtM3e0jtShOTgdKVoFF7gftbtJrjHaooM1Tz2D9eaf+57hquWtW/LhBff3BE8r/+pgHz7U1KYyPbqG69Bu8K7gNmhbvDXcDdoGbwX3gjbhjbEYtA5vjL3xWfVi6GakR63TsxW+GDTFW6P/Y2nFHwS1YSFMqYd6AAAAAElFTkSuQmCC" />
+                  </defs>
+                </svg>
+              </div>
+              <div class="flex text-xs justify-between items-center p-3 border-b">
+                <p>(925) 999-5016</p>
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M3.62 7.79C5.06 10.62 7.38 12.93 10.21 14.38L12.41 12.18C12.68 11.91 13.08 11.82 13.43 11.94C14.55 12.31 15.76 12.51 17 12.51C17.55 12.51 18 12.96 18 13.51V17C18 17.55 17.55 18 17 18C7.61 18 0 10.39 0 1C0 0.45 0.45 0 1 0H4.5C5.05 0 5.5 0.45 5.5 1C5.5 2.25 5.7 3.45 6.07 4.57C6.18 4.92 6.1 5.31 5.82 5.59L3.62 7.79Z" fill="black" />
+                </svg>
+              </div>
+              <div class="flex text-xs justify-between items-center p-3 border-b">
+                <p>restaurant.com</p>
+                <svg width="20" height="10" viewBox="0 0 20 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1.9 5C1.9 3.29 3.29 1.9 5 1.9H9V0H5C2.24 0 0 2.24 0 5C0 7.76 2.24 10 5 10H9V8.1H5C3.29 8.1 1.9 6.71 1.9 5ZM6 6H14V4H6V6ZM15 0H11V1.9H15C16.71 1.9 18.1 3.29 18.1 5C18.1 6.71 16.71 8.1 15 8.1H11V10H15C17.76 10 20 7.76 20 5C20 2.24 17.76 0 15 0Z" fill="black" />
+                </svg>
+              </div>
             </div>
           </div>
         </animated.div>

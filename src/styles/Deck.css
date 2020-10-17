@@ -93,6 +93,15 @@ h5:last-of-type {
   padding: 0.75rem;
 }
 
+.backBottomCard {
+  height: 370px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+  padding: 0.75rem;
+}
+
 .card {
   height: 600px !important;
   border-radius: 30px;
@@ -143,9 +152,9 @@ map {
   border-width: 2px;
   width: 4rem;
   height: 1.8rem;
-  border-bottom-width: 4px;
+  /* border-bottom-width: 4px; */
   border-color: #e53e3e;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  /* box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); */
 }
 
 .infoTag {
@@ -155,9 +164,9 @@ map {
   border-width: 2px;
   width: 6rem;
   height: 1.8rem;
-  border-bottom-width: 4px;
+  /* border-bottom-width: 4px; */
   border-color: #e53e3e;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  /* box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); */
 }
 
 .infoTagWhite {
@@ -167,8 +176,8 @@ map {
   border-width: 2px;
   width: 6rem;
   height: 1.8rem;
-  border-bottom-width: 4px;
+  /* border-bottom-width: 4px; */
   border-color: #e53e3e;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  /* box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); */
 }
 
