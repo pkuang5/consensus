@@ -1,21 +1,10 @@
 import React, { useState, useEffect } from "react";
 import GoogleMapReact from 'google-map-react';
 import '../styles/Map.css'
+import markerSVG from '../svg/location-pin.svg'
 
-const AnyReactComponent = ({ text }) => (
-    <div style={{
-        color: 'white',
-        background: 'grey',
-        padding: '15px 10px',
-        display: 'inline-flex',
-        textAlign: 'center',
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderRadius: '100%',
-        transform: 'translate(-50%, -50%)'
-    }}>
-        {text}
-    </div>
+const Marker = ({ text }) => (
+    <img class="h-6" src={markerSVG} />
 );
 
 
@@ -23,10 +12,11 @@ function Map(props) {
     return (
         <div className='mapwrapper'>
             <GoogleMapReact
+                bootstrapURLKeys={{ key: 'AIzaSyB0S8cwyEpLjdvvpgecFTvdYJgpLBo1Uvs' }}
                 defaultCenter={props.center}
                 defaultZoom={props.zoom}
             >
-                <AnyReactComponent
+                <Marker
                     lat={props.center.lat}
                     lng={props.center.lng}
                     text={props.name}
