@@ -92,7 +92,7 @@ function Card({ i, x, y, rot, scale, trans, bind, data }) {
           className="frontface" id="front" style={{ opacity: opacity.interpolate(o => 1 - o), transform, zIndex: flipped ? -1 : 1 }}
         >
           <div className="card" >
-            <div class="overflow-auto topCard">
+            <div class="topCard">
               {photos.map((pic, index) => (
                 <img src={pic} key={index} alt="profilePicture" />
               ))}
@@ -154,8 +154,11 @@ function Card({ i, x, y, rot, scale, trans, bind, data }) {
             <div className="backBottomCard" onClick={() => set(state => !state)} {...bind(i)}>
               <p class="text-center text-xl font-bold p-2 border-b" >{name}</p>
               <div class="flex text-xs justify-between items-center p-3 border-b">
-                <p>X minutes away<br>
-                </br>{`${location.display_address[0]} ${location.display_address[1]} ${location.display_address[2]}`}</p>
+                <p>X minutes away<br></br>
+                {location.display_address.map(str => str + ' ')}
+                
+                {/* `${location.display_address[0]} ${location.display_address[1]} ${location.display_address[2]}`} */}
+                </p>
                 <svg class="cursor-pointer" onClick={() => {goToGoogleMaps(coordinates.latitude, coordinates.longitude); console.log("clicked")}} width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
                   <rect width="23" height="23" fill="url(#pattern0)" />
                   <defs>
