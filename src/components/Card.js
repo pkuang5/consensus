@@ -8,7 +8,7 @@ import 'font-awesome/css/font-awesome.min.css'
 import { disposeEmitNodes } from "typescript";
 
 function Card({ i, x, y, rot, scale, trans, bind, data }) {
-  const { coordinates, name, photos, categories, price, rating, transactions, location, display_phone, url, hours } = data[i];
+  const { coordinates, name, photos, categories, price, rating, transactions, location, display_phone, url, hours, phone } = data[i];
   const [flipped, set] = useState(false)
   const { transform, opacity } = useSpring({
     opacity: flipped ? 1 : 0,
@@ -92,11 +92,11 @@ function Card({ i, x, y, rot, scale, trans, bind, data }) {
           className="frontface" id="front" style={{ opacity: opacity.interpolate(o => 1 - o), transform, zIndex: flipped ? -1 : 1 }}
         >
           <div className="card" >
-            <Carousel className="topCard">
+            <div class="overflow-auto topCard">
               {photos.map((pic, index) => (
                 <img src={pic} key={index} alt="profilePicture" />
               ))}
-            </Carousel>
+            </div>
             <div className="bottomCard" onClick={() => set(state => !state)} {...bind(i)}>
               <p class="text-center text-xl font-bold" >{name}</p>
               <div class="flex justify-between text-xs">
@@ -156,7 +156,7 @@ function Card({ i, x, y, rot, scale, trans, bind, data }) {
               <div class="flex text-xs justify-between items-center p-3 border-b">
                 <p>X minutes away<br>
                 </br>{`${location.display_address[0]} ${location.display_address[1]} ${location.display_address[2]}`}</p>
-                <svg onClick={() => {goToGoogleMaps(coordinates.latitude, coordinates.longitude); console.log("clicked")}} width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+                <svg class="cursor-pointer" onClick={() => {goToGoogleMaps(coordinates.latitude, coordinates.longitude); console.log("clicked")}} width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
                   <rect width="23" height="23" fill="url(#pattern0)" />
                   <defs>
                     <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
@@ -168,9 +168,11 @@ function Card({ i, x, y, rot, scale, trans, bind, data }) {
               </div>
               <div class="flex text-xs justify-between items-center p-3 border-b">
                 <p>{display_phone}</p>
+                <a href={`tel:${phone}`}>
                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M3.62 7.79C5.06 10.62 7.38 12.93 10.21 14.38L12.41 12.18C12.68 11.91 13.08 11.82 13.43 11.94C14.55 12.31 15.76 12.51 17 12.51C17.55 12.51 18 12.96 18 13.51V17C18 17.55 17.55 18 17 18C7.61 18 0 10.39 0 1C0 0.45 0.45 0 1 0H4.5C5.05 0 5.5 0.45 5.5 1C5.5 2.25 5.7 3.45 6.07 4.57C6.18 4.92 6.1 5.31 5.82 5.59L3.62 7.79Z" fill="black" />
                 </svg>
+                </a>
               </div>
               {/* <div class="flex text-xs justify-between items-center p-3 border-b">
                 <p>{url}</p>

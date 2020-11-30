@@ -6,6 +6,10 @@
 
 html,
 body {
+  background: #FC986F;
+}
+
+.poll {
   overscroll-behavior-y: contain;
   margin: 0;
   padding: 0;
@@ -15,7 +19,6 @@ body {
   font-family: 'Montserrat', sans-serif;
   position: fixed;
   overflow: hidden;
-  background: #FFF09C;
 }
 
 .deck {
@@ -23,9 +26,6 @@ body {
   overflow: hidden;
   width: 100%;
   height: 100%;
-  cursor: url("https://uploads.codesandbox.io/uploads/user/b3e56831-8b98-4fee-b941-0e27f39883ab/Ad1_-cursor.png")
-      39 39,
-    auto;
 }
 
 .deck > div {
@@ -50,9 +50,9 @@ body {
   will-change: transform;
 }
 
-img {
+/* img {
   height: 420px;
-}
+} */
 
 button[aria-label="previous"],
 button[aria-label="next"] {
@@ -81,7 +81,7 @@ h5:last-of-type {
 
 .topCard {
   height: 420px !important;
-  display:table;
+  /* display:table; */
 }
 
 .bottomCard {
@@ -134,7 +134,6 @@ h5:last-of-type {
   max-height: 290px;
   width: 50ch;
   height: 50ch;
-  cursor: pointer;
   will-change: transform, opacity, zIndex;
 } 
 /* 
