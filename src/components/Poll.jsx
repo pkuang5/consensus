@@ -31,6 +31,18 @@ function Poll(props) {
         </React.Fragment>
     )
 
+  if (data.length == 0) return <Loader loading={true} />;
+  else
+    return (
+      <div>
+        <Progress completed={progressPercentage} />
+        <Deck
+          groupCode={props.groupCode}
+          data={data}
+          setProgressPercentage={(percent) => setProgressPercentage(percent)}
+        />
+      </div>
+    );
 }
 
-export default Poll
+export default Poll;

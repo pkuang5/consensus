@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from "react";
 import yelpREST from "../api/yelp";
-import database from '../firebase'
-import Loader from "./loader"
-import { useHistory } from 'react-router-dom'
+import database from "../firebase";
+import Loader from "./loader";
+import { useHistory } from "react-router-dom";
 
 function Search(props) {
+  let history = useHistory();
 
-  let history = useHistory()
-
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   async function populateBusinessesAndSetGroupCode(location, term) {
-    setLoading(true)
+    setLoading(true);
     await yelpREST("/businesses/search", {
       params: {
         location: location,
@@ -20,7 +19,7 @@ function Search(props) {
       },
     }).then(({ data }) => {
       let { businesses } = data;
-      var code = Math.floor(Math.random() * Math.floor(10000))
+      var code = Math.floor(Math.random() * Math.floor(10000));
 
       businesses.reduce(async (memo, b) => {
         await memo
@@ -44,7 +43,7 @@ function Search(props) {
     })
   }
 
-  if (loading) return <Loader loading={true} />
+  if (loading) return <Loader loading={true} />;
 
   return (
     <div>
