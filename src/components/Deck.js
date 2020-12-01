@@ -14,7 +14,7 @@ const to = i => ({
   rot: 0,
   delay: i * 100
 });
-const from = i => ({ rot: 0, scale: 1.5, y: -1000 });
+// const from = i => ({ rot: 0, scale: 1.5, y: -1000 });
 
 const trans = (r, s) =>
   `perspective(1500px) rotateX(0deg) rotateY(${r /
@@ -33,7 +33,7 @@ function Deck(props) {
 
   const [cards, set] = useSprings(props.data.length, i => ({
     ...to(i),
-    from: from(i)
+    // from: from(i)
   }));
 
   const bind = useGesture(
