@@ -3,8 +3,10 @@ import database from '../firebase'
 import Deck from './Deck'
 import Loader from './loader'
 import Progress from 'react-progressbar'
+import { use100vh } from 'react-div-100vh'
 
 function Poll(props) {
+    const height = use100vh()
     const [data, setData] = useState([])
     const [progressPercentage, setProgressPercentage] = useState(0)
 
@@ -18,7 +20,7 @@ function Poll(props) {
         })
     }, [props.groupCode])
 
-    if (data.length == 0) return <div class="flex h-screen items-center justify-between"><Loader loading={true} /></div>
+    if (data.length == 0) return <div style={{height: height}} class="flex items-center justify-between"><Loader loading={true} /></div>
     else return (
         <React.Fragment>
             <div class="flex flex-col items-center poll">

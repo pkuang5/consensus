@@ -5,9 +5,11 @@ import Carousel from "nuka-carousel";
 import yelpREST from "../api/yelp";
 import Map from './Map'
 import 'font-awesome/css/font-awesome.min.css'
-import { disposeEmitNodes } from "typescript";
+import { use100vh } from 'react-div-100vh'
+
 
 function Card({ i, x, y, rot, scale, trans, bind, data }) {
+  const height = use100vh()
   const { coordinates, name, photos, categories, price, rating, transactions, location, display_phone, url, hours, phone } = data[i];
   const [flipped, set] = useState(false)
   const { transform, opacity } = useSpring({
@@ -80,6 +82,7 @@ function Card({ i, x, y, rot, scale, trans, bind, data }) {
     <animated.div
       key={i}
       style={{
+        height: height,
         transform: interpolate([x, y], (x, y) => `translate3d(${x}px,${y}px,0)`)
       }}
     >

@@ -31,7 +31,7 @@ body {
 .deck > div {
   position: absolute;
   width: 100vw;
-  height: 100vh;
+  /* height: 100vh; */
   will-change: transform;
   display: flex;
   align-items: center;
@@ -40,14 +40,16 @@ body {
 
 .deck > div > div {
   width: 350px;
-  height: 70%;
+  height: 78%;
   will-change: transform;
 }
 
 .topCard {
   height: 66% !important;
   overflow-y: scroll;
-  /* display:table; */
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  /* overflow: hidden; */
 }
 
 .bottomCard {
