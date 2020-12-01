@@ -6,11 +6,11 @@ import yelpREST from "../api/yelp";
 import Map from './Map'
 import 'font-awesome/css/font-awesome.min.css'
 import { use100vh } from 'react-div-100vh'
-
+import yelpSVG from '../svg/yelp.svg'
 
 function Card({ i, x, y, rot, scale, trans, bind, data }) {
   const height = use100vh()
-  const { coordinates, name, photos, categories, price, rating, transactions, location, display_phone, url, hours, phone } = data[i];
+  const { coordinates, name, photos, categories, price, rating, transactions, location, display_phone, url, hours, phone, review_count } = data[i];
   const [flipped, set] = useState(false)
   const { transform, opacity } = useSpring({
     opacity: flipped ? 1 : 0,
@@ -78,6 +78,11 @@ function Card({ i, x, y, rot, scale, trans, bind, data }) {
     win.focus();
   }
 
+  function goToYelp() {
+    var win = window.open(url, '_blank');
+    win.focus();
+  }
+
   return (
     <animated.div
       key={i}
@@ -121,7 +126,7 @@ function Card({ i, x, y, rot, scale, trans, bind, data }) {
                   {categories[1] ? categories[1].title : ""}
                 </button>
                 <button className="infoTag" >
-                  {categories[2] ? categories[2].title : ""}
+                  {'reviews: '+review_count}
                 </button>
               </div>
               <div class="flex justify-between text-xs">
@@ -155,14 +160,12 @@ function Card({ i, x, y, rot, scale, trans, bind, data }) {
           <div className="card" >
             <Map center={{ lat: coordinates.latitude, lng: coordinates.longitude }} name={name} zoom={12} />
             <div className="backBottomCard" onClick={() => set(state => !state)} {...bind(i)}>
-              <p class="text-center text-xl font-bold p-2 border-b" >{name}</p>
+              <div class="flex justify-center text-xl font-bold p-2 border-b" >{name}<img onClick={() => goToYelp()} class="h-5 cursor-pointer" src={yelpSVG} /></div>
               <div class="flex text-xs justify-between items-center p-3 border-b">
                 <p>X minutes away<br></br>
                 {location.display_address.map(str => str + ' ')}
-                
-                {/* `${location.display_address[0]} ${location.display_address[1]} ${location.display_address[2]}`} */}
                 </p>
-                <svg class="cursor-pointer" onClick={() => {goToGoogleMaps(coordinates.latitude, coordinates.longitude); console.log("clicked")}} width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+                <svg class="cursor-pointer" onClick={() => goToGoogleMaps(coordinates.latitude, coordinates.longitude)} width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
                   <rect width="23" height="23" fill="url(#pattern0)" />
                   <defs>
                     <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
@@ -180,12 +183,6 @@ function Card({ i, x, y, rot, scale, trans, bind, data }) {
                 </svg>
                 </a>
               </div>
-              {/* <div class="flex text-xs justify-between items-center p-3 border-b">
-                <p>{url}</p>
-                <svg width="20" height="10" viewBox="0 0 20 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M1.9 5C1.9 3.29 3.29 1.9 5 1.9H9V0H5C2.24 0 0 2.24 0 5C0 7.76 2.24 10 5 10H9V8.1H5C3.29 8.1 1.9 6.71 1.9 5ZM6 6H14V4H6V6ZM15 0H11V1.9H15C16.71 1.9 18.1 3.29 18.1 5C18.1 6.71 16.71 8.1 15 8.1H11V10H15C17.76 10 20 7.76 20 5C20 2.24 17.76 0 15 0Z" fill="black" />
-                </svg>
-              </div> */}
               <div class="flex flex-col text-xs justify-between p-3">
                 {displayHours(hours)}
               </div>
