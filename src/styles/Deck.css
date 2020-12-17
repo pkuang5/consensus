@@ -42,17 +42,20 @@ body {
   justify-content: center;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (min-device-width: 600px) {
   .deck > div > div {
-    height: 78%;
+    width: 350px;
+    height: 600px; 
+    will-change: transform;
   }
 }
 
-/* make responsive height */
-.deck > div > div {
-  width: 350px;
-  height: 600px; 
-  will-change: transform;
+@media only screen and (max-device-width: 600px) {
+  .deck > div > div {
+    width: 350px;
+    height: 78%; 
+    will-change: transform;
+  }
 }
 
 .topCard {
