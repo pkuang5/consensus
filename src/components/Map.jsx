@@ -4,7 +4,7 @@ import '../styles/Map.css'
 import markerSVG from '../svg/location-pin.svg'
 
 const Marker = ({ text }) => (
-    <img class="h-6" src={markerSVG} />
+    <img class="h-6" style={{transform: 'translate(-50%, -50%)'}} src={markerSVG} />
 );
 
 

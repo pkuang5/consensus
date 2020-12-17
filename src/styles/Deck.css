@@ -6,7 +6,11 @@
 
 html,
 body {
-  background: #FC986F;
+  background-image: linear-gradient(#FC986F, #FC866E, #FB786C);
+  height: 100%;
+  margin: 0;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 .poll {
@@ -38,9 +42,16 @@ body {
   justify-content: center;
 }
 
+@media only screen and (max-width: 600px) {
+  .deck > div > div {
+    height: 78%;
+  }
+}
+
+/* make responsive height */
 .deck > div > div {
   width: 350px;
-  height: 78%;
+  height: 600px; 
   will-change: transform;
 }
 
