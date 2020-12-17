@@ -11,6 +11,30 @@ body {
   margin: 0;
   background-repeat: no-repeat;
   background-attachment: fixed;
+  font-family: 'Montserrat', sans-serif;
+}
+
+input {
+  color: #FF6600;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  text-align: center; 
+  outline: none;
+}
+
+input::placeholder {
+  color: #FF6600;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  text-align: center; 
+}
+
+input:focus::placeholder {
+  color: transparent;
 }
 
 .poll {
@@ -20,7 +44,6 @@ body {
   height: 100vh;
   width: 100%;
   user-select: none;
-  font-family: 'Montserrat', sans-serif;
   position: fixed;
   overflow: hidden;
 }
