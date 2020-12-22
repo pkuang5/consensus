@@ -4,15 +4,15 @@ import Search from "./components/search";
 //import Progress from './components/progress'
 import Question from "./components/question";
 import Poll from "./components/Poll";
-import Loader from "./components/loader";
-import Progress from "react-progressbar";
+import Landing from "./components/landing";
 //import Questionnaire from "./components/questionnaire";
 
 function App() {
   return (
     <Router>
       <Switch>
-        <Route path="/" exact strict component={() => <Search />} />
+        {/* <Route path="/" exact strict component={() => <Search />} /> */}
+        <Route path="/" exact strict component={() => <Landing />} />
         <Route
           path="/:groupCode"
           exact
@@ -24,9 +24,9 @@ function App() {
           )}
         />
       </Switch>
-      <Switch>
+      {/* <Switch>
         <Route path="/" exact strict component={() => <Question />} />
-      </Switch>
+      </Switch> */}
     </Router>
   );
 }

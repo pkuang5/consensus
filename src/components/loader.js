@@ -6,7 +6,6 @@ import PacmanLoader from "react-spinners/PacmanLoader";
 const override = css`
   display: block;
   margin: 0 auto;
-  border-color: red;
 `;
 
 function Loader(props) {
@@ -14,7 +13,7 @@ function Loader(props) {
         <PacmanLoader
             css={override}
             size={30}
-            color={"#123abc"}
+            color='white'
             loading={props.loading}
         />
     );

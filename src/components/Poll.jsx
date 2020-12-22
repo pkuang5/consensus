@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import database from '../firebase'
 import Deck from './Deck'
 import Loader from './loader'
-import Progress from 'react-progressbar'
+import ProgressBar from '@ramonak/react-progress-bar';
 import { use100vh } from 'react-div-100vh'
 
 function Poll(props) {
@@ -27,22 +27,9 @@ function Poll(props) {
                 <p class="text-4xl absolute text-center mt-5 font-bold">consensus</p>
                 <Deck groupCode={props.groupCode} data={data} setProgressPercentage={(percent) => setProgressPercentage(percent)}/>
             </div>
-            <Progress completed={progressPercentage} />
+            <ProgressBar bgcolor='rgba(255, 255, 255, 0.6)' baseBgColor='rgba(255, 255, 255, 0.3)' labelSize='0px' borderRadius='0px' completed={progressPercentage}/>
         </React.Fragment>
     )
-
-  if (data.length == 0) return <Loader loading={true} />;
-  else
-    return (
-      <div>
-        <Progress completed={progressPercentage} />
-        <Deck
-          groupCode={props.groupCode}
-          data={data}
-          setProgressPercentage={(percent) => setProgressPercentage(percent)}
-        />
-      </div>
-    );
 }
 
 export default Poll;
