@@ -6,24 +6,32 @@ import Question from "./components/question";
 import Poll from "./components/Poll";
 import Loader from "./components/loader"
 import Progress from 'react-progressbar'
+import Container from './components/Container'
 //import Questionnaire from "./components/questionnaire";
-
+import Title from "./components/Title";
+import Results from "./components/Results";
 
 function App() {
-
+  var groupcode = 7650
   return (
+    // <Router>
+    //   <Switch>
+    //     <Route path="/" exact strict component={() =>
+    //       <Search />
+    //     }/>
+    //     <Route path="/:groupCode" exact strict component={({match}) =>
+    //       <div>
+    //         <Poll groupCode={match.params.groupCode} />
+    //       </div>
+    //     }/>
+    //   </Switch>
+    // </Router>
     <Router>
-      <Switch>
-        <Route path="/" exact strict component={() =>
-          <Search />
-        }/>
-        <Route path="/:groupCode" exact strict component={({match}) =>
-          <div>
-            <Poll groupCode={match.params.groupCode} />
-          </div>
-        }/>
-      </Switch>
+      <Container>
+        <Title/>
+      </Container>
     </Router>
+    //<Results groupCode = {groupcode}/>
   );
 }
 
