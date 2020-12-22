@@ -20,22 +20,23 @@ const trans = (r, s) =>
   10}deg) rotateZ(${r}deg) scale(${s})`;
 
 function Deck(props) {
-  const [gone] = useState(() => new Set())
   const [progress, setProgress] = useState(0)
+  const [gone] = useState(() => new Set())
+  const [swiping] = useState(() => new Set())
 
   useEffect(() => {
     setProgress(parseInt(localStorage.getItem('lastCard')))
   }, []);
 
-  function updateVote(groupCode, id, increment) {
+  const updateVote = (groupCode, id, increment) => {
     // var lastCard = localStorage.getItem('lastCard')
     // localStorage.setItem("lastCard",parseInt(lastCard) + 1)
-    console.log('shit is happening')
+    console.log("db update")
     database
-      .ref(`groups/${groupCode}/${id}/vote`)
-      .transaction(function (vote) {
-        if (increment == 1) return (vote || 0) + increment;
-      });
+    .ref(`groups/${groupCode}/${id}/vote`)
+    .transaction(function (vote) {
+      if (increment == 1) return (vote || 0) + increment;
+    });
   }
 
   const [cards, set] = useSprings(props.data.length, i => ({
@@ -56,13 +57,15 @@ function Deck(props) {
 
       const dir = xDir < 0 ? -1 : 1;
 
-      if (!down && trigger) gone.add(index);
+      if (!down && trigger) gone.add(index)
 
 
       set(i => {
         if (index !== i) return;
         const isGone = gone.has(index);
-        if (isGone) {
+        if (!isGone) swiping.add(1)
+        if (isGone && swiping.has(1)) {
+          swiping.delete(1)
           props.setProgressPercentage((props.data.length - index) / props.data.length * 100)
           updateVote(props.groupCode, props.data[index].id, dir)
           // flash background color to indiciate upvote or downvote ??
