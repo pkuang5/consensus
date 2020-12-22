@@ -20,9 +20,17 @@ const trans = (r, s) =>
   10}deg) rotateZ(${r}deg) scale(${s})`;
 
 function Deck(props) {
-  const [gone] = useState(() => new Set());
+  const [gone] = useState(() => new Set())
+  const [progress, setProgress] = useState(0)
+
+  useEffect(() => {
+    setProgress(parseInt(localStorage.getItem('lastCard')))
+  }, []);
 
   function updateVote(groupCode, id, increment) {
+    // var lastCard = localStorage.getItem('lastCard')
+    // localStorage.setItem("lastCard",parseInt(lastCard) + 1)
+    console.log('shit is happening')
     database
       .ref(`groups/${groupCode}/${id}/vote`)
       .transaction(function (vote) {
@@ -73,8 +81,8 @@ function Deck(props) {
         };
       });
 
-      if (!down && gone.size === props.data.length)
-        setTimeout(() => gone.clear() || set(i => to(i)), 600);
+      // if (!down && gone.size === props.data.length)
+      //   setTimeout(() => gone.clear() || set(i => to(i)), 600);
     }
   );
 

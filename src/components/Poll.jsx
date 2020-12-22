@@ -18,6 +18,7 @@ function Poll(props) {
             })
             setData(data.concat(arr))
         })
+        if (!localStorage.getItem('lastCard')) localStorage.setItem('lastCard',0)
     }, [props.groupCode])
 
     if (data.length == 0) return <div style={{height: height}} class="flex items-center justify-between"><Loader loading={true} /></div>
@@ -25,7 +26,7 @@ function Poll(props) {
         <React.Fragment>
             <div class="flex flex-col items-center poll">
                 <p class="text-4xl absolute text-center mt-5 font-bold">consensus</p>
-                <Deck groupCode={props.groupCode} data={data} setProgressPercentage={(percent) => setProgressPercentage(percent)}/>
+                <Deck groupCode={props.groupCode} data={data.slice(0,data.length - parseInt(localStorage.getItem('lastCard')))} setProgressPercentage={(percent) => setProgressPercentage(percent)}/>
             </div>
             <ProgressBar bgcolor='rgba(255, 255, 255, 0.6)' baseBgColor='rgba(255, 255, 255, 0.3)' labelSize='0px' borderRadius='0px' completed={progressPercentage}/>
         </React.Fragment>
