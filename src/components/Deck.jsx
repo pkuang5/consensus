@@ -20,18 +20,12 @@ const trans = (r, s) =>
   10}deg) rotateZ(${r}deg) scale(${s})`;
 
 function Deck(props) {
-  const [progress, setProgress] = useState(0)
   const [gone] = useState(() => new Set())
   const [swiping] = useState(() => new Set())
 
-  useEffect(() => {
-    setProgress(parseInt(localStorage.getItem('lastCard')))
-  }, []);
-
   const updateVote = (groupCode, id, increment) => {
-    // var lastCard = localStorage.getItem('lastCard')
-    // localStorage.setItem("lastCard",parseInt(lastCard) + 1)
-    console.log("db update")
+    var lastCard = localStorage.getItem('lastCard'+props.groupCode)
+    localStorage.setItem("lastCard"+props.groupCode,parseInt(lastCard) + 1)
     database
     .ref(`groups/${groupCode}/${id}/vote`)
     .transaction(function (vote) {
@@ -66,7 +60,7 @@ function Deck(props) {
         if (!isGone) swiping.add(1)
         if (isGone && swiping.has(1)) {
           swiping.delete(1)
-          props.setProgressPercentage((props.data.length - index) / props.data.length * 100)
+          props.setProgressPercentage((props.data.length + props.progress - index) / (props.data.length + props.progress) * 100)
           updateVote(props.groupCode, props.data[index].id, dir)
           // flash background color to indiciate upvote or downvote ??
         }
@@ -84,8 +78,10 @@ function Deck(props) {
         };
       });
 
-      // if (!down && gone.size === props.data.length)
-      //   setTimeout(() => gone.clear() || set(i => to(i)), 600);
+      if (!down && gone.size === props.data.length) {
+        localStorage.removeItem('lastCard'+props.groupCode)
+      }
+        
     }
   );
 
