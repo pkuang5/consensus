@@ -11,7 +11,7 @@ function App() {
   return (
     <Router>
       <Switch>
-        {/* <Route path="/" exact strict component={() => <Search />} /> */}
+        <Route path="/search" exact strict component={() => <Search />} />
         <Route path="/" exact strict component={() => <Landing />} />
         <Route
           path="/:groupCode"

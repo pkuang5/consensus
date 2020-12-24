@@ -79,7 +79,7 @@ function Deck(props) {
       });
 
       if (!down && gone.size === props.data.length) {
-        localStorage.removeItem('lastCard'+props.groupCode)
+        props.setFinished(true)
       }
         
     }
