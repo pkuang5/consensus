@@ -20,14 +20,17 @@ const trans = (r, s) =>
   10}deg) rotateZ(${r}deg) scale(${s})`;
 
 function Deck(props) {
-  const [gone] = useState(() => new Set());
+  const [gone] = useState(() => new Set())
+  const [swiping] = useState(() => new Set())
 
-  function updateVote(groupCode, id, increment) {
+  const updateVote = (groupCode, id, increment) => {
+    var lastCard = localStorage.getItem('lastCard'+props.groupCode)
+    localStorage.setItem("lastCard"+props.groupCode,parseInt(lastCard) + 1)
     database
-      .ref(`groups/${groupCode}/${id}/vote`)
-      .transaction(function (vote) {
-        if (increment == 1) return (vote || 0) + increment;
-      });
+    .ref(`groups/${groupCode}/${id}/vote`)
+    .transaction(function (vote) {
+      if (increment == 1) return (vote || 0) + increment;
+    });
   }
 
   const [cards, set] = useSprings(props.data.length, i => ({
@@ -48,14 +51,16 @@ function Deck(props) {
 
       const dir = xDir < 0 ? -1 : 1;
 
-      if (!down && trigger) gone.add(index);
+      if (!down && trigger) gone.add(index)
 
 
       set(i => {
         if (index !== i) return;
         const isGone = gone.has(index);
-        if (isGone) {
-          props.setProgressPercentage((props.data.length - index) / props.data.length * 100)
+        if (!isGone) swiping.add(1)
+        if (isGone && swiping.has(1)) {
+          swiping.delete(1)
+          props.setProgressPercentage((props.data.length + props.progress - index) / (props.data.length + props.progress) * 100)
           updateVote(props.groupCode, props.data[index].id, dir)
           // flash background color to indiciate upvote or downvote ??
         }
@@ -73,8 +78,10 @@ function Deck(props) {
         };
       });
 
-      if (!down && gone.size === props.data.length)
-        setTimeout(() => gone.clear() || set(i => to(i)), 600);
+      if (!down && gone.size === props.data.length) {
+        localStorage.removeItem('lastCard'+props.groupCode)
+      }
+        
     }
   );
 
