@@ -27,7 +27,7 @@ function Deck(props) {
     var lastCard = localStorage.getItem('lastCard'+props.groupCode)
     localStorage.setItem("lastCard"+props.groupCode,parseInt(lastCard) + 1)
     database
-    .ref(`groups/${groupCode}/${data}/${id}/vote`)
+    .ref(`groups/${groupCode}/data/${id}/vote`)
     .transaction(function (vote) {
       if (increment == 1) return (vote || 0) + increment;
     });
