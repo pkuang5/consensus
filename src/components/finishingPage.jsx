@@ -32,7 +32,7 @@ function FinishingPage(props) {
                     {entered ? 
                     <div style={{color: '#FF6600', fontWeight: '600', fontSize: '1.25rem', lineHeight: '1.75rem'}} class="bg-white h-12 w-4/5 border-4 border-white rounded-full flex items-center justify-center">number entered!</div>
                     : 
-                    <input placeholder='enter phone number' style={{background: 'rgba(255, 255, 255, 0.5)'}} onKeyDown={(e) => saveNumber(e)} class="border-4 border-white h-12 w-4/5 rounded-full text-md"></input>}
+                    <input className="number" placeholder='enter phone number' style={{background: 'rgba(255, 255, 255, 0.5)'}} onKeyDown={(e) => saveNumber(e)} class="border-4 border-white h-12 w-4/5 rounded-full text-md"></input>}
                 </div>
             </div>
         </div>
