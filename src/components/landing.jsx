@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import { use100vh } from 'react-div-100vh'
 
 function Landing(props) {
     let history = useHistory();
+    const height = use100vh()
 
     const handleKeyDown = (event) => {
         if (event.key === 'Enter') {
@@ -11,7 +13,7 @@ function Landing(props) {
       }
 
     return (
-        <div style={{backgroundImage: 'linear-gradient(#FEDD7D, #FDCB74, #FDB872)'}}class="h-screen w-screen grid grid-cols-1 grid-rows-4">
+        <div style={{height: height, backgroundImage: 'linear-gradient(#FEDD7D, #FDCB74, #FDB872)'}}class="w-screen grid grid-cols-1 grid-rows-4">
             <p style={{fontFamily: 'Futura',
                         fontStyle: 'normal',
                         fontWeight: '500',

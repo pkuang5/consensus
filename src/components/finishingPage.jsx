@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import database from "../firebase";
+import { use100vh } from 'react-div-100vh'
 import '../styles/FinishingPage.css'
 
 function FinishingPage(props) {
-
+    const height = use100vh()
     const [entered, setEntered] = useState(false)
 
     useEffect(() => {
@@ -19,8 +20,8 @@ function FinishingPage(props) {
     }
 
     return (
-        <div class="w-screen flex justify-center">
-            <div class="h-screen w-screen sm:w-1/3 flex items-center justify-around flex-col">
+        <div style={{height: height}} class="w-screen flex justify-center">
+            <div class="w-screen sm:w-1/3 flex items-center justify-around flex-col">
                 <p class="text-4xl text-center text-white px-10">Waiting for your group finish swiping</p>
                 <svg id='arrows' class="w-1/2" width="298" height="316" viewBox="0 0 298 316" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M247.547 189.753C241.176 189.642 231.979 193.123 230.138 200.124C230.01 200.711 229.905 201.304 229.759 201.899C219.23 244.842 173.005 270.456 126.546 259.065C96.8912 251.794 74.3364 231.208 64.6229 206.098L76.5065 203.757C78.7112 200.927 79.9994 196.177 79.7511 190.93L40.7649 141.985L13.3372 203.952C14.1538 209.141 16.3527 213.196 19.0264 215.071L33.7069 212.183C46.323 247.892 77.7876 277.42 119.528 287.654C181.383 302.82 242.886 270.074 259.408 214.149C261.521 205.548 258.93 189.972 247.538 189.772" fill="white" fill-opacity="0.97"/>
