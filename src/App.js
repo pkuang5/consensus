@@ -12,7 +12,7 @@ import Title from "./components/Title";
 import Results from "./components/Results";
 
 function App() {
-  var groupcode = 7650
+  var groupcode = 2209
   return (
     // <Router>
     //   <Switch>
@@ -26,12 +26,12 @@ function App() {
     //     }/>
     //   </Switch>
     // </Router>
-    <Router>
-      <Container>
-        <Title/>
-      </Container>
-    </Router>
-    //<Results groupCode = {groupcode}/>
+    // <Router>
+    //   <Container>
+    //     <Title/>
+    //   </Container>
+    // </Router>
+    <Results groupCode = {groupcode} i={3} />
   );
 }
 

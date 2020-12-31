@@ -24,6 +24,7 @@ function Deck(props) {
   const [gone] = useState(() => new Set());
 
   function updateVote(groupCode, id, increment) {
+    console.log("hello")
     database
       .ref(`groups/${groupCode}/${id}/vote`)
       .transaction(function (vote) {
