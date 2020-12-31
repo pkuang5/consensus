@@ -1,14 +1,35 @@
 import React, { useState, useEffect, cloneElement } from "react";
 import database from "../firebase";
-// import {
-//   isConditionalExpression,
-//   isConstTypeReference,
-//   isThisTypeNode,
-// } from "typescript";
+import Button from "./Button";
+import Progress from "react-progressbar";
+
+//Current swipe
+import {
+  CarouselProvider,
+  Slider,
+  Slide,
+  ButtonBack,
+  ButtonNext,
+} from "pure-react-carousel";
+import "pure-react-carousel/dist/react-carousel.es.css";
+import Geolocation from "./Geolocation";
+
+//swipe
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from "react-responsive-carousel";
+
+//button
+import { AwesomeButton } from "react-awesome-button";
+import Mbtn from "m-btn";
+
+//css
+import "../styles/Question.css";
 
 function Question(props) {
+
   const [index, setIndex] = useState(0);
   const [answers, setAnswers] = useState([]);
+  const [progressPercentage, setProgressPercentage] = useState(0);
 
   const questions = [
     { id: 1, question: "How many people are in your group?" },
@@ -92,15 +113,17 @@ function Question(props) {
         document.getElementById("input").value = answers[index + 1];
       }
 
-      database
-        .ref(`answers/q${question.id}`)
-        .set(input)
-        .then(() => {
-          //console.log("Question" + question.id + "was sourced💫");
-        })
-        .catch((error) => {
-          alert(error.message);
-        });
+      // setProgressPercentage(((index+1)*12));
+      setProgressPercentage(progressPercentage+((100/questions.length)+1.16));
+      // database
+      //   .ref(`answers/q${question.id}`)
+      //   .set(input)
+      //   .then(() => {
+      //     //console.log("Question" + question.id + "was sourced💫");
+      //   })
+      //   .catch((error) => {
+      //     alert(error.message);
+      //   });
     }
   };
 
@@ -112,31 +135,42 @@ function Question(props) {
       if (answers[index - 1] != null) {
         document.getElementById("input").value = answers[index - 1];
       }
+      setProgressPercentage(progressPercentage-((100/questions.length)+1.16));
     }
   };
 
-  return (
-    <div className="max-w-md mx-auto flex p-6 bg-gray-100 mt-10 rounded-lg shadow-xl">
+  const handleLocation = () => {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var latitude = position.coords.latitude;
+      var longitude = position.coords.longitude;
+      console.log("Latitude is :", position.coords.latitude);
+      console.log("Longitude is :", position.coords.longitude);
+    });
+  }
+
+  //var test = index;
+  var test = props.slide;
+
+  return (<div>
+    <div className="text-page max-w-md flex mx-auto p-6 mt-10 rounded-lg">
       <div className="ml-6 pt-1">
         <br></br>
         {question.id != 10 && question.id != 0 ? (
-          <div>
-            <h1 className="text-2xl text-blue-700 leading-tight text-center">
-              Question #{question.id}
-            </h1>
-            <p className="text-base text-gray-700 leading-normal text-center">
-              {questions[index].question}
+          <div className="question">
+            <p className="text-question text-base text-black-700 leading-normal text-center">
+              {questions[test].question}
             </p>
             <input
-              className="field"
+              className="text-input field"
               id="input"
               type="text"
               class="border rounded-md w-10 text-center"
               placeholder="##"
             ></input>
             <br></br>
+            
             <button
-              class="btn btn-primary w-20 h-10 bg-yellow-600 text-white m-2"
+              class="text-btn btn btn-primary w-20 h-10 bg-yellow-600 text-white m-2"
               onClick={() =>
                 handlePrevious(document.getElementById("input").value)
               }
@@ -144,15 +178,15 @@ function Question(props) {
               Back
             </button>
             <button
-              class="btn btn-primary w-20 h-10 bg-yellow-600 text-white m-2"
+              class="txt-btn btn btn-primary w-20 h-10 bg-yellow-600 text-white m-2"
               type="submit"
               onClick={() =>
                 handleContinue(document.getElementById("input").value)
               }
-              //onClick={() => handleSubmit()}
             >
               Submit
             </button>
+            <Button onClick={handleLocation}/>
           </div>
         ) : (
           <h1 className="text-2xl text-blue-700 leading-tight text-center">
@@ -160,6 +194,8 @@ function Question(props) {
           </h1>
         )}
       </div>
+    </div>
+      <Progress completed={progressPercentage} />
     </div>
   );
 }
