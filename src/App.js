@@ -13,14 +13,9 @@ import JoinCode from "./components/joinCode";
 function App() {
   return (
     <Router>
-<<<<<<< HEAD
-      {/* <Switch>
-        <Route path="/" exact strict component={() => <Search />} />
-=======
       <Switch>
         <Route path="/search" exact strict component={() => <Search />} />
         <Route path="/" exact strict component={() => <Landing />} />
->>>>>>> 53b13628665061bba95188d8f9a17f8a5372ca90
         <Route
           path="/:groupCode"
           exact
@@ -31,18 +26,12 @@ function App() {
             </div>
           )}
         />
-<<<<<<< HEAD
-      </Switch> */}
-      
-      <Switch>
-        <Route path="/" exact strict component={() => <SlideComponent />} />
-      </Switch>
-=======
+
       </Switch>
       {/* <Switch>
         <Route path="/" exact strict component={() => <Question />} />
       </Switch> */}
->>>>>>> 53b13628665061bba95188d8f9a17f8a5372ca90
+
     </Router>
   );
 }
