@@ -21,26 +21,18 @@ function Search(props) {
       let { businesses } = data;
       var code = Math.floor(Math.random() * Math.floor(10000));
 
-      businesses
-        .reduce(async (memo, b) => {
-          await memo;
-          await yelpREST(`/businesses/${b.id}`).then(({ data }) => {
-            var item = {
-              id: data.id,
-              name: data.name,
-              photos: data.photos,
-              lat: data.coordinates.latitude,
-              lng: data.coordinates.longitude,
-            };
-            database.ref(`groups/${code}/${b.id}`).set(item);
-            database.ref(`groups/${code}/${b.id}/vote`).set(0);
-          });
-        }, undefined)
-        .then(() => {
-          setLoading(false);
-          history.push(`/${code}`);
-        });
-    });
+      businesses.reduce(async (memo, b) => {
+        await memo
+        await yelpREST(`/businesses/${b.id}`).then(({ data }) => {
+          database.ref(`groups/${code}/data/${b.id}`).set(data)
+          database.ref(`groups/${code}/data/${b.id}/vote`).set(0)
+        })
+      }, undefined).then(() => {
+        setLoading(false)
+        history.push(`/${code}`)
+      }
+      )
+    })
   }
 
   if (loading) return <Loader loading={true} />;
