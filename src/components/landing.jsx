@@ -23,7 +23,7 @@ function Landing(props) {
                 <p class="font-bold text-white text-2xl text-center">group decisions<br></br>make sense with<br></br>Consensus</p>
                 <div class="w-full flex flex-col items-center">
                     <input placeholder='# enter group code' style={{background: 'rgba(255, 255, 255, 0.5)'}} onKeyDown={(e) => handleKeyDown(e)} class="border-4 border-white mb-8 h-12 w-4/5 rounded-full text-md"></input>
-                    <div style={{background: 'rgba(255, 255, 255, 0.5)',color: '#FDB872', fontWeight: '600', fontSize: '1.25rem', lineHeight: '1.75rem'}} onClick={() => history.push('/search')} class="h-12 w-4/5 border-4 border-white rounded-full flex items-center justify-center">create a group</div>
+                    <div style={{background: 'rgba(255, 255, 255, 0.5)',color: '#FDB872', fontWeight: '600', fontSize: '1.25rem', lineHeight: '1.75rem'}} onClick={() => history.push('/qs')} class="h-12 w-4/5 border-4 border-white rounded-full flex items-center justify-center">create a group</div>
                 </div>
             </div>
         </div>

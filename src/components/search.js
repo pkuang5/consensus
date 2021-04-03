@@ -28,7 +28,7 @@ function Search(props) {
           database.ref(`groups/${code}/data/${b.id}/vote`).set(0)
         })
       }, undefined).then(() => {
-        setLoading(false)
+        setLoading(false);
         history.push(`/${code}`)
       }
       )

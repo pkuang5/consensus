@@ -16,6 +16,7 @@ function App() {
       <Switch>
         <Route path="/search" exact strict component={() => <Search />} />
         <Route path="/" exact strict component={() => <Landing />} />
+        <Route path="/qs" exact strict component={() => <SlideComponent />} />
         <Route
           path="/:groupCode"
           exact
@@ -29,7 +30,7 @@ function App() {
 
       </Switch>
       {/* <Switch>
-        <Route path="/" exact strict component={() => <Question />} />
+        <Route path="/" exact strict component={() => <SlideComponent />} />
       </Switch> */}
 
     </Router>

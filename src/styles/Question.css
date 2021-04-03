@@ -1,8 +1,15 @@
 body {
-  width: 60%;
+  height: 100%;
+  width: 100%;
   margin: 0 auto;
   background-color: rgb(214, 122, 214);
+  text-align: center;
 }
+
+/* .quest {
+  height: 100%;
+  width: 100%;
+} */
 
 /* .text-page {
   font-family: "Montserrat";
