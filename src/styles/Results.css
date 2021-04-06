@@ -18,9 +18,7 @@
     width: 200px;
     height: 200px;
     flex-direction: 'column';
-    display: 'flex';
     align-items: 'center';
-    position: absolute;
 }
 
 #circle::-webkit-scrollbar {
@@ -43,6 +41,7 @@
 }
 
 .textforname {
+    opacity: 1;
     text-align: center;
     display: block;
     font-family: Montserrat;
@@ -91,4 +90,14 @@
     text-align: center;
 
     color: #FFFFFF;
+}
+
+.detailed {
+    position: absolute;
+    width: 278.64px;
+    height: 47px;
+    left: 49.36px;
+    top: 689px;
+    background: rgba(255, 255, 255, 0.61);
+    border-radius: 30px;
 }

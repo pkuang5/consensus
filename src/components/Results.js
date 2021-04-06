@@ -10,10 +10,14 @@ import '../styles/Results.css'
 import { createNoSubstitutionTemplateLiteral } from "typescript";
 
 function Place({data}){
-    const { name, photos } = data;
+    const { name, photos, url } = data;
     console.log(data)
-    const pic = photos[0];
     var state = { show: true };
+
+    function goToYelp() {
+        var win = window.open(url, '_blank');
+        win.focus();
+    }
 
         return (
             <div className = "result">
@@ -37,7 +41,11 @@ function Place({data}){
                     leave={{ height:  0}}>
                     {show =>
                         show && (props => <animated.div style={props}>
-                            <img id='circle' src={pic} alt="profilePicture" />
+                            <div id = 'circle'>
+                                {photos.map((pic, index)=> (
+                                    <img className="pictures" src={pic} key={index} alt="profilePicture" onClick={() => goToYelp()}/>
+                                ))}
+                            </div>
                         </animated.div>)
                     }
                 </Transition>
@@ -57,8 +65,10 @@ function Place({data}){
                     }
                 </Transition>
                 <div style={{height: 50}}/>
+                <div classname = "detailed">
+
+                </div>
             </div>
-            // <div/>
         );
 }
 
@@ -87,17 +97,17 @@ function Results(props) {
 
     function testforsimilar(data){
         var x = 1;
-        var rand = Math.random() * 10000000
+        var rand = Math.round(Math.random() * 100000000000);
         var num = 0;
         var test = [];
         for (let i = 1; i < 10; i++){
             //console.log(data[i])
-            if (data[0].vote == data[i].vote){
+            if (data[0].vote === data[i].vote){
                 x += 1;
                 console.log(x)
             }
         }
-        num = Math.round(rand % x);
+        num = rand % x;
         console.log(rand);
         console.log(num)
         test.push(<Place data = {data[num]}/>)
