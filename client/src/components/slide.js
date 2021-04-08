@@ -88,11 +88,11 @@ function SlideComponent(){
 
 
   const callBack = (data, question) => {
-    if(question === 0){
-      setAnswers({...answers, numPeople: data});
-      setProg(10);
-    }
-    else if(question === 1){
+    // if(question === 0){
+    //   setAnswers({...answers, numPeople: data});
+    //   setProg(10);
+    // }
+    if(question === 1){
       setAnswers({...answers, locationPermission: data});
       if(data){
         handleLocation();
@@ -150,31 +150,45 @@ function SlideComponent(){
       latitude: answers.locationPermission ? answers.latitude : "",
       longitude: answers.locationPermission ? answers.longitude : ""
     };
-    await yelpREST("/businesses/search", {
-      params: {
-        location: "irvine",
-        term: "boba",
-        limit: 10,
-      },
-    }).then(({ data }) => {
-      let { businesses } = data;
 
-      businesses.reduce(async (memo, b) => {
+    await yelpREST("", {
+      params: {
+        endpoint: "/businesses/search",
+        // longitude: -122.4194,
+        // latitude: 37.7749,
+        location: "new york",
+        term: "boba",
+        // limit: 5,
+        price: "2"
+      },
+    }).then( data => {
+      console.log("Prev: " +code);
+      //var code = Math.floor(Math.random() * Math.floor(10000));
+      console.log(code);
+      data.data.businesses.reduce(async (memo, b) => {
         await memo
-        await yelpREST(`/businesses/${b.id}`).then(({ data }) => {
-          database.ref(`groups/${code}/data/${b.id}`).set(data);
-          database.ref(`groups/${code}/data/${b.id}/vote`).set(0);
-          database.ref(`groups/${code}/answers`).set(answers);
+        await yelpREST('', {
+          params: { endpoint: `/businesses/${b.id}`}
+        }).then(({ data }) => {
+          database.ref(`groups/${code}/data/${b.id}`).set(data)
+          database.ref(`groups/${code}/data/${b.id}/vote`).set(0)
         })
       }, undefined).then(() => {
         setLoading(false);
-        //create new final page with code
-        //history.push(`/groupPage`)
+        console.log("Answers code: " + answers.groupCode);
+        //history.push(`/${code}`)
       }
       )
     })
-    
   };
+
+  const startVote = (code) => {
+    setLoading(true);
+    history.push(`/${code}`);
+    setLoading(false);
+  };
+
+
 
   let test = false;
   if(test) return <input placeholder="test"></input>;
@@ -191,7 +205,7 @@ function SlideComponent(){
       <CarouselProvider
         naturalSlideWidth={100}
         naturalSlideHeight={119}
-        totalSlides={9}
+        totalSlides={8}
         orientation="vertical"
         currentSlide={indexSlide}
       >
@@ -223,29 +237,29 @@ function SlideComponent(){
           </div>
           </Slide>
           
-          <Slide index={1}>
+          {/* <Slide index={1}>
             <SpecificQuest oldVal={answers.numPeople} parentCallBack={callBack} question={0} />
-          </Slide>
-          <Slide index={2}>
+          </Slide> */}
+          <Slide index={1}>
             <SpecificQuest oldVal={answers.locationPermission} parentCallBack={callBack} question={1}/>
           </Slide> 
-          <Slide index={3}>
-            <SpecificQuest oldVal={answers.milesWithin} parentCallBack={callBack} question={2} decision={answers.locationPermission}/>
+          <Slide index={2}>
+            <SpecificQuest oldVal={answers.milesWithin} parentCallBack={callBack} question={2}/>
           </Slide>
-          <Slide index={4}>
+          <Slide index={3}>
             <SpecificQuest oldVal={answers.spendAmount} parentCallBack={callBack} question={3}/>
           </Slide>
-          <Slide index={5}>
+          <Slide index={4}>
             <SpecificQuest oldVal={answers.eatChoiceOrder} parentCallBack={callBack} question={4}/>
           </Slide>
-          <Slide index={6}>
+          <Slide index={5}>
             <SpecificQuest parentCallBack={callBack} question={5}/>
           </Slide>
-          <Slide index={7}>
+          <Slide index={6}>
             <SpecificQuest oldVal={answers.numRestaurantOptions} parentCallBack={callBack} question={6}/>
           </Slide>
-          <Slide index={8}>
-            <SpecificQuest parentCallBack={populateFirebase} question={7}/>
+          <Slide index={7}>
+            <SpecificQuest parentCallBack={populateFirebase} parentCallBack2={startVote} question={7}/>
           </Slide>
         </Slider>
       </CarouselProvider>

@@ -34,10 +34,11 @@ function SpecificQuest(props){
     const [q4Buttons, setQ4Buttons] = useState([false, false, false, false]); //opt1, opt2, opt3, opt4
     const [q6Buttons, setQ6Buttons] = useState([false, false, false, false, false]); //5, 10, 15, 20, rand
     const [groupCode, setGroupCode] = useState(0);
+    const [startVote, setStartVote] = useState(false);
 
     const handleButtonClick = (clicked, info, id) => {
         if(clicked){
-            // console.log("From question: "+ props.question + " Button " + info + " was clicked");
+            //location 
             if(props.question == 1){
                 //yes
                 if (id === 0){
@@ -55,6 +56,7 @@ function SpecificQuest(props){
                     }
                 }
             }
+            //miles within
             if(props.question == 2){
                 if(props.oldVal == 0){
                     props.parentCallBack(info, 2);
@@ -77,6 +79,7 @@ function SpecificQuest(props){
                     }
                 }
             }
+            //spend amount
             if(props.question == 3){
                 if(props.oldVal == 0){
                     props.parentCallBack(id+1, 3);
@@ -100,6 +103,7 @@ function SpecificQuest(props){
                     }
                 }
             }
+            //we want to eat at restaurant, etc
             if(props.question == 4){
                 let curr = props.oldVal; //restuarant(0), fancy(1), fastFood(2), drinksDessert(3)
                 let temp = q4Buttons; //check button presses
@@ -122,9 +126,11 @@ function SpecificQuest(props){
                 setQ4Buttons(temp);
                 props.parentCallBack(curr, 4);
             }
+            //additional filters
             if(props.question == 5){
 
             }
+            //num options to choose from
             if(props.question == 6){
                 if(props.oldVal === 0){
                     props.parentCallBack(info, 6);
@@ -176,17 +182,20 @@ function SpecificQuest(props){
     };
 
     const createGroup = () => {
+        // props.parentCallBack(groupCode);
         if(groupCode == 0){
             var code = Math.floor(Math.random() * Math.floor(10000));
+            console.log("Before call: " + code);
             setGroupCode(code);
             props.parentCallBack(code);
         }
-        console.log("presssed");
+        console.log("end of create group code is: " + groupCode);
     };
 
     const handleVote = () => {
         if(groupCode !== 0){
-            history.push(`/${groupCode}`);
+            props.parentCallBack2(groupCode);
+            //history.push(`/${groupCode}`);
             // history.push('/2420');
         }
     };
@@ -195,30 +204,40 @@ function SpecificQuest(props){
         console.log("Test");
     };
 
-    if(props.question === 0){
-        let val = "sdfsfd";
-        return (
-            <div style={{backgroundImage: gradients[props.question].gradient}} class="flex w-full w-screen justify-center flex-col justify-around items-center">
-                <div style={{height: fullHeight}} class="flex flex-col w-full w-screen justify-around">
-                    <p class="text-white text-3xl text-center">There are<br></br>people in my group</p>
-                    <div class="w-full flex flex-col items-center">
-                        <input placeholder='Something' style={{background: 'rgba(255, 255, 255, 0.5)', color: 'black'}} 
-                            onChange={(e) => console.log(e.target.value)}
-                            class="border-4 border-white mb-8 h-12 w-1/5 rounded-full text-md"
-                        ></input>
-                    </div>
-                </div>
-            </div>
-        );
-    }
-    else if(props.question === 1){
+    // if(props.question === 0){
+    //     let val = "sdfsfd";
+    //     return (
+    //         <div style={{backgroundImage: gradients[props.question].gradient}} class="flex w-full w-screen justify-center flex-col justify-around items-center">
+    //             <div style={{height: fullHeight}} class="flex flex-col w-full w-screen justify-around">
+    //                 <p class="text-white text-3xl text-center">There are<br></br>people in my group</p>
+    //                 <div class="w-full flex flex-col items-center">
+    //                     <input placeholder='Something' style={{background: 'rgba(255, 255, 255, 0.5)', color: 'black'}} 
+    //                         onChange={(e) => console.log(e.target.value)}
+    //                         class="border-4 border-white mb-8 h-12 w-1/5 rounded-full text-md"
+    //                     ></input>
+    //                 </div>
+    //             </div>
+    //         </div>
+    //     );
+    // }
+    if(props.question === 1){
         return (
             <div>
                 <div style={{backgroundImage: gradients[props.question].gradient}} class="flex w-screen justify-center w-full flex-col justify-around items-center">
                     <div style={{margin: "0 auto", width: "55%", height: fullHeight}} class="flex flex-col w-full w-screen justify-around">
                         <p style={{display: "flex", width: '400px'}} 
                             class="text-white text-3xl text-center">
-                            Can we use your location to find the best spots to eat nearby?
+                            We want to eat in <br></br> AUTOFILL HERE
+                        </p>
+
+                        <p style={{display: "flex", width: '400px'}} 
+                            class="text-white text-3xl text-center">
+                            or
+                        </p>
+
+                        <p style={{display: "flex", width: '400px'}} 
+                            class="text-white text-3xl text-center">
+                            Use my location (make this clickable and get their location)
                         </p>
 
                         <WhiteButton parentCallBack={handleButtonClick} text="Yes" id={0} pressed={q1Buttons[0]} buttonLength="5/6" divLength="1/5"/>
@@ -229,35 +248,17 @@ function SpecificQuest(props){
         );
     }
     else if(props.question === 2){
-        if(props.decision){
-            return (
-                <div style={{backgroundImage: gradients[props.question].gradient}} class="w-full h-full flex flex-col items-center">
-                    <div style={{height: fullHeight}} class="ml-6 pt-1 flex-col w-screen justify-center">
-                        <p class="text-white text-3xl text-center">The place should be within ________ miles from me.</p>
-                        <WhiteButton parentCallBack={handleButtonClick} id={0} text={1} pressed={q2Buttons[0]} buttonLength="4/6" divLength="1/5"/>
-                        <WhiteButton parentCallBack={handleButtonClick} id={1} text={5} pressed={q2Buttons[1]} buttonLength="4/6" divLength="1/5"/>
-                        <WhiteButton parentCallBack={handleButtonClick} id={2} text={10} pressed={q2Buttons[2]} buttonLength="4/6" divLength="1/5"/>
-                        <WhiteButton parentCallBack={handleButtonClick} id={3} text={15} pressed={q2Buttons[3]} buttonLength="4/6" divLength="1/5"/>
-                    </div>
-                </div> 
-            );
-        }
-        else{
-            return (
-                <div>
-                    <div style={{backgroundImage: gradients[props.question].gradient}} class="w-full h-full flex flex-col items-center">
-                        <div style={{height: fullHeight}} class="ml-6 pt-1 flex-col w-screen justify-center">
-                            <p class="text-white text-3xl text-center">We want to eat in</p>
-                            <input placeholder='Something' style={{background: 'rgba(255, 255, 255, 0.5)', color: 'black'}} 
-                                onChange={(e) => console.log(e.target.value)}
-                                class="border-4 border-white mb-8 h-12 w-1/5 rounded-full text-md"
-                            ></input>
-                        </div>
-                    </div>
-                    
+        return (
+            <div style={{backgroundImage: gradients[props.question].gradient}} class="w-full h-full flex flex-col items-center">
+                <div style={{height: fullHeight}} class="ml-6 pt-1 flex-col w-screen justify-center">
+                    <p class="text-white text-3xl text-center">The place should be within ________ miles from me.</p>
+                    <WhiteButton parentCallBack={handleButtonClick} id={0} text={1} pressed={q2Buttons[0]} buttonLength="4/6" divLength="1/5"/>
+                    <WhiteButton parentCallBack={handleButtonClick} id={1} text={5} pressed={q2Buttons[1]} buttonLength="4/6" divLength="1/5"/>
+                    <WhiteButton parentCallBack={handleButtonClick} id={2} text={10} pressed={q2Buttons[2]} buttonLength="4/6" divLength="1/5"/>
+                    <WhiteButton parentCallBack={handleButtonClick} id={3} text={15} pressed={q2Buttons[3]} buttonLength="4/6" divLength="1/5"/>
                 </div>
-            );
-        }
+            </div> 
+        );
     }
     else if(props.question === 3){
         return (
@@ -331,6 +332,7 @@ function SpecificQuest(props){
     }
     else if(props.question === 7){
         let groupButtonMessage = groupCode === 0 ? "Create Group Code!" : groupCode;
+        let pressed = groupCode === 0 ? false : true;
         // if(groupCode === 0){
         //     return <GroupCodePage text="Create Group!"></GroupCodePage>
         // }
@@ -343,7 +345,7 @@ function SpecificQuest(props){
                             <p class="text-white text-3xl text-center">Thank you for your responses. Now it's time to reach a consensus!</p>
                             <br></br> 
                             {groupCode !== 0 ? <p class="text-white text-2xl text-center">Share this code with your Group!</p> : <p></p>}
-                            <WhiteButton parentCallBack={createGroup} id={-1} text={groupButtonMessage} pressed={false} buttonLength="5/6" divLength="3/5"/>
+                            <WhiteButton parentCallBack={createGroup} id={-1} text={groupButtonMessage} pressed={pressed} buttonLength="5/6" divLength="2/5"/>
                             <WhiteButton parentCallBack={handleVote} id={-1} text="Start Voting!" pressed={false} buttonLength="5/6" divLength="2/5"/>
                         </div>
                     </div>

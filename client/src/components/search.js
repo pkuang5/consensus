@@ -11,19 +11,22 @@ function Search(props) {
 
   async function populateBusinessesAndSetGroupCode(location, term) {
     setLoading(true);
-    await yelpREST("/businesses/search", {
+    await yelpREST("", {
       params: {
+        endpoint: "/businesses/search",
         location: location,
         term: term,
         limit: 10,
       },
-    }).then(({ data }) => {
-      let { businesses } = data;
+    }).then( data => {
+      console.log(data.data.businesses)
       var code = Math.floor(Math.random() * Math.floor(10000));
 
-      businesses.reduce(async (memo, b) => {
+      data.data.businesses.reduce(async (memo, b) => {
         await memo
-        await yelpREST(`/businesses/${b.id}`).then(({ data }) => {
+        await yelpREST('', {
+          params: { endpoint: `/businesses/${b.id}`}
+        }).then(({ data }) => {
           database.ref(`groups/${code}/data/${b.id}`).set(data)
           database.ref(`groups/${code}/data/${b.id}/vote`).set(0)
         })
