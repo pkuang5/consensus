@@ -8,6 +8,7 @@ html,
 body {
   background-image: linear-gradient(#FC986F, #FC866E, #FB786C);
   height: 100%;
+  width: 100%;
   margin: 0;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -91,42 +92,38 @@ input:focus::placeholder {
 
 .bottomCard {
   height: 34%;
-  width: 100%;
+  width: 350px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 0.75rem;
+  align-items: center;
+  background-color: blueviolet;
 }
 
 .backBottomCard {
   height: 60%;
-  width: 100%;
+  width: 350px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 0.75rem;
+  align-items: center;
+  background-color: burlywood;
 }
 
 .card {
   background: white;
   height: 100% !important;
+  width: 350px;
   border-radius: 30px;
   box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05);
-  overflow: hidden;
-}
-
-.slider-control-bottomcenter {
-  bottom: -15px !important;
-}
-
-.slider-control-bottomcenter > ul > li > button {
-  color: salmon !important;
 }
 
 .frontface {
   position: absolute;
   height: 100%;
-  width: 100%;
+  width: 350px;
   cursor: pointer;
   will-change: transform, opacity, zIndex;
 }
@@ -134,7 +131,7 @@ input:focus::placeholder {
 .backface {
   position: absolute;
   height: 100%;
-  width: 100%;
+  width: 350px;
   will-change: transform, opacity, zIndex;
 } 
 
