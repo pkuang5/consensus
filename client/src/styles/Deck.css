@@ -92,24 +92,22 @@ input:focus::placeholder {
 
 .bottomCard {
   height: 34%;
-  width: 350px;
+  /* width: 350px; */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 0.75rem;
   align-items: center;
-  background-color: blueviolet;
 }
 
 .backBottomCard {
   height: 60%;
-  width: 350px;
+  /* width: 350px; */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 0.75rem;
   align-items: center;
-  background-color: burlywood;
 }
 
 .card {
