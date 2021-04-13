@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Transition, animated } from 'react-spring'
 import database from '../firebase';
 import Loader from "./loader"
+import ProgressBar from "@ramonak/react-progress-bar";
 import Carousel from "nuka-carousel";
 import { useSprings } from "react-spring/hooks";
 import ReactDOM from 'react-dom'
@@ -10,7 +11,7 @@ import '../styles/Results.css'
 import { createNoSubstitutionTemplateLiteral } from "typescript";
 
 function Place({data}){
-    const { name, photos, url } = data;
+    const { name, photos, url, vote } = data;
     console.log(data)
     var state = { show: true };
 
@@ -20,37 +21,43 @@ function Place({data}){
     }
 
         return (
-            <div className = "result">
-                <div style={{height: 20}}/>
-                <div className = "textfortitle">
-                    consensus
-                </div>
-                <div style={{height: 20}}/>
-                <div className = "textforhere">
-                    Here are your results!
-                </div>
-                <div className = "textforinstruc">
-                    click on the image for more restaurant info.
-                </div>
-                <div style={{height: 20}}/>
-                <Transition
-                    native
-                    items={state.show}
-                    from={{ overflow: 'hidden', height: 0 }}
-                    enter={[{ height: 'auto' }]}
-                    leave={{ height:  0}}>
-                    {show =>
-                        show && (props => <animated.div style={props}>
-                            <div id = 'circle'>
-                                {photos.map((pic, index)=> (
-                                    <img className="pictures" src={pic} key={index} alt="profilePicture" onClick={() => goToYelp()}/>
-                                ))}
-                            </div>
-                        </animated.div>)
-                    }
-                </Transition>
-                <div style={{height: 20}}/>
-                <Transition
+            <div>
+                <div style={{height: 1}}/>
+                <div className = "spaceforvote">
+                    <div>
+                        <Transition
+                            native
+                            items={state.show}
+                            from={{ overflow: 'hidden', height: 0 }}
+                            enter={[{ height: 'auto' }]}
+                            leave={{ height:  0}}>
+                            {show =>
+                                show && (props => <animated.div style={props}>
+                                    <div id = 'circle'>
+                                        {photos.map((pic, index)=> (
+                                            <img className="pictures" src={pic} key={index} alt="profilePicture" onClick={() => goToYelp()}/>
+                                        ))}
+                                    </div>
+                                </animated.div>)
+                            }
+                        </Transition>
+                        <Transition
+                            native
+                            items={state.show}
+                            from={{ overflow: 'hidden', height: 0 }}
+                            enter={[{ height: 'auto' }]}
+                            leave={{ height: 0 }}>
+                            {show =>
+                                show && (props => <animated.div style={props}>
+                                    <div className = 'textforname'>
+                                        {name}
+                                    </div>
+                                </animated.div>)
+                            }
+                        </Transition>
+                    </div>
+                    <ProgressBar baseBgColor="#e5e5e5" bgColor="#FFFFFF" width="100%" isLabelVisible={false} className="div-1" completed={vote/25*100} />
+                    <Transition
                     native
                     items={state.show}
                     from={{ overflow: 'hidden', height: 0 }}
@@ -58,16 +65,14 @@ function Place({data}){
                     leave={{ height: 0 }}>
                     {show =>
                         show && (props => <animated.div style={props}>
-                            <div className = 'textforname'>
-                                {name}
+                            <div className = 'votecount'>
+                                {vote}
                             </div>
                         </animated.div>)
                     }
-                </Transition>
-                <div style={{height: 50}}/>
-                <div classname = "detailed">
-
+                    </Transition>
                 </div>
+                <div style={{height: 1}}/>
             </div>
         );
 }
@@ -100,17 +105,10 @@ function Results(props) {
         var rand = Math.round(Math.random() * 100000000000);
         var num = 0;
         var test = [];
-        for (let i = 1; i < 10; i++){
+        for (let i = 0; i < 5; i++){
             //console.log(data[i])
-            if (data[0].vote === data[i].vote){
-                x += 1;
-                console.log(x)
-            }
+            test.push(<Place data = {data[i]}/>)
         }
-        num = rand % x;
-        console.log(rand);
-        console.log(num)
-        test.push(<Place data = {data[num]}/>)
         return test
     }
 
@@ -129,9 +127,20 @@ function Results(props) {
     if (loading) return <Loader loading={true} />
 
     return(
-        <div className = 'centered' class="flex w-screen h-screen justify-center" style={{backgroundImage: 'linear-gradient(#FEDD7D, #FDCB74, #FDB872)'}}>
+        <div className = 'result' class = "h-screen" style={{backgroundImage: 'linear-gradient(#FEDD7D, #FDCB74, #FDB872)'}}>
+            <div style={{height: 20}}/>
+                <div style={{height: 20}}/>
+                <div className = "textforhere">
+                    Here are your results!
+                </div>
+                <div className = "textforinstruc">
+                    click on the image for more restaurant info.
+                </div>
             {/* <Place data = {data[0]}/> */}
             {testforsimilar(data)}
+            <div className="peoplewhovoted">
+                25 people have voted
+            </div>
         </div>
     );
 }
