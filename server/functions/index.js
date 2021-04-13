@@ -31,12 +31,10 @@ app.get('/test', async (req, res) => {
 
 app.get('/yelp', async (req, res) => {
   console.log(req.query);
-  await yelp(req.query.endpoint, {
-    params: {
-      location: req.query.location,
-      term: req.query.term,
-      limit: 10,
-    },
+  const endpoint = req.query.endpoint;
+  delete req.query.endpoint;
+  await yelp(endpoint, {
+    params: req.query,
   }).then( ({data}) => {
     // console.log(data);
     res.status(200).send(data);

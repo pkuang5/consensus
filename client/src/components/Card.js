@@ -1,12 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { string, number, array } from "prop-types";
 import { useSpring, animated, interpolate } from "react-spring/hooks";
-import Carousel from "nuka-carousel";
-import yelpREST from "../api/yelp";
 import Map from './Map'
 import 'font-awesome/css/font-awesome.min.css'
 import { use100vh } from 'react-div-100vh'
-import yelpSVG from '../svg/yelp.svg'
 
 function Card({ i, x, y, rot, scale, trans, bind, data }) {
   const height = use100vh()
@@ -59,7 +56,7 @@ function Card({ i, x, y, rot, scale, trans, bind, data }) {
       <path fill-rule="evenodd" clip-rule="evenodd" d="M13.2582 5.81015L19.209 6.675C19.6191 6.73594 19.905 7.11562 19.8418 7.52578C19.8183 7.68984 19.741 7.83984 19.6238 7.95469L15.3183 12.1523L16.3355 18.0797C16.4058 18.4875 16.1316 18.8742 15.7238 18.9445C15.5621 18.9727 15.3933 18.9469 15.248 18.8695L9.92536 16.0711L4.6027 18.8695C4.47896 18.9349 4.33939 18.9642 4.19981 18.9543C4.06023 18.9443 3.92624 18.8955 3.81302 18.8132C3.6998 18.731 3.61188 18.6187 3.55924 18.489C3.5066 18.3594 3.49135 18.2176 3.5152 18.0797L4.53239 12.1523L0.226919 7.95469C0.0843483 7.81571 0.00278331 7.62582 0.000146469 7.42674C-0.00249038 7.22765 0.0740166 7.03567 0.212856 6.89297C0.3277 6.77578 0.4777 6.69844 0.641763 6.675L6.59254 5.81015L9.2527 0.417186C9.43786 0.0468735 9.88786 -0.10547 10.2582 0.0773423C10.4058 0.149999 10.5254 0.26953 10.598 0.417186L13.2582 5.81015ZM14.3527 16.4906L13.5066 11.5617L17.0879 8.07187L12.1379 7.35234L9.92536 2.86875L9.92528 2.86889V14.1657L9.92536 14.1656L14.3527 16.4906ZM7.71286 7.35234L2.76286 8.07187L2.76297 8.07198L7.71278 7.35248L7.71286 7.35234Z" fill="#FB686B" />
       </svg>
       )
-    } else {
+    } else if (n != Math.floor(5)) {
       stars.push(
         <svg class="mr-1" width="25" height="25" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M19.2948 7.26876L13.344 6.40391L10.6839 1.01095C10.6112 0.86329 10.4917 0.743759 10.344 0.671102C9.97371 0.48829 9.52371 0.640634 9.33856 1.01095L6.6784 6.40391L0.72762 7.26876C0.563557 7.2922 0.413557 7.36954 0.298713 7.48673C0.159874 7.62943 0.0833666 7.82141 0.0860035 8.0205C0.0886403 8.21958 0.170205 8.40947 0.312776 8.54845L4.61824 12.7461L3.60106 18.6734C3.5772 18.8113 3.59246 18.9531 3.6451 19.0828C3.69774 19.2124 3.78565 19.3248 3.89887 19.407C4.01209 19.4892 4.14609 19.5381 4.28567 19.548C4.42524 19.558 4.56482 19.5286 4.68856 19.4633L10.0112 16.6649L15.3339 19.4633C15.4792 19.5406 15.6479 19.5664 15.8097 19.5383C16.2175 19.468 16.4917 19.0813 16.4214 18.6734L15.4042 12.7461L19.7097 8.54845C19.8268 8.4336 19.9042 8.2836 19.9276 8.11954C19.9909 7.70938 19.705 7.3297 19.2948 7.26876ZM13.5925 12.1555L14.4386 17.0844L10.0112 14.7594L5.58387 17.0867L6.42996 12.1578L2.84871 8.66563L7.79871 7.9461L10.0112 3.46251L12.2237 7.9461L17.1737 8.66563L13.5925 12.1555Z" fill="#FB686B" />
@@ -120,8 +117,8 @@ function Card({ i, x, y, rot, scale, trans, bind, data }) {
               ))}
             </div>
             <div className="bottomCard" onClick={() => set(state => !state)} {...bind(i)}>
-              <p class="text-center text-xl font-bold" >{name}</p>
-              <div class="flex justify-between text-xs">
+              <p class="text-center text-xl font-bold w-full" >{name}</p>
+              <div class="flex justify-between text-xs w-full">
                 <button className="infoTagSmall" >
                   🚙 X mi
                 </button>
@@ -132,7 +129,7 @@ function Card({ i, x, y, rot, scale, trans, bind, data }) {
                   {stars(rating)}
                 </div>
               </div>
-              <div class="flex justify-between text-xs">
+              <div class="flex justify-between text-xs w-full">
                 <button className="infoTag" >
                   {categories[0] ? categories[0].title : ""}
                 </button>
@@ -143,7 +140,7 @@ function Card({ i, x, y, rot, scale, trans, bind, data }) {
                   {'reviews: '+review_count}
                 </button>
               </div>
-              <div class="flex justify-between text-xs">
+              <div class="flex justify-between text-xs w-full">
                 <button className="infoTagWhite flex justify-center items-center" >
                   Pick up
                   {transactions ? checkmark(transactions.includes("pickup")) : null}
@@ -174,32 +171,37 @@ function Card({ i, x, y, rot, scale, trans, bind, data }) {
           <div className="card" >
             <Map center={{ lat: coordinates.latitude, lng: coordinates.longitude }} name={name} zoom={12} />
             <div className="backBottomCard" onClick={() => set(state => !state)} {...bind(i)}>
-              <div class="flex justify-between text-center text-xl font-bold p-2 border-b" >{name}
-              <svg class="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110 cursor-pointer" onClick={() => goToYelp()} height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><g fill="#f44336"><path d="m12.062 17.662c.038-.934-1.266-1.395-1.829-.671-1.214 1.466-3.493 4.129-3.624 4.457-.347 1 1.28 1.638 2.312 2.024 1.121.42 1.919.591 2.392.51.342-.071.562-.248.67-.533.089-.245.08-5.568.079-5.787z"/><path d="m11.522.642c-.08-.31-.295-.51-.647-.6-1.037-.272-4.966.838-5.698 1.624-.234.238-.318.515-.248.828l4.985 8c1.018 1.628 2.298 1.139 2.214-.681h-.001c-.066-1.199-.544-8.775-.605-9.171z"/><path d="m9.413 15.237c.942-.29.872-1.671.07-1.995-2.139-.881-5.06-2.114-5.285-2.114-.876-.052-1.045 1.201-1.134 2.096-.08.81-.084 1.552-.014 2.229.066.714.221 1.443.933 1.485.309-.001 5.383-1.686 5.43-1.701z"/><path d="m20.514 12.052c.403-.281.342-.7.347-.838-.108-1.024-1.83-3.61-2.692-4.029-.328-.152-.614-.143-.858.029-.323.219-3.24 4.444-3.413 4.619-.567.767.244 1.871 1.092 1.648l-.014.029c.341-.115 5.274-1.282 5.538-1.458z"/><path d="m15.321 15.586c-.881-.315-1.712.81-1.2 1.581.145.247 2.809 4.705 3.043 4.871.225.191.507.219.83.095.905-.362 2.865-2.876 2.992-3.857.051-.348-.042-.619-.286-.814-.197-.176-5.379-1.876-5.379-1.876z"/></g></svg>
+              <div class="flex justify-between text-xl font-bold p-2 border-b w-full" >
+                <div class="w-5/6">{name}</div>
+                <div class="w-1/6">
+                  <svg class="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110 cursor-pointer" onClick={() => goToYelp()} height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><g fill="#f44336"><path d="m12.062 17.662c.038-.934-1.266-1.395-1.829-.671-1.214 1.466-3.493 4.129-3.624 4.457-.347 1 1.28 1.638 2.312 2.024 1.121.42 1.919.591 2.392.51.342-.071.562-.248.67-.533.089-.245.08-5.568.079-5.787z"/><path d="m11.522.642c-.08-.31-.295-.51-.647-.6-1.037-.272-4.966.838-5.698 1.624-.234.238-.318.515-.248.828l4.985 8c1.018 1.628 2.298 1.139 2.214-.681h-.001c-.066-1.199-.544-8.775-.605-9.171z"/><path d="m9.413 15.237c.942-.29.872-1.671.07-1.995-2.139-.881-5.06-2.114-5.285-2.114-.876-.052-1.045 1.201-1.134 2.096-.08.81-.084 1.552-.014 2.229.066.714.221 1.443.933 1.485.309-.001 5.383-1.686 5.43-1.701z"/><path d="m20.514 12.052c.403-.281.342-.7.347-.838-.108-1.024-1.83-3.61-2.692-4.029-.328-.152-.614-.143-.858.029-.323.219-3.24 4.444-3.413 4.619-.567.767.244 1.871 1.092 1.648l-.014.029c.341-.115 5.274-1.282 5.538-1.458z"/><path d="m15.321 15.586c-.881-.315-1.712.81-1.2 1.581.145.247 2.809 4.705 3.043 4.871.225.191.507.219.83.095.905-.362 2.865-2.876 2.992-3.857.051-.348-.042-.619-.286-.814-.197-.176-5.379-1.876-5.379-1.876z"/></g></svg>
+                </div>
               </div>
-              <div class="flex text-xs justify-between items-center p-3 border-b">
-                <p>X minutes away<br></br>
+              <div class="flex text-xs justify-between items-center p-3 border-b w-full">
+                <p class="w-5/6">
                 {location.display_address.map(str => str + ' ')}
                 </p>
-                <svg class="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110 cursor-pointer" onClick={() => goToGoogleMaps(coordinates.latitude, coordinates.longitude)} width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
-                  <rect width="23" height="23" fill="url(#pattern0)" />
-                  <defs>
-                    <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
-                      <use xlinkHref="#image0" transform="scale(0.0333333)" />
-                    </pattern>
-                    <image id="image0" width="30" height="30" xlinkHref="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABmJLR0QA/wD/AP+gvaeTAAAB70lEQVRIie3Vz4tNURwA8M/4LWSEhVBqkMUoW40sWFgo2fhRdiNZsGchNsZGqVFK2SlsbeQfsLRQ02xoWJgGsxKDseBa3O9rzkz33HvfGzaTb51e9/s99/t597xz7mOJxBAe4R1mMYknOPSvwOUYxW8UmXEPK/42fCea/8Rt7McaDOA6vid4No4rlyj3zXPjBw5neh5M8KEc/L4HtMCNuqeJeoHHuQlpswmcQT+24ATGM/BA0uMWZjCS5HbHvMkmeAJbsQxHA12LBxl4ZdLja+S+JLnVkZttgk8H+jzJfc6gBXYmPUYCv5nkdsW8t01wfzxp5/o8TsW4UAEP5xpGXIx5T5vgdcod3rneg03KJd1YAb9SrlBV9GEs5p1rgo8pz+JYkvuIzcpj08lNR77A2UzPk1GfUu6TWvhlwBtwCVeVv2MfniXooLllfKPcRGmswuuoX86hKVzgBQ4kte14GLVPgYo5ndfltQX9rkR+3PydXwunSzyJXxXoYFx35n7DjqhtM3e0jtShOTgdKVoFF7gftbtJrjHaooM1Tz2D9eaf+57hquWtW/LhBff3BE8r/+pgHz7U1KYyPbqG69Bu8K7gNmhbvDXcDdoGbwX3gjbhjbEYtA5vjL3xWfVi6GakR63TsxW+GDTFW6P/Y2nFHwS1YSFMqYd6AAAAAElFTkSuQmCC" />
-                  </defs>
-                </svg>
+                <div class="w-1/6">
+                  <svg class="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110 cursor-pointer" onClick={() => goToGoogleMaps(coordinates.latitude, coordinates.longitude)} width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+                    <rect width="23" height="23" fill="url(#pattern0)" />
+                    <defs>
+                      <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
+                        <use xlinkHref="#image0" transform="scale(0.0333333)" />
+                      </pattern>
+                      <image id="image0" width="30" height="30" xlinkHref="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABmJLR0QA/wD/AP+gvaeTAAAB70lEQVRIie3Vz4tNURwA8M/4LWSEhVBqkMUoW40sWFgo2fhRdiNZsGchNsZGqVFK2SlsbeQfsLRQ02xoWJgGsxKDseBa3O9rzkz33HvfGzaTb51e9/s99/t597xz7mOJxBAe4R1mMYknOPSvwOUYxW8UmXEPK/42fCea/8Rt7McaDOA6vid4No4rlyj3zXPjBw5neh5M8KEc/L4HtMCNuqeJeoHHuQlpswmcQT+24ATGM/BA0uMWZjCS5HbHvMkmeAJbsQxHA12LBxl4ZdLja+S+JLnVkZttgk8H+jzJfc6gBXYmPUYCv5nkdsW8t01wfzxp5/o8TsW4UAEP5xpGXIx5T5vgdcod3rneg03KJd1YAb9SrlBV9GEs5p1rgo8pz+JYkvuIzcpj08lNR77A2UzPk1GfUu6TWvhlwBtwCVeVv2MfniXooLllfKPcRGmswuuoX86hKVzgBQ4kte14GLVPgYo5ndfltQX9rkR+3PydXwunSzyJXxXoYFx35n7DjqhtM3e0jtShOTgdKVoFF7gftbtJrjHaooM1Tz2D9eaf+57hquWtW/LhBff3BE8r/+pgHz7U1KYyPbqG69Bu8K7gNmhbvDXcDdoGbwX3gjbhjbEYtA5vjL3xWfVi6GakR63TsxW+GDTFW6P/Y2nFHwS1YSFMqYd6AAAAAElFTkSuQmCC" />
+                    </defs>
+                  </svg>
+                </div>
               </div>
-              <div class="flex text-xs justify-between items-center p-3 border-b">
-                <p>{display_phone}</p>
+              <div class="flex text-xs justify-between items-center p-3 border-b w-full">
+                <p class="w-5/6">{display_phone}</p>
                 <a href={`tel:${phone}`}>
                 <svg class="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M3.62 7.79C5.06 10.62 7.38 12.93 10.21 14.38L12.41 12.18C12.68 11.91 13.08 11.82 13.43 11.94C14.55 12.31 15.76 12.51 17 12.51C17.55 12.51 18 12.96 18 13.51V17C18 17.55 17.55 18 17 18C7.61 18 0 10.39 0 1C0 0.45 0.45 0 1 0H4.5C5.05 0 5.5 0.45 5.5 1C5.5 2.25 5.7 3.45 6.07 4.57C6.18 4.92 6.1 5.31 5.82 5.59L3.62 7.79Z" fill="black" />
                 </svg>
                 </a>
               </div>
-              <div class="flex flex-col text-xs justify-between p-3">
+              <div class="flex flex-col text-xs justify-between p-3 w-full">
                 {displayHours(hours)}
               </div>
             </div>
