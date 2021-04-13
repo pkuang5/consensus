@@ -12,16 +12,16 @@ import { useHistory } from "react-router-dom";
 //css
 //import "../styles/Question.css";
 
-let gradients = [
-    {id: 1, gradient: 'linear-gradient(#FC986F, #FC866E, #FB786C)'},
-    {id: 2, gradient: 'linear-gradient(#FB786C, #FB686B, #F36E78)'},
-    {id: 3, gradient: 'linear-gradient(#F36E78, #E87689, #E07D96)'},
-    {id: 4, gradient: 'linear-gradient(#E07D96, #D685A7, #CD8CB4)'},
-    {id: 5, gradient: 'linear-gradient(#CD8CB4, #C195C7, #B89CD5)'},
-    {id: 6, gradient: 'linear-gradient(#B89CD5, #ACA5E9, #C195C7)'},//POSSIBLE GRADIENT ERROR HERE
-    {id: 7, gradient: 'linear-gradient(#C195C7, #CD8CB4, #C195C7)'},
-    {id: 8, gradient: 'linear-gradient(#C195C7, #E07D96, #D685A7)'},
-];
+
+let gradients = {
+    1: 'linear-gradient(#FDB872, #FCA870, #FC986F)',
+    2: 'linear-gradient(#FC986F, #FC866E, #FB786C)',
+    3: 'linear-gradient(#FB786C, #FB686B, #F36E78)',
+    4: 'linear-gradient(#F36E78, #E87689, #E07D96)',
+    5: 'linear-gradient(#E07D96, #D685A7, #CD8CB4)',
+    6: 'linear-gradient(#CD8CB4, #C195C7, #B89CD6)',
+    7: 'linear-gradient(#B89CD6, #ACA5E9, #C195C7)',
+    8: 'linear-gradient(#C195C7, #CD8CB4, #D685A7)'};
 
 //props.question 1 is the first question
 function SpecificQuest(props){
@@ -34,7 +34,9 @@ function SpecificQuest(props){
     const [q4Buttons, setQ4Buttons] = useState([false, false, false, false]); //opt1, opt2, opt3, opt4
     const [q6Buttons, setQ6Buttons] = useState([false, false, false, false, false]); //5, 10, 15, 20, rand
     const [groupCode, setGroupCode] = useState(0);
-    const [startVote, setStartVote] = useState(false);
+    const [q5Buttons, setQ5Buttons] = useState(
+        [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]);
+
 
     const handleButtonClick = (clicked, info, id) => {
         if(clicked){
@@ -128,7 +130,11 @@ function SpecificQuest(props){
             }
             //additional filters
             if(props.question == 5){
-
+                let temp = q5Buttons;
+                let old = props.oldVal;
+                temp[id] = !temp[id];
+                setQ5Buttons(temp);
+                props.parentCallBack(temp, 5);
             }
             //num options to choose from
             if(props.question == 6){
@@ -137,6 +143,7 @@ function SpecificQuest(props){
                     let temp = q6Buttons;
                     temp[id] = true;
                     setQ6Buttons(temp);
+                    console.log("The info: "+ info);
                 }
                 else{
                     if(props.oldVal === info){
@@ -223,25 +230,23 @@ function SpecificQuest(props){
     if(props.question === 1){
         return (
             <div>
-                <div style={{backgroundImage: gradients[props.question].gradient}} class="flex w-screen justify-center w-full flex-col justify-around items-center">
-                    <div style={{margin: "0 auto", width: "55%", height: fullHeight}} class="flex flex-col w-full w-screen justify-around">
-                        <p style={{display: "flex", width: '400px'}} 
-                            class="text-white text-3xl text-center">
+                <div style={{backgroundImage: gradients[props.question]}} class="flex w-screen justify-center w-full flex-col items-center">
+                    <div style={{margin: "0 auto", width: "55%", height: fullHeight}} class="flex flex-col sm:w-1/2 justify-around">
+                        <p class="text-white text-2xl text-center">
                             We want to eat in <br></br> AUTOFILL HERE
                         </p>
 
-                        <p style={{display: "flex", width: '400px'}} 
-                            class="text-white text-3xl text-center">
+                        <p class="text-white text-center">
                             or
                         </p>
 
-                        <p style={{display: "flex", width: '400px'}} 
-                            class="text-white text-3xl text-center">
-                            Use my location (make this clickable and get their location)
+                        <p class="text-white text-2xl text-center">
+                            Use my location
                         </p>
-
-                        <WhiteButton parentCallBack={handleButtonClick} text="Yes" id={0} pressed={q1Buttons[0]} buttonLength="5/6" divLength="1/5"/>
-                        <WhiteButton parentCallBack={handleButtonClick} text="No" id={1} pressed={q1Buttons[1]} buttonLength="5/6" divLength="1/5"/>
+                        <div class="flex">
+                            <WhiteButton parentCallBack={handleButtonClick} text="✅" id={0} pressed={q1Buttons[0]} buttonLength="5/6" divLength="1/5"/>
+                            <WhiteButton parentCallBack={handleButtonClick} text="❌" id={1} pressed={q1Buttons[1]} buttonLength="5/6" divLength="1/5"/>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -249,13 +254,15 @@ function SpecificQuest(props){
     }
     else if(props.question === 2){
         return (
-            <div style={{backgroundImage: gradients[props.question].gradient}} class="w-full h-full flex flex-col items-center">
-                <div style={{height: fullHeight}} class="ml-6 pt-1 flex-col w-screen justify-center">
-                    <p class="text-white text-3xl text-center">The place should be within ________ miles from me.</p>
-                    <WhiteButton parentCallBack={handleButtonClick} id={0} text={1} pressed={q2Buttons[0]} buttonLength="4/6" divLength="1/5"/>
-                    <WhiteButton parentCallBack={handleButtonClick} id={1} text={5} pressed={q2Buttons[1]} buttonLength="4/6" divLength="1/5"/>
-                    <WhiteButton parentCallBack={handleButtonClick} id={2} text={10} pressed={q2Buttons[2]} buttonLength="4/6" divLength="1/5"/>
-                    <WhiteButton parentCallBack={handleButtonClick} id={3} text={15} pressed={q2Buttons[3]} buttonLength="4/6" divLength="1/5"/>
+            <div style={{backgroundImage: gradients[props.question]}} class="flex w-screen justify-center">
+                <div style={{height: fullHeight}} class="ml-3 mr-3 pt-1 flex-col flex justify-around sm:w-1/2">
+                    <p class="text-white text-2xl text-center">The place should be within ________ miles from me.</p>
+                    <div class="flex">
+                        <WhiteButton parentCallBack={handleButtonClick} id={0} text={1} pressed={q2Buttons[0]} buttonLength="4/6" divLength="1/5"/>
+                        <WhiteButton parentCallBack={handleButtonClick} id={1} text={5} pressed={q2Buttons[1]} buttonLength="4/6" divLength="1/5"/>
+                        <WhiteButton parentCallBack={handleButtonClick} id={2} text={10} pressed={q2Buttons[2]} buttonLength="4/6" divLength="1/5"/>
+                        <WhiteButton parentCallBack={handleButtonClick} id={3} text={15} pressed={q2Buttons[3]} buttonLength="4/6" divLength="1/5"/>
+                    </div>
                 </div>
             </div> 
         );
@@ -263,12 +270,14 @@ function SpecificQuest(props){
     else if(props.question === 3){
         return (
             <div>
-                <div style={{backgroundImage: gradients[props.question].gradient}} class="w-full flex h-full flex-col items-center">
-                    <div style={{height: fullHeight}} class="ml-6 pt-1 flex-col w-screen justify-center">
-                        <p class="text-white text-3xl text-center">We want to spend</p>
-                        <WhiteButton parentCallBack={handleButtonClick} id={0} text="$" pressed={q3Buttons[0]} buttonLength="4/6" divLength="1/5"/>
-                        <WhiteButton parentCallBack={handleButtonClick} id={1} text="$$" pressed={q3Buttons[1]} buttonLength="4/6" divLength="1/5"/>
-                        <WhiteButton parentCallBack={handleButtonClick} id={2} text="$$$" pressed={q3Buttons[2]} buttonLength="4/6" divLength="1/5"/>
+                <div style={{backgroundImage: gradients[props.question]}} class="flex w-screen justify-center">
+                    <div style={{height: fullHeight}} class="ml-3 mr-3 pt-1 flex-col flex justify-around sm:w-1/2">
+                        <p class="text-white text-2xl text-center">We want to spend</p>
+                        <div class="flex">
+                            <WhiteButton parentCallBack={handleButtonClick} id={0} text="$" pressed={q3Buttons[0]} buttonLength="4/6" divLength="1/5"/>
+                            <WhiteButton parentCallBack={handleButtonClick} id={1} text="$$" pressed={q3Buttons[1]} buttonLength="4/6" divLength="1/5"/>
+                            <WhiteButton parentCallBack={handleButtonClick} id={2} text="$$$" pressed={q3Buttons[2]} buttonLength="4/6" divLength="1/5"/>
+                        </div>
                     </div>
                 </div>
                 
@@ -278,13 +287,21 @@ function SpecificQuest(props){
     else if(props.question === 4){
         return (
             <div>
-                <div style={{backgroundImage: gradients[props.question].gradient}} className="w-full flex h-full flex-col items-center">
-                    <div style={{height: fullHeight}} className="ml-6 pt-1 flex-col w-screen justify-center">
-                        <p class="text-white text-3xl text-center">We want to eat at a</p>
-                        <WhiteButton parentCallBack={handleButtonClick} id={0} text="Restaurant" pressed={q4Buttons[0]} buttonLength="5/6" divLength="3/6"/><br></br>
-                        <WhiteButton parentCallBack={handleButtonClick} id={1} text="Fancy Dine-In" pressed={q4Buttons[1]} buttonLength="5/6" divLength="3/6"/><br></br>
-                        <WhiteButton parentCallBack={handleButtonClick} id={2} text="Fast Food" pressed={q4Buttons[2]} buttonLength="5/6" divLength="3/6"/><br></br>
-                        <WhiteButton parentCallBack={handleButtonClick} id={3} text="Drinks & Desserts" pressed={q4Buttons[3]} buttonLength="5/6" divLength="3/6"/><br></br>
+                <div style={{backgroundImage: gradients[props.question]}} className="flex w-screen justify-center">
+                    <div style={{height: fullHeight}} className="ml-3 mr-3 pt-1 flex-col flex justify-around sm:w-1/2">
+                        <p class="text-white text-2xl text-center">We want to eat at a</p>
+                        <div class="flex justify-center">
+                            <WhiteButton parentCallBack={handleButtonClick} id={0} text="Restaurant" pressed={q4Buttons[0]} buttonLength="5/6" divLength="4/5"/><br></br>
+                        </div>
+                        <div class="flex justify-center">
+                            <WhiteButton parentCallBack={handleButtonClick} id={1} text="Fancy Dine-In" pressed={q4Buttons[1]} buttonLength="5/6" divLength="4/5"/><br></br>
+                        </div>
+                        <div class="flex justify-center">
+                            <WhiteButton parentCallBack={handleButtonClick} id={2} text="Fast Food" pressed={q4Buttons[2]} buttonLength="5/6" divLength="4/5"/><br></br>
+                        </div>
+                        <div class="flex justify-center">
+                            <WhiteButton parentCallBack={handleButtonClick} id={3} text="Drinks & Desserts" pressed={q4Buttons[3]} buttonLength="5/6" divLength="5/5"/><br></br>
+                        </div>
                         <p class="text-white text-center">Choose up to 3.</p>
                     </div>
                 </div>
@@ -295,17 +312,28 @@ function SpecificQuest(props){
     else if(props.question === 5){
         return (
             <div>
-                <div style={{backgroundImage: gradients[props.question].gradient}} className="w-full flex h-full flex-col items-center">
-                    <div style={{height: fullHeight}} className="ml-6 pt-1 flex-col w-screen justify-center">
-                        <p class="text-white text-3xl text-center">Additional filters (Optional)</p>
-                        <WhiteButton parentCallBack={handleButtonClick} id={0} text={0} pressed={q4Buttons[0]} buttonLength="3/6" divLength="1/6"/>
-                        <WhiteButton parentCallBack={handleButtonClick} id={1} text={1} pressed={q4Buttons[1]} buttonLength="3/6" divLength="1/6"/>
-                        <WhiteButton parentCallBack={handleButtonClick} id={2} text={2} pressed={q4Buttons[2]} buttonLength="3/6" divLength="1/6"/>
-                        <WhiteButton parentCallBack={handleButtonClick} id={3} text={3} pressed={q4Buttons[3]} buttonLength="3/6" divLength="1/6"/>
-                        <WhiteButton parentCallBack={handleButtonClick} id={4} text={4} pressed={q4Buttons[4]} buttonLength="3/6" divLength="1/6"/>
-                        <WhiteButton parentCallBack={handleButtonClick} id={5} text={5} pressed={q4Buttons[0]} buttonLength="3/6" divLength="1/6"/>
-                        <WhiteButton parentCallBack={handleButtonClick} id={6} text={6} pressed={q4Buttons[1]} buttonLength="3/6" divLength="1/6"/>
-                        
+                <div style={{backgroundImage: gradients[props.question]}} className="flex w-screen justify-center">
+                    <div style={{height: fullHeight}} className="ml-2 mr-2 pt-1 flex-col flex justify-around sm:w-1/2">
+                        <p class="text-white text-2xl text-center">Additional filters (Optional)</p>
+                        <div class="flex">
+                            <WhiteButton parentCallBack={handleButtonClick} id={0} text="🇯🇵" pressed={q5Buttons[0]} buttonLength="4/6" divLength="1/5"/>
+                            <WhiteButton parentCallBack={handleButtonClick} id={1} text="🇰🇷" pressed={q5Buttons[1]} buttonLength="4/6" divLength="1/5"/>
+                            <WhiteButton parentCallBack={handleButtonClick} id={2} text="🇨🇳" pressed={q5Buttons[2]} buttonLength="4/6" divLength="1/5"/>
+                            <WhiteButton parentCallBack={handleButtonClick} id={3} text="🇮🇳" pressed={q5Buttons[3]} buttonLength="4/6" divLength="1/5"/>
+                            <WhiteButton parentCallBack={handleButtonClick} id={4} text="🇻🇳" pressed={q5Buttons[4]} buttonLength="4/6" divLength="1/5"/>
+                            <WhiteButton parentCallBack={handleButtonClick} id={5} text="🇲🇽" pressed={q5Buttons[5]} buttonLength="4/6" divLength="1/5"/>
+                            <WhiteButton parentCallBack={handleButtonClick} id={6} text="🇹🇭" pressed={q5Buttons[6]} buttonLength="4/6" divLength="1/5"/>
+                            <WhiteButton parentCallBack={handleButtonClick} id={7} text="🇺🇸" pressed={q5Buttons[7]} buttonLength="4/6" divLength="1/5"/>
+                            <WhiteButton parentCallBack={handleButtonClick} id={8} text="🇮🇹" pressed={q5Buttons[8]} buttonLength="4/6" divLength="1/5"/>
+                        </div>
+                        <div class="flex">
+                            <WhiteButton parentCallBack={handleButtonClick} id={9} text="🥞" pressed={q5Buttons[9]} buttonLength="4/6" divLength="1/5"/>
+                            <WhiteButton parentCallBack={handleButtonClick} id={10} text="🍤" pressed={q5Buttons[10]} buttonLength="4/6" divLength="1/5"/>
+                            <WhiteButton parentCallBack={handleButtonClick} id={11} text="🥬" pressed={q5Buttons[11]} buttonLength="4/6" divLength="1/5"/>
+                            <WhiteButton parentCallBack={handleButtonClick} id={12} text="☕️" pressed={q5Buttons[12]} buttonLength="4/6" divLength="1/5"/>
+                            <WhiteButton parentCallBack={handleButtonClick} id={13} text="🥪" pressed={q5Buttons[13]} buttonLength="4/6" divLength="1/5"/>
+                            <WhiteButton parentCallBack={handleButtonClick} id={14} text="🥧" pressed={q5Buttons[14]} buttonLength="4/6" divLength="1/5"/>
+                        </div>
                         <p class="text-white text-center">Keep swiping if you would like to skip this step.</p>
                     </div>
                 </div>
@@ -316,14 +344,18 @@ function SpecificQuest(props){
     else if(props.question === 6){
         return (
             <div>
-                <div style={{backgroundImage: gradients[props.question].gradient}} className="w-full flex h-full flex-col items-center">
-                    <div style={{height: fullHeight}} className="ml-6 pt-1 flex-col w-screen justify-center">
-                        <p class="text-white text-3xl text-center">We want ________ options to choose from.</p>
-                        <WhiteButton parentCallBack={handleButtonClick} id={0} text={5} pressed={q6Buttons[0]} buttonLength="4/6" divLength="1/5"/><br></br>
-                        <WhiteButton parentCallBack={handleButtonClick} id={1} text={10} pressed={q6Buttons[1]} buttonLength="4/6" divLength="1/5"/><br></br>
-                        <WhiteButton parentCallBack={handleButtonClick} id={2} text={15} pressed={q6Buttons[2]} buttonLength="4/6" divLength="1/5"/><br></br>
-                        <WhiteButton parentCallBack={handleButtonClick} id={3} text={20} pressed={q6Buttons[3]} buttonLength="4/6" divLength="1/5"/><br></br>
-                        <WhiteButton parentCallBack={handleButtonClick} id={4} text="random" pressed={q6Buttons[4]} buttonLength="3/6" divLength="2/5"/><br></br>
+                <div style={{backgroundImage: gradients[props.question]}} className="flex w-screen justify-center">
+                    <div style={{height: fullHeight}} className="ml-2 mr-2 pt-1 flex-col flex justify-around sm:w-1/2">
+                        <p class="text-white text-2xl text-center">We want ________ options to choose from.</p>
+                        <div class="flex justify-center">
+                            <WhiteButton parentCallBack={handleButtonClick} id={0} text={5} pressed={q6Buttons[0]} buttonLength="4/6" divLength="1/5"/><br></br>
+                            <WhiteButton parentCallBack={handleButtonClick} id={1} text={10} pressed={q6Buttons[1]} buttonLength="4/6" divLength="1/5"/><br></br>
+                            <WhiteButton parentCallBack={handleButtonClick} id={2} text={15} pressed={q6Buttons[2]} buttonLength="4/6" divLength="1/5"/><br></br>
+                            <WhiteButton parentCallBack={handleButtonClick} id={3} text={20} pressed={q6Buttons[3]} buttonLength="4/6" divLength="1/5"/><br></br>
+                        </div>
+                        <div class="flex justify-center">
+                            <WhiteButton parentCallBack={handleButtonClick} id={4} text="random" pressed={q6Buttons[4]} buttonLength="3/6" divLength="2/5"/><br></br>
+                        </div>
                     </div>
                 </div>
                 
@@ -340,13 +372,14 @@ function SpecificQuest(props){
             return (
                 //return <GroupCodePage groupCode={}></GroupCodePage>
                 <div>
-                    <div style={{backgroundImage: gradients[props.question].gradient}} className="w-full flex h-full flex-col items-center">
-                        <div style={{height: fullHeight}} className="ml-6 pt-1 flex-col w-screen justify-center">
-                            <p class="text-white text-3xl text-center">Thank you for your responses. Now it's time to reach a consensus!</p>
-                            <br></br> 
-                            {groupCode !== 0 ? <p class="text-white text-2xl text-center">Share this code with your Group!</p> : <p></p>}
-                            <WhiteButton parentCallBack={createGroup} id={-1} text={groupButtonMessage} pressed={pressed} buttonLength="5/6" divLength="2/5"/>
-                            <WhiteButton parentCallBack={handleVote} id={-1} text="Start Voting!" pressed={false} buttonLength="5/6" divLength="2/5"/>
+                    <div style={{backgroundImage: gradients[props.question]}} className="flex w-screen justify-center">
+                        <div style={{height: fullHeight}} className="ml-2 mr-2 pt-1 flex-col flex justify-around sm:w-1/2">
+                            <p class="text-white text-2xl text-center">Thank you for your responses. Now it's time to reach a consensus!</p>
+                            {groupCode !== 0 ? <p class="text-white text-center">Share this code with your Group!</p> : <p></p>}
+                            <div class="justify-center flex">
+                                <WhiteButton parentCallBack={createGroup} id={-1} text={groupButtonMessage} pressed={pressed} buttonLength="5/6" divLength="3/5"/>
+                                <WhiteButton parentCallBack={handleVote} id={-1} text="Start Voting!" pressed={false} buttonLength="5/6" divLength="3/5"/>
+                            </div>
                         </div>
                     </div>
                 </div>

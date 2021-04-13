@@ -46,20 +46,22 @@ function SlideComponent(){
   let history = useHistory();
   
   const [answers, setAnswers] = useState({
-        numPeople: 0,
+        // numPeople: 0,
         locationPermission: false,
         latitude: 0,
         longitude: 0, 
+        coords: {},
         milesWithin: 0,
         state: "", 
         city: "",
         spendAmount: 0,
-        eatChoice: [],
+        eatChoice: "",
         eatChoiceOrder: [],
-        filters: {culture: [], occasion: [], genre: []},
+        filters: [],
         numRestaurantOptions: 0 ,
         groupCode: 0
     });
+
 
   const [loading, setLoading] = useState(false);  
   const [indexSlide, setIndexSlide] = useState(0);
@@ -75,15 +77,19 @@ function SlideComponent(){
   };
 
   const handleLocation = () => {
-    var latitude, longitude;
-    navigator.geolocation.getCurrentPosition(function(position) {
-      latitude = position.coords.latitude;
-      longitude = position.coords.longitude;
-      setAnswers({...answers, latitude: latitude});
-      setAnswers({...answers, longitude: longitude});
-      console.log(latitude);
+    console.log("handling location");
+    var lat, long;
+    navigator.geolocation.getCurrentPosition((position) => {
+      lat = position.coords.latitude;
+      long = position.coords.longitude;
+      setAnswers({...answers, latitude: lat});
+      setAnswers({...answers, longitude: long});
+      setAnswers({...answers, locationPermission: true});
+      setAnswers({...answers, coords: position.coords});
+      console.log(lat);
+      console.log(long);
+      console.log(answers);
     });
-    console.log("asdasd");
 };
 
 
@@ -94,6 +100,7 @@ function SlideComponent(){
     // }
     if(question === 1){
       setAnswers({...answers, locationPermission: data});
+      console.log(answers.locationPermission);
       if(data){
         handleLocation();
       }
@@ -109,28 +116,50 @@ function SlideComponent(){
     }
     else if(question == 4){
       setAnswers({...answers, eatChoiceOrder: data});
-      let temp = [];
+      let temp = "";
       for(var i = 0; i < data.length; i++){
         if(data[i] === 0){
-          temp.push("restaurant");
+          temp += "restaurant";
         }
         if(data[i] === 1){
-          temp.push("Fancy Dine-In");
+          temp += "Fancy Dine-In";
         }
         if(data[i] === 2){
-          temp.push("Fast Food");
+          temp += "Fast Food";
         }
         if(data[i] === 3){
-          temp.push("Drinks & Desserts");
+          temp += "Drinks & Desserts";
+        }
+        if(i < data.length - 1){
+          temp += ", ";
         }
       }
       setAnswers({...answers, eatChoice: temp});
 
     }
     else if(question == 5){
-      
+      //0=japanese, 1=korean, 2=chinese, 3=indpak, 4=vietnamese, 5=mexican, 6=thai
+      //7=newamerican,tradamerican ,8=italian ,9=breakfast_brunch, 10=seafood,
+      //11=vegetarian, 12=coffee , 13=sandwiches , 14=desserts
+      let result = "";
+      let categoryCodes = ["japanese", "korean", "chinese", "indpak", "vietnamese",
+                           "mexican", "thai", "newamerican,tradamerican", "italian",
+                           "breakfast_brunch", "seafood", "vegetarian", "coffee", 
+                           "sandwiches", "desserts"];
+
+      for(var i = 0; i < data.length; i++){
+        if(data[i] === true){
+          result += categoryCodes[i] + ",";
+        }
+      }
+      result = result.substring(0, result.length - 1);
+      setAnswers({...answers, filters: result});
+
     }
     else if(question == 6){
+      if(data == "random"){
+        data = Math.floor(Math.random() * Math.floor(20)) + 10;
+      }
       setAnswers({...answers, numRestaurantOptions: data});
       setProg(70)
     }
@@ -154,12 +183,15 @@ function SlideComponent(){
     await yelpREST("", {
       params: {
         endpoint: "/businesses/search",
-        // longitude: -122.4194,
-        // latitude: 37.7749,
-        location: "new york",
-        term: "boba",
-        // limit: 5,
-        price: "2"
+        longitude: answers.coords.longitude,
+        latitude: answers.coords.latitude,
+        // location: "irvine",
+        term: answers.eatChoice,
+        limit: answers.numRestaurantOptions,
+        price: answers.spendAmount,
+        open_now: true,
+        categories: answers.filters,
+        // radius: answers.milesWithin
       },
     }).then( data => {
       console.log("Prev: " +code);
@@ -172,6 +204,7 @@ function SlideComponent(){
         }).then(({ data }) => {
           database.ref(`groups/${code}/data/${b.id}`).set(data)
           database.ref(`groups/${code}/data/${b.id}/vote`).set(0)
+          database.ref(`groups/${code}/answers`).set(answers)
         })
       }, undefined).then(() => {
         setLoading(false);
@@ -204,7 +237,7 @@ function SlideComponent(){
       </Carousel> */}
       <CarouselProvider
         naturalSlideWidth={100}
-        naturalSlideHeight={119}
+        naturalSlideHeight={177}
         totalSlides={8}
         orientation="vertical"
         currentSlide={indexSlide}
@@ -221,9 +254,9 @@ function SlideComponent(){
               </div>
             </ButtonNext> */}
             <div>
-              <div style={{backgroundImage: 'linear-gradient(#FDB872, #FCA870, #FC986F)'}} class="w-full flex h-full flex-col items-center">
-                  <div style={{height: fullHeight}} class="ml-6 pt-1 flex-col w-screen justify-center">
-                    <p class="text-white text-3xl text-center">Let's get started!<br></br>Here are a couple questions to help us provide your group with the best options! The next few questions will help us provide your group with the best options! Swipe up to move to the next question!</p>
+              <div style={{backgroundImage: 'linear-gradient(#FDCB74, #FDC573, #FDB872)'}} class="flex w-screen justify-center">
+                  <div style={{height: fullHeight}} class="ml-3 mr-3 pt-1 flex-col flex justify-around sm:w-1/2">
+                    <p class="text-white text-center">Let's get started!<br></br><br></br>Here are a couple questions to help us provide your group with the best options! The next few questions will help us provide your group with the best options! Swipe up to move to the next question!</p>
                     <ButtonNext onClick={firstButton}>
                       <div class="w-full flex flex-col items-center">
                         <div style={{background: firstButtonColor, color: 'black', fontWeight: '600', fontSize: '1.25rem', lineHeight: '1.75rem'}} 
@@ -253,7 +286,7 @@ function SlideComponent(){
             <SpecificQuest oldVal={answers.eatChoiceOrder} parentCallBack={callBack} question={4}/>
           </Slide>
           <Slide index={5}>
-            <SpecificQuest parentCallBack={callBack} question={5}/>
+            <SpecificQuest oldVal={answers.filters} parentCallBack={callBack} question={5}/>
           </Slide>
           <Slide index={6}>
             <SpecificQuest oldVal={answers.numRestaurantOptions} parentCallBack={callBack} question={6}/>
