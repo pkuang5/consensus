@@ -35,7 +35,7 @@ function Poll(props) {
             :
             <React.Fragment>
                 <div class="flex flex-col items-center poll">
-                    <p class="text-4xl absolute text-center mt-5 font-bold">consensus</p>
+                    {/* <p class="text-4xl absolute text-center mt-5 font-bold">consensus</p> */}
                     <Deck progress={progress} groupCode={props.groupCode} data={data.slice(0,data.length - progress)} setFinished={bool => setFinished(bool)} setProgressPercentage={(percent) => setProgressPercentage(percent)}/>
                 </div>
                 <ProgressBar bgcolor='rgba(255, 255, 255, 0.6)' baseBgColor='rgba(255, 255, 255, 0.3)' labelSize='0px' borderRadius='0px' completed={progressPercentage}/>
