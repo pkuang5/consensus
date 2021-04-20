@@ -21597,6 +21597,7 @@ video {
   transition-delay: 1000ms;
 }
 
+<<<<<<< HEAD:client/src/tailwind.output.css
 @-webkit-keyframes spin {
   to {
     -webkit-transform: rotate(360deg);
@@ -21604,6 +21605,8 @@ video {
   }
 }
 
+=======
+>>>>>>> cd7637ed9401e91da3b8045bc19b14b6c36aaec7:src/tailwind.output.css
 @keyframes spin {
   to {
     -webkit-transform: rotate(360deg);
@@ -21611,6 +21614,7 @@ video {
   }
 }
 
+<<<<<<< HEAD:client/src/tailwind.output.css
 @-webkit-keyframes ping {
   75%, 100% {
     -webkit-transform: scale(2);
@@ -21619,17 +21623,13 @@ video {
   }
 }
 
+=======
+>>>>>>> cd7637ed9401e91da3b8045bc19b14b6c36aaec7:src/tailwind.output.css
 @keyframes ping {
   75%, 100% {
     -webkit-transform: scale(2);
             transform: scale(2);
     opacity: 0;
-  }
-}
-
-@-webkit-keyframes pulse {
-  50% {
-    opacity: .5;
   }
 }
 
@@ -21639,6 +21639,7 @@ video {
   }
 }
 
+<<<<<<< HEAD:client/src/tailwind.output.css
 @-webkit-keyframes bounce {
   0%, 100% {
     -webkit-transform: translateY(-25%);
@@ -21668,32 +21669,38 @@ video {
             transform: none;
     -webkit-animation-timing-function: cubic-bezier(0,0,0.2,1);
             animation-timing-function: cubic-bezier(0,0,0.2,1);
+=======
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(-25%);
+    animation-timing-function: cubic-bezier(0.8,0,1,1);
+  }
+
+  50% {
+    transform: none;
+    animation-timing-function: cubic-bezier(0,0,0.2,1);
+>>>>>>> cd7637ed9401e91da3b8045bc19b14b6c36aaec7:src/tailwind.output.css
   }
 }
 
 .animate-none {
-  -webkit-animation: none;
-          animation: none;
+  animation: none;
 }
 
 .animate-spin {
-  -webkit-animation: spin 1s linear infinite;
-          animation: spin 1s linear infinite;
+  animation: spin 1s linear infinite;
 }
 
 .animate-ping {
-  -webkit-animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
-          animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+  animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 
 .animate-pulse {
-  -webkit-animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-          animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 .animate-bounce {
-  -webkit-animation: bounce 1s infinite;
-          animation: bounce 1s infinite;
+  animation: bounce 1s infinite;
 }
 
 @media (min-width: 640px) {
@@ -42709,28 +42716,23 @@ video {
   }
 
   .sm\:animate-none {
-    -webkit-animation: none;
-            animation: none;
+    animation: none;
   }
 
   .sm\:animate-spin {
-    -webkit-animation: spin 1s linear infinite;
-            animation: spin 1s linear infinite;
+    animation: spin 1s linear infinite;
   }
 
   .sm\:animate-ping {
-    -webkit-animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
-            animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+    animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
   }
 
   .sm\:animate-pulse {
-    -webkit-animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
 
   .sm\:animate-bounce {
-    -webkit-animation: bounce 1s infinite;
-            animation: bounce 1s infinite;
+    animation: bounce 1s infinite;
   }
 }
 
@@ -63747,28 +63749,23 @@ video {
   }
 
   .md\:animate-none {
-    -webkit-animation: none;
-            animation: none;
+    animation: none;
   }
 
   .md\:animate-spin {
-    -webkit-animation: spin 1s linear infinite;
-            animation: spin 1s linear infinite;
+    animation: spin 1s linear infinite;
   }
 
   .md\:animate-ping {
-    -webkit-animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
-            animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+    animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
   }
 
   .md\:animate-pulse {
-    -webkit-animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
 
   .md\:animate-bounce {
-    -webkit-animation: bounce 1s infinite;
-            animation: bounce 1s infinite;
+    animation: bounce 1s infinite;
   }
 }
 
@@ -84785,28 +84782,23 @@ video {
   }
 
   .lg\:animate-none {
-    -webkit-animation: none;
-            animation: none;
+    animation: none;
   }
 
   .lg\:animate-spin {
-    -webkit-animation: spin 1s linear infinite;
-            animation: spin 1s linear infinite;
+    animation: spin 1s linear infinite;
   }
 
   .lg\:animate-ping {
-    -webkit-animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
-            animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+    animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
   }
 
   .lg\:animate-pulse {
-    -webkit-animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
 
   .lg\:animate-bounce {
-    -webkit-animation: bounce 1s infinite;
-            animation: bounce 1s infinite;
+    animation: bounce 1s infinite;
   }
 }
 
@@ -105823,27 +105815,22 @@ video {
   }
 
   .xl\:animate-none {
-    -webkit-animation: none;
-            animation: none;
+    animation: none;
   }
 
   .xl\:animate-spin {
-    -webkit-animation: spin 1s linear infinite;
-            animation: spin 1s linear infinite;
+    animation: spin 1s linear infinite;
   }
 
   .xl\:animate-ping {
-    -webkit-animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
-            animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+    animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
   }
 
   .xl\:animate-pulse {
-    -webkit-animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
 
   .xl\:animate-bounce {
-    -webkit-animation: bounce 1s infinite;
-            animation: bounce 1s infinite;
+    animation: bounce 1s infinite;
   }
 }

@@ -13,28 +13,27 @@ import JoinCode from "./components/joinCode";
 
 function App() {
   return (
-    // <Router>
-    //   <Switch>
-    //     <Route path="/search" exact strict component={() => <Search />} />
-    //     <Route path="/" exact strict component={() => <Landing />} />
-    //     <Route
-    //       path="/:groupCode"
-    //       exact
-    //       strict
-    //       component={({ match }) => (
-    //         <div>
-    //           <Poll groupCode={match.params.groupCode} />
-    //         </div>
-    //       )}
-    //     />
+    <Router>
+      <Switch>
+        <Route path="/search" exact strict component={() => <Search />} />
+        <Route path="/" exact strict component={() => <Landing />} />
+        <Route
+          path="/:groupCode"
+          exact
+          strict
+          component={({ match }) => (
+            <div>
+              <Poll groupCode={match.params.groupCode} />
+            </div>
+          )}
+        />
 
-    //   </Switch>
-    //   {/* <Switch>
-    //     <Route path="/" exact strict component={() => <Question />} />
-    //   </Switch> */}
+      </Switch>
+      {/* <Switch>
+        <Route path="/" exact strict component={() => <Question />} />
+      </Switch> */}
 
-    // </Router>
-    <Results groupCode={1132}/>
+    </Router>
   );
 }
 
