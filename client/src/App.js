@@ -16,6 +16,15 @@ function App() {
     <Router>
       <Switch>
         <Route path="/search" exact strict component={() => <Search />} />
+        <Route path="/:groupCode/:results" 
+        exact 
+        strict 
+        component={({match}) => (
+          <div>
+            <Results groupCode={match.params.groupCode} />
+          </div>
+        )} 
+        />
         <Route path="/" exact strict component={() => <Landing />} />
         <Route
           path="/:groupCode"
