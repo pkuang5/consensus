@@ -4,10 +4,11 @@ import Deck from './Deck'
 import Loader from './loader'
 import ProgressBar from '@ramonak/react-progress-bar';
 import { use100vh } from 'react-div-100vh'
-import FinishingPage from "./finishingPage";
+import { useHistory } from "react-router-dom";
 
 function Poll(props) {
     const height = use100vh()
+    let history = useHistory()
     const [data, setData] = useState([])
     const [progressPercentage, setProgressPercentage] = useState(0)
     const [progress, setProgress] = useState(0)
@@ -20,8 +21,7 @@ function Poll(props) {
             .transaction(function (vote) {
             return (vote || 0) + 1;
             });
-            // UNCOMMENT ZION WHEN UR READY
-            // history.push(`/${props.groupCode}/results`)
+            history.push(`/${props.groupCode}/results`)
         } 
         var arr = []
         database.ref(`groups/${props.groupCode}/data`).once("value", (snapshot) => {
