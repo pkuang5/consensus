@@ -15,8 +15,8 @@ function App() {
     <Router>
       <Switch>
         <Route path="/search" exact strict component={() => <Search />} />
-        <Route path="/" exact strict component={() => <Landing />} />
         <Route path="/qs" exact strict component={() => <SlideComponent />} />
+        <Route path="/" exact strict component={() => <Landing />} />
         <Route
           path="/:groupCode"
           exact

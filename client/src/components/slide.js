@@ -1,7 +1,4 @@
 import React, {Component, useState} from "react";
-import Question from "./question";
-import IntroQuest from "./introQuest";
-import Button from "./Button";
 import Progress from "react-progressbar";
 import Select from 'react-select';
 import LocationQuestion from './locationQuestion';
@@ -29,13 +26,13 @@ import "pure-react-carousel/dist/react-carousel.es.css";
 
 
 //NUKA SLIDER
-import Carousel from 'nuka-carousel';
+// import Carousel from 'nuka-carousel';
 
 
-//GEOLOCATION PACKAGE
-import Geolocation from "./Geolocation";
-import { isConstructorDeclaration } from "typescript";
-import { render } from "@testing-library/react";
+// //GEOLOCATION PACKAGE
+// import Geolocation from "./Geolocation";
+// import { isConstructorDeclaration } from "typescript";
+// import { render } from "@testing-library/react";
 
 
 //css
@@ -223,10 +220,10 @@ function SlideComponent(){
 
 
 
-  let test = false;
-  if(test) return <input placeholder="test"></input>;
+  // let test = false;
+  // if(test) return <input placeholder="test"></input>;
   
-  if (loading) return <Loader loading={true} />;
+  // if (loading) return <Loader loading={true} />;
 
   return (
     <div class="flex-col">
@@ -237,7 +234,7 @@ function SlideComponent(){
       </Carousel> */}
       <CarouselProvider
         naturalSlideWidth={100}
-        naturalSlideHeight={177}
+        naturalSlideHeight={167}
         totalSlides={8}
         orientation="vertical"
         currentSlide={indexSlide}

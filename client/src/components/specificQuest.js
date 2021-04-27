@@ -1,10 +1,8 @@
 import React, { useState, useEffect, cloneElement } from "react";
 import database from "../firebase";
-import Button from "./Button";
-import Progress from "react-progressbar";
 import WhiteButton from "./whiteButton";
 import Geolocation from "./Geolocation";
-import Input from "./Input";
+
 import { use100vh } from 'react-div-100vh';
 import { useHistory } from "react-router-dom";
 
@@ -362,15 +360,10 @@ function SpecificQuest(props){
             </div>
         );
     }
-    else if(props.question === 7){
+    else{
         let groupButtonMessage = groupCode === 0 ? "Create Group Code!" : groupCode;
         let pressed = groupCode === 0 ? false : true;
-        // if(groupCode === 0){
-        //     return <GroupCodePage text="Create Group!"></GroupCodePage>
-        // }
-        // else{
             return (
-                //return <GroupCodePage groupCode={}></GroupCodePage>
                 <div>
                     <div style={{backgroundImage: gradients[props.question]}} className="flex w-screen justify-center">
                         <div style={{height: fullHeight}} className="ml-2 mr-2 pt-1 flex-col flex justify-around sm:w-1/2">
