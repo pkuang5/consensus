@@ -1,0 +1,145 @@
+
+
+#circle {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: lightblue;
+    overflow-y: scroll;
+    flex-direction: 'column';
+    display: 'flex';
+    align-items: 'center';
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.pictures {
+    width: 56px;
+    height: 56px;
+    flex-direction: 'column';
+    align-items: 'center';
+}
+
+#circle::-webkit-scrollbar {
+    display: none;
+}
+
+.result {
+    opacity: 1;
+    flex-direction: 'column';
+    display: 'flex';
+    align-items: 'center';
+}
+
+.centered{
+    flex-direction: 'column';
+    display: 'flex';
+    align-items: 'center';
+    text-align: center;
+    display: block;
+}
+
+.spaceforvote{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.textforname {
+    opacity: 1;
+    text-align: center;
+    display: block;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+
+    color: #FFFFFF;
+}
+
+.votecount{
+    text-align: center;
+    display: block;
+    width: 47px;
+    height: 48px;
+    left: 307px;
+    top: 207px;
+
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 24px;
+    text-align: center;
+
+    color: #FFFFFF;
+}
+
+.textfortitle{
+    text-align: center;
+    display: block;
+    font-family: Futura;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 40px;
+
+    color: #000000;
+}
+
+.textforhere {
+    text-align: center;
+    display: block;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 37px;
+    text-align: center;
+
+    color: #FFFFFF;
+}
+
+.textforinstruc {
+    text-align: center;
+    display: block;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 15px;
+    text-align: center;
+
+    color: #FFFFFF;
+}
+
+.detailed {
+    position: absolute;
+    width: 278.64px;
+    height: 47px;
+    left: 49.36px;
+    top: 689px;
+    background: rgba(255, 255, 255, 0.61);
+    border-radius: 30px;
+}
+
+.div-1 {
+    width: 278px;
+    height: 55px;
+    left: 24px;
+    top: 190px;
+    border-radius: 40px;
+}
+
+.peoplewhovoted{
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 24px;
+    text-align: center;
+
+    color: #FFFFFF;
+}
