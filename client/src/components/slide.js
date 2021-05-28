@@ -165,7 +165,7 @@ function SlideComponent(){
 
   //handles creating group code, restaurant generation, and populating information
   async function populateFirebase(code){
-    //setLoading(true);
+    setLoading(true);
     setAnswers({...answers, groupCode: code});
     console.log(answers.groupCode);
     let yelpParams = {
@@ -213,9 +213,9 @@ function SlideComponent(){
   };
 
   const startVote = (code) => {
-    setLoading(true);
-    history.push(`/${code}`);
-    setLoading(false);
+    console.log("BUTTON BING PRESSED")
+    if (loading) return <Loader loading={true} />;
+    else history.push(`/${code}`);
   };
 
 
