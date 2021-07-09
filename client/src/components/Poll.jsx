@@ -15,8 +15,20 @@ function Poll(props) {
     const [finished, setFinished] = useState(false)
 
     useEffect(() => {
+        var arr = []
+        database.ref(`groups/${props.groupCode}/data`).once("value", (snapshot) => {
+            snapshot.forEach((data) => {
+                arr.push(data.val())
+            })
+            setData(data.concat(arr))
+            if (arr.length === 0) console.log("404")
+        })
+        if (!localStorage.getItem('lastCard'+props.groupCode)) localStorage.setItem('lastCard'+props.groupCode,0)
+        var progress = parseInt(localStorage.getItem('lastCard'+props.groupCode))
+        setProgress(progress)
+        setProgressPercentage(progress * 10)
+        if (progress == 10) history.push(`/${props.groupCode}/results`)
         if (finished) {
-            console.log('finished: ' + finished)
             database
             .ref(`groups/${props.groupCode}/numOfVotes`)
             .transaction(function (vote) {
@@ -24,18 +36,6 @@ function Poll(props) {
             });
             history.push(`/${props.groupCode}/results`)
         } 
-        var arr = []
-        database.ref(`groups/${props.groupCode}/data`).once("value", (snapshot) => {
-            snapshot.forEach((data) => {
-                arr.push(data.val())
-            })
-            setData(data.concat(arr))
-        })
-        if (!localStorage.getItem('lastCard'+props.groupCode)) localStorage.setItem('lastCard'+props.groupCode,0)
-        var progress = parseInt(localStorage.getItem('lastCard'+props.groupCode))
-        setProgress(progress)
-        setProgressPercentage(progress * 10)
-        if (progress == 10) setFinished(true)
     }, [props.groupCode, finished])
 
     return (
