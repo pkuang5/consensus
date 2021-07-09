@@ -14,7 +14,7 @@ function WhiteButton(props){
     const handleClick = () => {
         //props.id == -1 means its part of the last page
         if(props.id === -1){
-            if(buttonInfo === "Create Group Code!" || buttonInfo === "Start Voting!"){
+            if(buttonInfo === "Create Code!" || buttonInfo === "Start Voting!"){
                 props.parentCallBack();
             }
         }
@@ -30,7 +30,7 @@ function WhiteButton(props){
             <div style={{background: props.pressed ? opaque : transparent, color: 'black', fontWeight: '600', fontSize: '1.25rem', lineHeight: '1.75rem'}} 
                 onClick={() => handleClick()} 
                 class={buttonLength}>
-                {buttonInfo}
+                <p style={{color: "#F36E78"}}>{buttonInfo}</p>
             </div>
         </div>
     );
