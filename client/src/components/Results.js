@@ -2,18 +2,17 @@ import React, { useState, useEffect } from "react";
 import { Transition, animated } from 'react-spring'
 import database from '../firebase';
 import Loader from "./loader"
-import ProgressBar from "@ramonak/react-progress-bar";
-import Carousel from "nuka-carousel";
-import { useSprings } from "react-spring/hooks";
-import ReactDOM from 'react-dom'
+import ProgressBar from "./ProgressBar";
 
 import '../styles/Results.css'
-import { createNoSubstitutionTemplateLiteral } from "typescript";
 
-function Place({data}){
+function Place({data, numofvotes}){
     const { name, photos, url, vote } = data;
     console.log(data)
     var state = { show: true };
+    var percent = Math.round((vote/numofvotes)*100);
+
+    console.log(numofvotes)
 
     function goToYelp() {
         var win = window.open(url, '_blank');
@@ -56,7 +55,9 @@ function Place({data}){
                             }
                         </Transition>
                     </div>
-                    <ProgressBar baseBgColor="#e5e5e5" bgColor="#FFFFFF" width="100%" isLabelVisible={false} className="div-1" completed={vote/25*100} />
+                <div className="barandnum">
+                    <ProgressBar bgcolor = "#ffa500" completed = {percent}/>
+                    <div className="width"/>
                     <Transition
                     native
                     items={state.show}
@@ -72,7 +73,7 @@ function Place({data}){
                     }
                     </Transition>
                 </div>
-                <div style={{height: 1}}/>
+                </div>
             </div>
         );
 }
@@ -81,6 +82,7 @@ function Results(props) {
 
     const [data, setData] = useState([])
     const [loading, setLoading] = useState(true)
+    const [numofvotes, setNumVotes] = useState(0)
     //const i = props.i
 
     useEffect(() => {
@@ -98,6 +100,11 @@ function Results(props) {
             console.log(data)
             setLoading(false)
         })
+        database.ref(`groups/${props.groupCode}/numOfVotes`).on('value', (snapshot) => {
+            let temp = snapshot.val()
+            console.log(temp)
+            setNumVotes(temp)
+        })
     }, [props.groupCode])
 
     function testforsimilar(data){
@@ -107,7 +114,7 @@ function Results(props) {
         var test = [];
         for (let i = 0; i < 5; i++){
             //console.log(data[i])
-            test.push(<Place data = {data[i]}/>)
+            test.push(<Place data = {data[i]} numofvotes = {numofvotes}/>)
         }
         return test
     }
@@ -139,7 +146,7 @@ function Results(props) {
             {/* <Place data = {data[0]}/> */}
             {testforsimilar(data)}
             <div className="peoplewhovoted">
-                25 people have voted
+                {numofvotes} people have voted
             </div>
         </div>
     );
