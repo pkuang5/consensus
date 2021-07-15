@@ -41,6 +41,7 @@ import "../styles/Question.css";
 function SlideComponent(){
   const fullHeight = use100vh();
   let history = useHistory();
+  const { innerWidth: width, innerHeight: height } = window;
   
   const [answers, setAnswers] = useState({
         // numPeople: 0,
@@ -165,7 +166,7 @@ function SlideComponent(){
 
   //handles creating group code, restaurant generation, and populating information
   async function populateFirebase(code){
-    setLoading(true);
+    //setLoading(true);
     setAnswers({...answers, groupCode: code});
     console.log(answers.groupCode);
     let yelpParams = {
@@ -213,15 +214,11 @@ function SlideComponent(){
   };
 
   const startVote = (code) => {
-    console.log("BUTTON BING PRESSED")
-    if (loading) return <Loader loading={true} />;
-    else history.push(`/${code}`);
+    setLoading(true);
+    history.push(`/${code}`);
+    setLoading(false);
   };
 
-
-
-  // let test = false;
-  // if(test) return <input placeholder="test"></input>;
   
   // if (loading) return <Loader loading={true} />;
 
@@ -233,8 +230,8 @@ function SlideComponent(){
         
       </Carousel> */}
       <CarouselProvider
-        naturalSlideWidth={100}
-        naturalSlideHeight={167}
+        naturalSlideWidth={width}
+        naturalSlideHeight={height}
         totalSlides={8}
         orientation="vertical"
         currentSlide={indexSlide}
@@ -267,11 +264,8 @@ function SlideComponent(){
           </div>
           </Slide>
           
-          {/* <Slide index={1}>
-            <SpecificQuest oldVal={answers.numPeople} parentCallBack={callBack} question={0} />
-          </Slide> */}
           <Slide index={1}>
-            <SpecificQuest oldVal={answers.locationPermission} parentCallBack={callBack} question={1}/>
+              <SpecificQuest oldVal={answers.locationPermission} parentCallBack={callBack} question={1}/>
           </Slide> 
           <Slide index={2}>
             <SpecificQuest oldVal={answers.milesWithin} parentCallBack={callBack} question={2}/>

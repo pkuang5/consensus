@@ -3,6 +3,12 @@ import database from "../firebase";
 import WhiteButton from "./whiteButton";
 import Geolocation from "./Geolocation";
 
+import {
+    ButtonBack,
+    ButtonNext
+  } from "pure-react-carousel";
+  import "pure-react-carousel/dist/react-carousel.es.css";
+
 import { use100vh } from 'react-div-100vh';
 import { useHistory } from "react-router-dom";
 
@@ -188,7 +194,7 @@ function SpecificQuest(props){
 
     const createGroup = () => {
         // props.parentCallBack(groupCode);
-        if(groupCode == 0){
+        if(groupCode === 0){
             var code = Math.floor(Math.random() * Math.floor(10000));
             console.log("Before call: " + code);
             setGroupCode(code);
@@ -204,6 +210,16 @@ function SpecificQuest(props){
             // history.push('/2420');
         }
     };
+
+    function copyToClipboard(code) {
+        console.log("copy clipboard entered");
+        const el = document.createElement('input');
+        el.value = window.location.origin + `/${code}`;
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand('copy');
+        document.body.removeChild(el);
+    }
     
     const testChange = () => {
         console.log("Test");
@@ -241,7 +257,7 @@ function SpecificQuest(props){
                         <p class="text-white text-2xl text-center">
                             Use my location
                         </p>
-                        <div class="flex">
+                        <div class="flex justify-center">
                             <WhiteButton parentCallBack={handleButtonClick} text="✅" id={0} pressed={q1Buttons[0]} buttonLength="5/6" divLength="1/5"/>
                             <WhiteButton parentCallBack={handleButtonClick} text="❌" id={1} pressed={q1Buttons[1]} buttonLength="5/6" divLength="1/5"/>
                         </div>
@@ -255,7 +271,7 @@ function SpecificQuest(props){
             <div style={{backgroundImage: gradients[props.question]}} class="flex w-screen justify-center">
                 <div style={{height: fullHeight}} class="ml-3 mr-3 pt-1 flex-col flex justify-around sm:w-1/2">
                     <p class="text-white text-2xl text-center">The place should be within ________ miles from me.</p>
-                    <div class="flex">
+                    <div class="flex justify-center">
                         <WhiteButton parentCallBack={handleButtonClick} id={0} text={1} pressed={q2Buttons[0]} buttonLength="4/6" divLength="1/5"/>
                         <WhiteButton parentCallBack={handleButtonClick} id={1} text={5} pressed={q2Buttons[1]} buttonLength="4/6" divLength="1/5"/>
                         <WhiteButton parentCallBack={handleButtonClick} id={2} text={10} pressed={q2Buttons[2]} buttonLength="4/6" divLength="1/5"/>
@@ -271,7 +287,7 @@ function SpecificQuest(props){
                 <div style={{backgroundImage: gradients[props.question]}} class="flex w-screen justify-center">
                     <div style={{height: fullHeight}} class="ml-3 mr-3 pt-1 flex-col flex justify-around sm:w-1/2">
                         <p class="text-white text-2xl text-center">We want to spend</p>
-                        <div class="flex">
+                        <div class="flex justify-center">
                             <WhiteButton parentCallBack={handleButtonClick} id={0} text="$" pressed={q3Buttons[0]} buttonLength="4/6" divLength="1/5"/>
                             <WhiteButton parentCallBack={handleButtonClick} id={1} text="$$" pressed={q3Buttons[1]} buttonLength="4/6" divLength="1/5"/>
                             <WhiteButton parentCallBack={handleButtonClick} id={2} text="$$$" pressed={q3Buttons[2]} buttonLength="4/6" divLength="1/5"/>
@@ -298,7 +314,7 @@ function SpecificQuest(props){
                             <WhiteButton parentCallBack={handleButtonClick} id={2} text="Fast Food" pressed={q4Buttons[2]} buttonLength="5/6" divLength="4/5"/><br></br>
                         </div>
                         <div class="flex justify-center">
-                            <WhiteButton parentCallBack={handleButtonClick} id={3} text="Drinks & Desserts" pressed={q4Buttons[3]} buttonLength="5/6" divLength="5/5"/><br></br>
+                            <WhiteButton parentCallBack={handleButtonClick} id={3} text="Drinks & Desserts" pressed={q4Buttons[3]} buttonLength="5/6" divLength="4/5"/><br></br>
                         </div>
                         <p class="text-white text-center">Choose up to 3.</p>
                     </div>
@@ -352,7 +368,7 @@ function SpecificQuest(props){
                             <WhiteButton parentCallBack={handleButtonClick} id={3} text={20} pressed={q6Buttons[3]} buttonLength="4/6" divLength="1/5"/><br></br>
                         </div>
                         <div class="flex justify-center">
-                            <WhiteButton parentCallBack={handleButtonClick} id={4} text="random" pressed={q6Buttons[4]} buttonLength="3/6" divLength="2/5"/><br></br>
+                            <WhiteButton parentCallBack={handleButtonClick} id={4} text="Random" pressed={q6Buttons[4]} buttonLength="4/6" divLength="2/5"/><br></br>
                         </div>
                     </div>
                 </div>
@@ -361,7 +377,7 @@ function SpecificQuest(props){
         );
     }
     else{
-        let groupButtonMessage = groupCode === 0 ? "Create Group Code!" : groupCode;
+        let groupButtonMessage = groupCode === 0 ? "Create Code!" : groupCode;
         let pressed = groupCode === 0 ? false : true;
             return (
                 <div>
@@ -369,9 +385,16 @@ function SpecificQuest(props){
                         <div style={{height: fullHeight}} className="ml-2 mr-2 pt-1 flex-col flex justify-around sm:w-1/2">
                             <p class="text-white text-2xl text-center">Thank you for your responses. Now it's time to reach a consensus!</p>
                             {groupCode !== 0 ? <p class="text-white text-center">Share this code with your Group!</p> : <p></p>}
-                            <div class="justify-center flex">
-                                <WhiteButton parentCallBack={createGroup} id={-1} text={groupButtonMessage} pressed={pressed} buttonLength="5/6" divLength="3/5"/>
-                                <WhiteButton parentCallBack={handleVote} id={-1} text="Start Voting!" pressed={false} buttonLength="5/6" divLength="3/5"/>
+                            <div>
+                                {groupCode === 0 ? 
+                                <div class="justify-center flex">
+                                    <WhiteButton parentCallBack={createGroup} id={-1} text={groupButtonMessage} pressed={pressed} buttonLength="5/6" divLength="3/5"/>
+                                </div> 
+                                : 
+                                <div class="justify-center flex">
+                                    <WhiteButton parentCallBack={copyToClipboard(groupCode)} text={groupCode} id={-1} pressed={false} buttonLength="5/6" divLength="3/5"/>
+                                    <WhiteButton parentCallBack={handleVote} id={-1} text="Start Voting!" pressed={false} buttonLength="5/6" divLength="3/5"/>
+                                </div>}
                             </div>
                         </div>
                     </div>
