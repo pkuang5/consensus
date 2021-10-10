@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { use100vh } from 'react-div-100vh'
+import donut from '../svg/o_donut.png'
+import donut2 from '../svg/o_donut2.png'
 
 function Landing(props) {
     let history = useHistory();
@@ -18,7 +20,7 @@ function Landing(props) {
     }
 
     return (
-        <div style={{ backgroundColor: '#FB686B' }} class="flex w-screen justify-center flex-col">
+        <div style={{ "background": "linear-gradient(180deg, #FB686B 0%, #FFBCBD 100%)" }} class="flex w-screen justify-center flex-col overflow-x-hidden">
             <div class="w-full bg-white flex px-24 py-4">
                 <svg width="48" height="47" viewBox="0 0 48 47" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g filter="url(#filter0_d)">
@@ -87,20 +89,36 @@ function Landing(props) {
                         </filter>
                     </defs>
                 </svg>
-                <p class="font-extrabold text-2xl" style={{color: '#FB686B'}}>consensus</p>
+                <p class="font-extrabold text-2xl" style={{ color: '#FB686B' }}>consensus</p>
             </div>
-            <div class="p-40 w-1/2">
-                <p class="font-bold text-white text-5xl">group decisions<br></br>make sense with<br></br>Consensus</p>
-                <p class="text-white">write some shit about some shit about some shit about some shit about some shit about consensus yassssaaaaaaaa waiyutttt</p>
-                <div class="w-full flex flex-col mt-10">
-                    {groupCode != 0 ? 
-                    <svg style={{ color: 'rgba(255, 255, 255, 0.2)'}} onClick={() => history.push(`/${groupCode}`)} class="absolute self-end mt-1" width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M16 32C24.8367 32 32 24.8365 32 16C32 7.16345 24.8367 0 16 0C7.16333 0 0 7.16345 0 16C0 24.8365 7.16333 32 16 32ZM26.3535 15.6465L23.1716 12.4645C22.9763 12.2692 22.6597 12.2692 22.4644 12.4645C22.2693 12.6597 22.2693 12.9763 22.4644 13.1716L24.793 15.5H7V16.5H24.793L22.4644 18.8284C22.2693 19.0237 22.2693 19.3402 22.4644 19.5355C22.6597 19.7308 22.9763 19.7308 23.1716 19.5355L26.3535 16.3535C26.5488 16.1583 26.5488 15.8417 26.3535 15.6465Z" fill="white" />
-                    </svg> : null}
-                    <input placeholder='# enter group code' style={{ background: 'rgba(255, 255, 255, 0.2)' }} onChange={handleChange} onKeyDown={(e) => handleKeyDown(e)} class="mb-8 h-12 w-4/5 rounded-full text-md"></input>
-                    <div style={{ background: 'rgba(255, 255, 255, 0.2)', color: 'white', fontWeight: '600', fontSize: '1.25rem', lineHeight: '1.75rem' }} onClick={() => history.push('/qs')} class="h-12 w-4/5 cursor-pointer rounded-full flex items-center justify-center">create a group</div>
+            <svg class="z-0 absolute w-full" width="1440" height="530" viewBox="0 0 1440 530" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M-188 494C-188 494 43.5001 171.5 380 171.5C716.5 171.5 889.5 358.5 1208.5 384C1527.5 409.5 1799 36 1799 36" stroke="url(#paint0_linear)" stroke-width="120" />
+                <defs>
+                    <linearGradient id="paint0_linear" x1="805.5" y1="36" x2="805.5" y2="494" gradientUnits="userSpaceOnUse">
+                        <stop offset="0.114583" stop-color="#F0515B" />
+                        <stop offset="0.75" stop-color="#F0515B" stop-opacity="0" />
+                    </linearGradient>
+                </defs>
+            </svg>  
+            {/* <div class="flex px-40 w-full">
+                <div class="p-40 w-1/2 z-10">
+                    <p class="font-bold text-white text-5xl">group decisions<br></br>make sense with<br></br>Consensus</p>
+                    <p class="text-white">write some shit about some shit about some shit about some shit about some shit about consensus yassssaaaaaaaa waiyutttt</p>
+                    <div class="w-full flex flex-col mt-10">
+                        {groupCode != 0 ?
+                            <svg style={{ color: 'rgba(255, 255, 255, 0.2)' }} onClick={() => history.push(`/${groupCode}`)} class="absolute self-end mt-1" width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M16 32C24.8367 32 32 24.8365 32 16C32 7.16345 24.8367 0 16 0C7.16333 0 0 7.16345 0 16C0 24.8365 7.16333 32 16 32ZM26.3535 15.6465L23.1716 12.4645C22.9763 12.2692 22.6597 12.2692 22.4644 12.4645C22.2693 12.6597 22.2693 12.9763 22.4644 13.1716L24.793 15.5H7V16.5H24.793L22.4644 18.8284C22.2693 19.0237 22.2693 19.3402 22.4644 19.5355C22.6597 19.7308 22.9763 19.7308 23.1716 19.5355L26.3535 16.3535C26.5488 16.1583 26.5488 15.8417 26.3535 15.6465Z" fill="white" />
+                            </svg> : null}
+                        <input placeholder='# enter group code' style={{ background: 'rgba(255, 255, 255, 0.2)' }} onChange={handleChange} onKeyDown={(e) => handleKeyDown(e)} class="mb-8 h-12 w-4/5 rounded-full text-md"></input>
+                        <div style={{ background: 'rgba(255, 255, 255, 0.2)', color: 'white', fontWeight: '600', fontSize: '1.25rem', lineHeight: '1.75rem' }} onClick={() => history.push('/qs')} class="h-12 w-4/5 cursor-pointer rounded-full flex items-center justify-center">create a group</div>
+                    </div>
                 </div>
-            </div>
+                <div class="w-1/2 mt-24 ml-24 px-24 z-10">
+                    <img class="-mb-20" src={donut} width='260' height='260'></img>
+                    <div class="flex justify-end"><img class="-mb-20" src={donut2} width='330' height='330'></img></div>
+                    <img src={donut} width='390' height='390'></img>
+                </div>
+            </div> */}
         </div>
     )
 
