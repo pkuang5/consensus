@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import Search from "./components/search";
 import Question from "./components/question";
 import Poll from "./components/Poll";
 import Landing from "./components/landing";
 import Results from "./components/Results"
+import FourOhFour from "./components/FourOhFour"
 //import Questionnaire from "./components/questionnaire";
 import Geolocation from "./components/Geolocation";
 
@@ -18,6 +20,8 @@ function App() {
         <Route path="/search" exact strict component={() => <Search />} />
 
         <Route path="/qs" exact strict component={() => <SlideComponent />} />
+
+        <Route path="/fail" exact strict component={() => <FourOhFour />} />
 
         <Route path="/:groupCode/:results" 
         exact 
@@ -39,7 +43,6 @@ function App() {
             </div>
           )}
         />
-
       </Switch>
 
     </Router>
